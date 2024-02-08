@@ -19,11 +19,11 @@ const Hero = () => {
           className="md:grid w-11/12 mx-auto"
           style={{ gridTemplateColumns: "2fr 3fr" }}
         >
-          <div className="flex flex-col justify-center gap-8">
+          <div className="flex flex-col justify-center gap-8  mt-20 md:mt-0 ">
             <h3 className="text-xl">INNOVATIVE IDEAS</h3>
             <h2
               style={{ fontFamily: "Protest Revolution, sans-serif" }}
-              className="text-5xl tracking-wider"
+              className="text-4xl md:text-5xl tracking-wider"
             >
               We Provide The Best Possible Legal Services Globally
             </h2>
