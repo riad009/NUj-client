@@ -51,7 +51,7 @@ export default function Navbar() {
     <nav
       className={`transparent z-10 transition-all duration-500 w-full h-16 absolute top-0 left-0`}
     >
-      <div className={`${navbar ? "bg-base-100 shadow" : ""}`}>
+      <div className={`${navbar ? "bg-accent shadow" : ""}`}>
         <div className="justify-between w-11/12 mx-auto md:items-center md:flex">
           <div>
             <div className="flex items-center justify-between md:block py-4">
@@ -68,13 +68,13 @@ export default function Navbar() {
               </ul>
               <div className="md:hidden">
                 <button
-                  className="p-2 text-gray-700 rounded-md outline-none "
+                  className="p-2 text-gray-700 rounded-md outline-none swap swap-rotate"
                   onClick={() => setNavbar(!navbar)}
                 >
                   {navbar ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      className="w-6 h-6 text-white"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -87,7 +87,7 @@ export default function Navbar() {
                   ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      className="w-6 h-6 "
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
