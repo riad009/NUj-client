@@ -61,3 +61,7 @@
   font-size: 22px;
   margin-bottom: 1.5rem;
 }
+
+.bg-t {
+  background-color: rgba(235, 234, 234, 0.274);
+}
