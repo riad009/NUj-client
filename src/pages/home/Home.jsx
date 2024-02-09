@@ -1,4 +1,5 @@
 import AssistanceBanner from "../../components/home/AssistanceBanner";
+import PortfolioBanner from "../../components/home/PortfolioBanner";
 import Hero from "./Hero";
 import StepsToConnect from "./StepsToConnect";
 import WhatWeAre from "./WhatWeAre";
@@ -10,7 +11,7 @@ const Home = () => {
       <WhatWeAre />
       <StepsToConnect />
       <AssistanceBanner />
-      <div className="min-h-screen"></div>
+      <PortfolioBanner />
     </div>
   );
 };

@@ -6,7 +6,7 @@ const AssistanceBanner = () => {
     <div className="bg-accent my-10">
       <div
         style={{ gridTemplateColumns: "1fr 2fr 1fr" }}
-        className="min-h-[130vh] flex flex-col md:grid justify-center items-center text-base-200 gap-10 py-10 px-5"
+        className="min-h-[130vh] flex flex-col md:grid justify-center items-center text-base-200 gap-10 py-10 px-5 md:px-0"
       >
         <img className="w-[90%] " src={hammer} alt="" />
         <div className="flex flex-col gap-10">
@@ -49,7 +49,7 @@ const AssistanceBanner = () => {
           </div>
         </div>
         <div className="flex flex-col items-center gap-10">
-          <p className="text-center">
+          <p className="text-center tracking-wider">
             Non curabitur gravida arcu ac tortor dignissim convallis aenean.
             Quis enim lobortis scelerisque fermentum dui. Sit amet consectetur
             adipiscing.

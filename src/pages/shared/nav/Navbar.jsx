@@ -48,9 +48,7 @@ export default function Navbar() {
   );
 
   return (
-    <nav
-      className={`transparent z-10 transition-all duration-500 w-full h-16 absolute top-0 left-0`}
-    >
+    <nav className={`transparent z-10 w-full h-16 absolute top-0 left-0`}>
       <div className={`${navbar ? "bg-accent shadow" : ""}`}>
         <div className="justify-between w-11/12 mx-auto md:items-center md:flex">
           <div>
