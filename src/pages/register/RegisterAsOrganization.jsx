@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import logo from "../../assets/logos/main-logo.png";
-import { Form, Input } from "antd";
+import loginImg from "../../assets/home/login.jpg";
+import { Divider, Form, Input } from "antd";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterAsOrganization = () => {
   const navigate = useNavigate();
@@ -19,109 +19,149 @@ const RegisterAsOrganization = () => {
 
   return (
     <div className="">
-      <div className="w-10/12 mx-auto">
-        <div className="flex flex-col justify-center items-center">
-          <img className="h-[50%] w-[50%]" src={logo} alt="" />
+      <div className="w-full grid md:grid-cols-2 justify-center items-center  min-h-[120vh] ">
+        <img src={loginImg} className="h-full" alt="" />
+        <div className="flex flex-col gap-5 px-10 items-center my-10 md:m-0 ">
+          <div className="w-full space-y-5">
+            <h2 className="text-xl text-center uppercase tracking-wider">
+              Create as Organization
+            </h2>
+            <Form
+              className="text-center"
+              name="basic"
+              labelCol={{
+                span: 5,
+              }}
+              wrapperCol={{
+                span: 14,
+              }}
+              style={{
+                maxWidth: 600,
+              }}
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              autoComplete="off"
+            >
+              {/* first name */}
+              <Form.Item
+                className="mb-0 md:mb-5"
+                label="Org Name"
+                name="orgName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter Organization Name!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                className="mb-0 md:mb-5"
+                label="Phone"
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter Organization phone!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              {/* last name */}
+              <Form.Item
+                className="mb-0 md:mb-5"
+                label="Address"
+                name="address"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter Org address!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                className="mb-0 md:mb-5"
+                label="Phone"
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter Organization phone!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              {/* Email */}
+              <Form.Item
+                className="mb-0 md:mb-5"
+                label="Email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your Email!",
+                  },
+                ]}
+              >
+                <Input type="email" />
+              </Form.Item>
+
+              <Form.Item
+                className="mb-4"
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password!",
+                  },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                className="mb-4"
+                label="Website"
+                name="website"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input Org Website!",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              {/* <Button ghost type="primary" htmlType="submit">
+          Submit
+        </Button> */}
+
+              <button type="submit" className="p-btn-sm">
+                Create as Participant
+              </button>
+            </Form>
+          </div>
+
+          <Divider>Or</Divider>
+          <div>
+            <Link to="/register/participant" className="link text-sm">
+              Register as Organization
+            </Link>
+            {/* <span className="px-2">/</span> */}
+            {/* <Link to="/register/organization" className="link text-sm">
+              Register as Organization
+            </Link> */}
+          </div>
         </div>
-        <h2 className="text-xl text-center">Register Organization</h2>
-        <Form
-          className=""
-          name="basic"
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
-        >
-          {/* first name */}
-          <Form.Item
-            className="mb-0"
-            label="Org. Name"
-            name="orgName"
-            rules={[
-              {
-                required: true,
-                message: "Please enter your Org Name!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* last name */}
-          <Form.Item
-            className="mb-0"
-            label="Address"
-            name="adress"
-            rules={[
-              {
-                required: true,
-                message: "Please enter address!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* Email */}
-          <Form.Item
-            className="mb-0"
-            label="Phone#"
-            name="phone"
-            rules={[
-              {
-                required: true,
-                message: "Please enter your phone!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* NUj ID */}
-          <Form.Item
-            className="mb-0"
-            label="Email"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: "Please enter your email!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            className="mb-4"
-            label="Website"
-            name="website"
-            rules={[
-              {
-                required: true,
-                message: "Please input your website !",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          {/* <Button ghost type="primary" htmlType="submit">
-            Submit 
-          </Button> */}
-
-          <button type="submit" className="p-btn-sm">
-            Next
-          </button>
-        </Form>
       </div>
     </div>
   );

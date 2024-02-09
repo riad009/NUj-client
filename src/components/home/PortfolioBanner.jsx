@@ -1,7 +1,7 @@
 import PortfolioBannerCard from "./PortfolioBannerCard";
 const PortfolioBanner = () => {
   return (
-    <div className=" mb-10">
+    <div className=" pb-10">
       <div className="w-10/12 md:w-11/12 mx-auto flex flex-col justify-center items-center min-h-screen space-y-10">
         <h3 className="text-xl">OUR PORTFOLIO</h3>
         <h2
