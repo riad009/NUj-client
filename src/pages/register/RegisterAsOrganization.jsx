@@ -146,7 +146,7 @@ const RegisterAsOrganization = () => {
         </Button> */}
 
               <button type="submit" className="p-btn-sm">
-                Create as Participant
+                Create as Organization
               </button>
             </Form>
           </div>
@@ -154,7 +154,7 @@ const RegisterAsOrganization = () => {
           <Divider>Or</Divider>
           <div>
             <Link to="/register/participant" className="link text-sm">
-              Register as Organization
+              Register as Participant
             </Link>
             {/* <span className="px-2">/</span> */}
             {/* <Link to="/register/organization" className="link text-sm">

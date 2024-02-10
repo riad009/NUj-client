@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
 import loginImg from "../../assets/home/login.jpg";
 import { Divider, Form, Input } from "antd";
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
+import { useGeoLocation } from "../../hooks/useGeoLocation";
 
 const RegisterAsParticiipant = () => {
+  const geolocation = useGeoLocation();
+  console.log(geolocation);
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div className="">
       <div className="w-full grid md:grid-cols-2 justify-center items-center  min-h-[120vh] ">
@@ -91,7 +95,7 @@ const RegisterAsParticiipant = () => {
                   },
                 ]}
               >
-                <Input type="email" />
+                <Input />
               </Form.Item>
 
               <Form.Item
