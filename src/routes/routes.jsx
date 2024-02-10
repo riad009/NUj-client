@@ -6,6 +6,7 @@ import GetStarted from "../pages/GetStarted";
 import LoginOptions from "../pages/login/LoginOptions";
 import RegisterAsParticiipant from "../pages/register/RegisterAsParticiipant";
 import RegisterAsOrganization from "../pages/register/RegisterAsOrganization";
+import RegisterAsOrganizationPlans from "../pages/register/RegisterAsOrganizationPlans";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/register/organization",
         element: <RegisterAsOrganization />,
+      },
+      {
+        path: "/register/organization/plans",
+        element: <RegisterAsOrganizationPlans />,
       },
     ],
   },

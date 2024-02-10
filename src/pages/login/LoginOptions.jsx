@@ -123,7 +123,7 @@ const LoginOptions = () => {
               Register as Participant
             </Link>
             <span className="px-2">/</span>
-            <Link to="/reigster/organization" className="link text-sm">
+            <Link to="/register/organization" className="link text-sm">
               Register as Organization
             </Link>
           </div>

@@ -32,7 +32,7 @@ const Footer = () => {
               <h2 className="f-title">Office Address</h2>
               <div className="flex gap-2 items-center">
                 <HomeOutlined />
-                <p>12345c Federal Hill Drive, Virginia USA</p>
+                <p>usa usa usa abcdefg USA</p>
               </div>
             </div>
           </div>
@@ -63,11 +63,11 @@ const Footer = () => {
                 <h2 className="f-title">Contact Us</h2>
                 <div className="flex items-center gap-2">
                   <MailOutlined />
-                  <p>info@nuj.com</p>
+                  <p>example@gmail.com</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <PhoneOutlined />
-                  <p>+000 - 123 - 456789</p>
+                  <p>123456789012</p>
                 </div>
               </div>
               <div>
