@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsPerson, BsCart2 } from "react-icons/bs";
+import logo from "../../../assets/logos/main-logo.png";
 
 import { BiSearchAlt2 } from "react-icons/bi";
 
@@ -38,7 +39,7 @@ const NavbarDemo = () => {
             </Link>
           }
           <input
-            className=" outline-none bg-transparent rounded-full px-3 py-1 w-full"
+            className=" outline-none bg-transparent rounded-full px-3 py-1 w-28"
             type="search"
             placeholder="Search for product"
           />
@@ -47,11 +48,14 @@ const NavbarDemo = () => {
           </button>
         </form>
       </li>
-      <li className="text-grey tracking-wider flex md:hidden">
+      <li className="text-grey tracking-wider flex">
         <Link to="/">Talk to Sales</Link>
       </li>
-      <li className="text-grey tracking-wider flex md:hidden">
+      {/* <li className="text-grey tracking-wider flex">
         <Link to="/">Create new workshop</Link>
+      </li> */}
+      <li className="text-grey tracking-wider flex">
+        <Link to="/">Sign In</Link>
       </li>
 
       {/* <li className="text-grey dropdown dropdown-hover dropdown-end me-4 py-4 cursor-pointer ">
@@ -82,8 +86,8 @@ const NavbarDemo = () => {
                     className="text-primary text-xl md:text-2xl uppercase font-bold"
                     to="/"
                   >
-                    <h2 className="">pending</h2>
-                    {/* <img className='h-[32px]' src={m} alt="" /> */}
+                    {/* <h2 className="">pending</h2> */}
+                    <img className="h-[32px]" src={logo} alt="" />
                   </Link>
                 </li>
                 <li>
