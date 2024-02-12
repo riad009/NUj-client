@@ -1,104 +1,146 @@
-import { Avatar, Divider } from "antd";
-import {
-  PhoneOutlined,
-  SendOutlined,
-  HomeOutlined,
-  MailOutlined,
-} from "@ant-design/icons";
+import React from "react";
+import logo from "../../../assets/logos/main-logo.png";
+import { Link } from "react-router-dom";
+import { FacebookFilled, DownloadOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 const Footer = () => {
   return (
-    <footer className="bg-accent text-white w-full py-5">
-      <div className="w-11/12 mx-auto">
-        {/* top */}
-        <div
-          style={{ gridTemplateColumns: "3fr 5fr 2fr" }}
-          className="flex flex-col md:grid gap-10 py-10 tracking-wider text-base-200"
-        >
-          {/* lefy */}
-          <div className="space-y-12">
-            <div>
-              {/* by law */}
-              {/* <img className="size-20" src={logo} alt="" /> */}
-              <h2 className="f-title !text-4xl">NUj.</h2>
-              <p>
-                Dui vivamus arcu felis bibendum. Sed cras ornare arcu dui
-                vivamus. Eget lorem dolor sed viverra ipsum nunc aliquet nec
-                ullamcorper.
-              </p>
-            </div>
-            <div>
-              {/* office address */}
-              <h2 className="f-title">Office Address</h2>
-              <div className="flex gap-2 items-center">
-                <HomeOutlined />
-                <p>usa usa usa abcdefg USA</p>
-              </div>
-            </div>
+    <footer className="divide-y bg-gray-100 text-gray-800">
+      <div className="w-11/12  flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
+        <div className="lg:w-1/3">
+          <Link
+            rel="noopener noreferrer"
+            href="#"
+            className="flex justify-center space-x-3 lg:justify-start"
+          >
+            <img className="size-12" src={logo} alt="" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
+          <div className="space-y-3">
+            <h3 className="tracki uppercase text-gray-900">Why VREMCAST</h3>
+            <ul className="space-y-1">
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+            </ul>
           </div>
-          {/* middle */}
-          <div className="space-y-12">
-            <div>
-              {/* news letter */}
-              <h2 className="f-title">Subscribe To Our Newsletter</h2>
-              <form className="flex flex-col gap-2">
-                <div className="flex justify-between gap-2">
-                  <input
-                    type="text"
-                    placeholder="your@gmail.com"
-                    className="border-b border-b-base-200 bg-transparent focus:outline-none w-full"
-                  />
-                  <button type="submit">
-                    <SendOutlined />
-                  </button>
-                </div>
-                <span className="text-base-300 text-sm">
-                  Enter your email address
-                </span>
-              </form>
-            </div>
-            <div className="flex justify-between items-center">
-              <div>
-                {/* contact us */}
-                <h2 className="f-title">Contact Us</h2>
-                <div className="flex items-center gap-2">
-                  <MailOutlined />
-                  <p>example@gmail.com</p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <PhoneOutlined />
-                  <p>123456789012</p>
-                </div>
-              </div>
-              <div>
-                {/* social icons */}
-                <h2 className="f-title">Our Social Media</h2>
-                <div className="flex gap-2">
-                  <Avatar size={50} icon={<PhoneOutlined />} />
-                  <Avatar size={50} icon={<PhoneOutlined />} />
-                  <Avatar size={50} icon={<PhoneOutlined />} />
-                </div>
-              </div>
-            </div>
+          <div className="space-y-3">
+            <h3 className="tracki uppercase text-gray-900">Product</h3>
+            <ul className="space-y-1">
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Terms of Coming
+                </a>
+              </li>
+            </ul>
           </div>
-          {/* right */}
-          <div>
-            {/* expertise */}
-            <h2 className="f-title">Expertise</h2>
-            <ul className="ms-5">
-              <li className="list-disc">Law Construction</li>
-              <li className="list-disc">Law Construction</li>
-              <li className="list-disc">Law Construction</li>
-              <li className="list-disc">Law Construction</li>
-              <li className="list-disc">Law Construction</li>
+          <div className="space-y-3">
+            <h3 className="uppercase text-gray-900">Pricing</h3>
+            <ul className="space-y-1">
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Public Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-3">
+            <h3 className="uppercase text-gray-900">Pricing</h3>
+            <ul className="space-y-1">
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Company
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
+              <li>
+                <a rel="noopener noreferrer" href="#">
+                  Coming
+                </a>
+              </li>
             </ul>
           </div>
         </div>
-        <Divider className="bg-base-100" />
-        {/* bottom */}
-        <div className="text-center">
-          Copyright nju.com, All Rights Reserved 2023
+      </div>
+      <div className="w-11/12 mx-auto pt-6 space-y-8 text-gray-600">
+        <div className="flex justify-between items-center">
+          <ul className="flex justify-center items-center gap-6 text-black font-semibold text-sm">
+            <li>
+              <Link>Status</Link>
+            </li>
+            <li>
+              <Link>Privacy</Link>
+            </li>
+            <li>
+              <Link>Terms</Link>
+            </li>
+            <li>
+              <Link>Cookies Pref</Link>
+            </li>
+            <li>
+              <Link>Status</Link>
+            </li>
+          </ul>
+          <ul className="flex justify-center items-center gap-3 ">
+            <Button type="default" shape="round" icon={<DownloadOutlined />}>
+              Download App
+            </Button>
+            <li>
+              <a href="#">
+                <FacebookFilled />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FacebookFilled />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FacebookFilled />
+              </a>
+            </li>
+          </ul>
         </div>
+        <p className="text-xs">©2024 VREMCAST, All rights reserved.</p>
       </div>
     </footer>
   );

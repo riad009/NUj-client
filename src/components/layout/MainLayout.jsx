@@ -6,8 +6,8 @@ import NavbarDemo from "../../pages/shared/nav/NavbarDemo";
 const MainLayout = () => {
   return (
     <div>
-      {/* <Navbar /> */}
-      <NavbarDemo />
+      <Navbar />
+      {/* <NavbarDemo /> */}
       <div className="min-h-screen">
         <Outlet />
       </div>

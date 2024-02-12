@@ -2,84 +2,57 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BsPerson, BsCart2 } from "react-icons/bs";
+import {
+  AiFillProfile,
+  AiOutlineHeart,
+  AiOutlineProfile,
+} from "react-icons/ai";
+import { GrUserAdmin } from "react-icons/gr";
 import logo from "../../../assets/logos/main-logo.png";
+import { UserOutlined, PhoneOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 
-import { BiSearchAlt2 } from "react-icons/bi";
-
-const NavbarDemo = () => {
+export default function Navbar() {
   const [navbar, setNavbar] = useState(false);
-
-  const WomenDropdownMenu = (
-    <div className="p-3 grid grid-cols-2 gap-2 ">
-      <Link className="hover:font-semibold">Fashion</Link>
-      <Link className="hover:font-semibold">Make Up</Link>
-      <Link className="hover:font-semibold">Skin Care</Link>
-      <Link className="hover:font-semibold">Hair Care</Link>
-    </div>
-  );
 
   const NavLinks = (
     <>
+      <li className="text-grey tracking-wider font-bold">
+        <Link to="/profile" className="flex items-center text-2xl">
+          <Avatar size={40} icon={<UserOutlined />} />
+        </Link>
+      </li>
+      <li className="text-grey tracking-wider font-bold">
+        <Link className="flex items-center text-2xl">
+          {/* <BsPerson className="" /> */}
+          <Avatar size={40} icon={<PhoneOutlined />} />
+        </Link>
+      </li>
       <li className="text-grey tracking-wider">
         {/* <Link to="/productspage">Find-products</Link> */}
-        <form
+        {/* <form
           onSubmit={(e) => e.preventDefault()}
           className="flex bg-base-200 py-1 px-2 w-full gap-2 rounded-3xl"
         >
-          {
-            <Link
-              type="submit"
-              to={`/productspage`}
-              className="rounded-3xl flex justify-center items-center"
-            >
-              {/* <img src={searchBtn} alt="" /> */}
-              <p className="text-2xl text-primary">
-                <BiSearchAlt2 />
-              </p>
-            </Link>
-          }
           <input
-            className=" outline-none bg-transparent rounded-full px-3 py-1 w-28"
+            className=" outline-none bg-transparent rounded-full px-3 py-1 w-full"
             type="search"
             placeholder="Search for product"
           />
           <button className="hidden" type="submit">
             search
           </button>
-        </form>
+        </form> */}
       </li>
-      <li className="text-grey tracking-wider flex">
-        <Link to="/">Talk to Sales</Link>
-      </li>
-      {/* <li className="text-grey tracking-wider flex">
-        <Link to="/">Create new workshop</Link>
-      </li> */}
-      <li className="text-grey tracking-wider flex">
-        <Link to="/">Sign In</Link>
-      </li>
-
-      {/* <li className="text-grey dropdown dropdown-hover dropdown-end me-4 py-4 cursor-pointer ">
-        <label
-          tabIndex={0}
-          className="flex flex-col justify-center items-center gap-[1px]"
-        >
-          <p className="text-xl mt-[.5px] text-primary">
-            <BsPerson />
-          </p>
-          <p className="text-xs font-semibold">Profile</p>
-        </label>
-      </li> */}
     </>
   );
 
   return (
-    <nav
-      className={`bg-base-100 shadow z-10 transition-all duration-500 w-full fixed top-0 left-0`}
-    >
-      <div className={`${navbar ? "bg-base-100 shadow" : ""}`}>
+    <nav className={`transparent z-10 w-full h-16 absolute top-0 left-0`}>
+      <div className={`${navbar ? "bg-accent shadow" : ""}`}>
         <div className="justify-between w-11/12 mx-auto md:items-center md:flex">
           <div>
-            <div className="flex items-center justify-between md:block">
+            <div className="flex items-center justify-between md:block py-4">
               <ul className="flex justify-center items-center space-x-4 md:space-x-8 md:space-y-0 tracking-wider">
                 <li>
                   <Link
@@ -87,47 +60,19 @@ const NavbarDemo = () => {
                     to="/"
                   >
                     {/* <h2 className="">pending</h2> */}
-                    <img className="h-[32px]" src={logo} alt="" />
+                    <img className="h-[50px]" src={logo} alt="" />
                   </Link>
-                </li>
-                <li>
-                  <li className=" cursor-pointer">
-                    <span className="font-semibold line-through" to="/">
-                      Men
-                    </span>
-                  </li>
-                </li>
-                <li className=" dropdown dropdown-hover py-6">
-                  <label
-                    tabIndex={0}
-                    className="flex flex-col justify-center items-center gap-[1px]"
-                  >
-                    <p className=" font-semibold">Women</p>
-                  </label>
-                  <div
-                    tabIndex={0}
-                    className="dropdown-content z-[100] menu p-2 shadow-md bg-base-100 mt-[25px] w-52 left-1/2 transform -translate-x-1/2"
-                  >
-                    {WomenDropdownMenu}
-                  </div>
-                </li>
-                <li>
-                  <li className="text-grey tracking-wider hidden md:flex">
-                    <Link className="font-semibold" to="/blog">
-                      Blogs
-                    </Link>
-                  </li>
                 </li>
               </ul>
               <div className="md:hidden">
                 <button
-                  className="p-2 text-gray-700 rounded-md outline-none "
+                  className="p-2 text-gray-700 rounded-md outline-none swap swap-rotate"
                   onClick={() => setNavbar(!navbar)}
                 >
                   {navbar ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      className="w-6 h-6 text-white"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     >
@@ -140,7 +85,7 @@ const NavbarDemo = () => {
                   ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="w-6 h-6"
+                      className="w-6 h-6 "
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -164,7 +109,7 @@ const NavbarDemo = () => {
               }`}
             >
               <ul
-                className={`items-center justify-center space-y-4 md:flex md:space-x-8 md:space-y-0 tracking-wider text-sm`}
+                className={`items-center justify-center space-y-4 md:flex md:space-x-4 md:space-y-0 tracking-wider text-sm`}
               >
                 {NavLinks}
               </ul>
@@ -174,6 +119,4 @@ const NavbarDemo = () => {
       </div>
     </nav>
   );
-};
-
-export default NavbarDemo;
+}

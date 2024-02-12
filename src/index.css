@@ -12,21 +12,16 @@
 }
 
 .p-btn {
-  color: white;
-  /* background-color: #4096ff; */
-  background-color: #420191;
-  padding: 0.7rem 1.5rem;
   text-transform: uppercase;
-  font-size: 1rem;
-  letter-spacing: 0.2rem;
-  font-weight: 300;
-  border-radius: 0.4rem;
-  transition: 0.2s all;
-  text-align: center;
+  padding: 8px 20px;
+  color: white;
+  background-color: #4a154b;
+  border: 1px solid white;
+  border-radius: 5px;
 }
 .p-btn:hover {
   /* background-color: #1a76e7; */
-  background-color: #32026d;
+  border-radius: 8px;
 }
 .p-btn-sm {
   color: white;
@@ -64,7 +59,4 @@
 
 .bg-t {
   background-color: rgba(235, 234, 234, 0.274);
-}
-
-.btn-primary {
 }
