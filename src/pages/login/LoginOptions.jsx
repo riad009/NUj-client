@@ -29,7 +29,7 @@ const LoginOptions = () => {
       duration: 2000,
       position: "top-right",
     });
-    navigate("/register/participant");
+    navigate("/");
   };
 
   const onFinish = (values) => {

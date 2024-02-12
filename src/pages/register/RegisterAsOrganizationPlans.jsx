@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import deal from "../../assets/home/deal.jpg";
+import { toast } from "sonner";
 
 const RegisterAsOrganizationPlans = () => {
   return (
@@ -19,9 +21,13 @@ const RegisterAsOrganizationPlans = () => {
                     Nemo deserunt possimus quo provident recusandae! Dolores qui
                     architecto omnis pariatur
                   </p>
-                  <button className="px-8 py-3 mt-6 text-lg font-semibold border rounded sm:mt-12 border-gray-300">
+                  <Link
+                    to="/"
+                    onClick={() => toast.success("Successfully purchased demo")}
+                    className="px-8 py-3 mt-6 text-lg font-semibold border rounded sm:mt-12 border-gray-300"
+                  >
                     Continue
-                  </button>
+                  </Link>
                 </div>
                 <div className="flex flex-col items-center justify-center flex-1 p-4 pb-8 text-center rounded-md sm:p-8 lg:p-16 bg-violet-600 text-gray-50">
                   <span className="text-sm font-semibold">Advanced</span>
@@ -30,9 +36,13 @@ const RegisterAsOrganizationPlans = () => {
                     Nemo deserunt possimus quo provident recusandae! Dolores qui
                     architecto omnis pariatur
                   </p>
-                  <button className="px-8 py-3 mt-6 text-lg font-semibold rounded sm:mt-12 bg-gray-100 text-gray-900">
+                  <Link
+                    to="/"
+                    onClick={() => toast.success("Successfully purchased demo")}
+                    className="px-8 py-3 mt-6 text-lg font-semibold rounded sm:mt-12 bg-gray-100 text-gray-900"
+                  >
                     Continue
-                  </button>
+                  </Link>
                 </div>
               </div>
             </section>

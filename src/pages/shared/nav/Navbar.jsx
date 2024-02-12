@@ -18,7 +18,7 @@ export default function Navbar() {
   const NavLinks = (
     <>
       <li className="text-grey tracking-wider font-bold">
-        <Link className="flex items-center text-2xl">
+        <Link to="/profile" className="flex items-center text-2xl">
           <Avatar size={40} icon={<UserOutlined />} />
         </Link>
       </li>
