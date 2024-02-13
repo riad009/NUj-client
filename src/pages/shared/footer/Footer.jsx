@@ -101,8 +101,8 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-11/12 mx-auto pt-6 space-y-8 text-gray-600">
-        <div className="flex justify-between items-center">
-          <ul className="flex justify-center items-center gap-6 text-black font-semibold text-sm">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-5 md:items-center">
+          <ul className="flex justify-center items-center gap-6 text-black font-semibold text-sm w-full md:w-auto">
             <li>
               <Link>Status</Link>
             </li>
@@ -119,7 +119,7 @@ const Footer = () => {
               <Link>Status</Link>
             </li>
           </ul>
-          <ul className="flex justify-center items-center gap-3 ">
+          <ul className="flex justify-center items-center gap-3 w-full md:w-auto">
             <Button type="default" shape="round" icon={<DownloadOutlined />}>
               Download App
             </Button>

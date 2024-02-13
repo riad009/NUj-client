@@ -7,9 +7,12 @@ import logo from "../../../assets/logos/main-logo.png";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import { toast } from "sonner";
 
 const NavbarDemo = () => {
   const [navbar, setNavbar] = useState(false);
+  const { logOut } = useContext(AuthContext);
 
   const featuresDropDown = (
     <div className="p-3 grid grid-cols-2 gap-2 ">
@@ -87,14 +90,14 @@ const NavbarDemo = () => {
         <Link to="/">Create new workshop</Link>
       </li> */}
       <li className="text-grey tracking-wider flex">
-        <Link
+        <button
           className={`px-4 py-2 border uppercase  font-semibold rounded-md ${
             isScroll ? "bg-primary text-base-100" : "bg-base-100 text-primary"
           }`}
-          to="/"
+          onClick={() => logOut().then(toast.success("Logged out"))}
         >
-          Sign In
-        </Link>
+          Sign out
+        </button>
       </li>
     </>
   );

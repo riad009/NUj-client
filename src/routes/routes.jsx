@@ -8,12 +8,17 @@ import RegisterAsParticiipant from "../pages/register/RegisterAsParticiipant";
 import RegisterAsOrganization from "../pages/register/RegisterAsOrganization";
 import RegisterAsOrganizationPlans from "../pages/register/RegisterAsOrganizationPlans";
 import PageNotFound from "../pages/error/PageNotFound";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
   {
     path: "/",
-    element: <App />,
+    element: (
+      <PrivateRoute>
+        <App />
+      </PrivateRoute>
+    ),
     errorElement: <PageNotFound />,
     children: [
       {
@@ -23,10 +28,6 @@ export const router = createBrowserRouter([
       {
         path: "/get-started",
         element: <GetStarted />,
-      },
-      {
-        path: "/login-options",
-        element: <LoginOptions />,
       },
       {
         path: "/register/participant",
@@ -41,5 +42,9 @@ export const router = createBrowserRouter([
         element: <RegisterAsOrganizationPlans />,
       },
     ],
+  },
+  {
+    path: "/login-options",
+    element: <LoginOptions />,
   },
 ]);
