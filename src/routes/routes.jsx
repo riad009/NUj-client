@@ -9,6 +9,7 @@ import RegisterAsOrganization from "../pages/register/RegisterAsOrganization";
 import RegisterAsOrganizationPlans from "../pages/register/RegisterAsOrganizationPlans";
 import PageNotFound from "../pages/error/PageNotFound";
 import PrivateRoute from "./PrivateRoute";
+import CreateEcoSpace from "../pages/createEcoSpace/CreateEcoSpace";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -46,5 +47,13 @@ export const router = createBrowserRouter([
   {
     path: "/login-options",
     element: <LoginOptions />,
+  },
+  {
+    path: "/create-eco-space",
+    element: (
+      <PrivateRoute>
+        <CreateEcoSpace />
+      </PrivateRoute>
+    ),
   },
 ]);
