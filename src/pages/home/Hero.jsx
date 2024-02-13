@@ -23,7 +23,7 @@ const Hero = () => {
             support services in an all-in-one technology platform.
           </p>
           <div className="flex gap-2 ">
-            <Button
+            {/* <Button
               className="text-white"
               size="large"
               block
@@ -39,9 +39,11 @@ const Hero = () => {
               icon={<BsApple />}
             >
               Continue with Apple
-            </Button>
-            {/* <button className="p-btn">Continue with </button>
-            <button className="p-btn">Try for free</button> */}
+            </Button> */}
+            <button className="p-btn">Create Workshop</button>
+            <button className="p-btn !text-primary !bg-white ">
+              Learn More
+            </button>
           </div>
           <p className="text-sm">VREMCAST is free to try</p>
         </div>
