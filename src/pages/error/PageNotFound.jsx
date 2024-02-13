@@ -16,7 +16,7 @@ const PageNotFound = () => {
           </p>
           <Link
             to="/"
-            className="px-8 py-3 font-semibold rounded bg-violet-600 text-gray-50"
+            className="px-8 py-3 font-semibold rounded bg-primary text-gray-50"
           >
             Back to homepage
           </Link>

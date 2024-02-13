@@ -69,7 +69,7 @@ const NavbarDemo = () => {
           <input
             className=" outline-none bg-transparent rounded-full px-3 py-1 w-28"
             type="search"
-            placeholder="Search for product"
+            placeholder="Search"
           />
           <button className="hidden" type="submit">
             search
@@ -146,7 +146,7 @@ const NavbarDemo = () => {
   return (
     <nav
       className={`${
-        isScroll ? "bg-white " : "bg-transparent text-white"
+        isScroll ? "bg-white " : `${navbar ? "" : "bg-transparent text-white"}`
       }  z-10 transition-all duration-500 w-full fixed top-0 left-0`}
     >
       <div className={`${navbar ? "bg-base-300 shadow" : ""} py-3 md:py-0`}>
