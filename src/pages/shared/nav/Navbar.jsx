@@ -5,6 +5,8 @@ import { BsPerson, BsCart2 } from "react-icons/bs";
 import logo from "../../../assets/logos/main-logo.png";
 
 import { BiSearchAlt2 } from "react-icons/bi";
+import { DownOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
 
 const NavbarDemo = () => {
   const [navbar, setNavbar] = useState(false);
@@ -26,6 +28,21 @@ const NavbarDemo = () => {
       setIsScroll(false);
     }
   });
+
+  const items = [
+    {
+      label: "Coming",
+      key: "1",
+    },
+    {
+      label: "Coming",
+      key: "2",
+    },
+    {
+      label: "Coming",
+      key: "3",
+    },
+  ];
   const NavLinks = (
     <>
       <li className="text-grey tracking-wider">
@@ -82,13 +99,54 @@ const NavbarDemo = () => {
     </>
   );
 
+  const leftItems = (
+    <>
+      <li className="cursor-pointer">
+        <Dropdown
+          menu={{
+            items,
+          }}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              Features
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+      </li>
+      <li className="cursor-pointer">
+        <Dropdown
+          menu={{
+            items,
+          }}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              Resources
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
+      </li>
+      <li className=" dropdown dropdown-hover py-6">
+        <Link
+          tabIndex={0}
+          className="flex flex-col justify-center items-center gap-[1px]"
+        >
+          <p className=" ">Pricing</p>
+        </Link>
+      </li>
+    </>
+  );
+
   return (
     <nav
       className={`${
         isScroll ? "bg-white " : "bg-transparent text-white"
-      }  z-10 transition-all duration-500 w-full fixed top-0 left-0 `}
+      }  z-10 transition-all duration-500 w-full fixed top-0 left-0`}
     >
-      <div className={`${navbar ? "bg-base-100 shadow" : ""}`}>
+      <div className={`${navbar ? "bg-base-300 shadow" : ""} py-3 md:py-0`}>
         <div className="justify-between w-11/12 mx-auto md:items-center md:flex">
           <div>
             <div className="flex items-center justify-between md:block">
@@ -102,34 +160,10 @@ const NavbarDemo = () => {
                     <img className="h-[32px]" src={logo} alt="" />
                   </Link>
                 </li>
-                <li className=" dropdown dropdown-hover py-6">
-                  <label
-                    tabIndex={0}
-                    className="flex flex-col justify-center items-center gap-[1px]"
-                  >
-                    <p className=" font-semibold">Features</p>
-                  </label>
-                  <div
-                    tabIndex={0}
-                    className="dropdown-content z-[100] menu p-2 shadow-md bg-base-100 mt-[25px] w-52 left-1/2 transform -translate-x-1/2"
-                  >
-                    {featuresDropDown}
-                  </div>
-                </li>
-                <li className=" dropdown dropdown-hover py-6">
-                  <label
-                    tabIndex={0}
-                    className="flex flex-col justify-center items-center gap-[1px]"
-                  >
-                    <p className=" font-semibold">Resources</p>
-                  </label>
-                  <div
-                    tabIndex={0}
-                    className="dropdown-content z-[100] menu p-2 shadow-md bg-base-100 mt-[25px] w-52 left-1/2 transform -translate-x-1/2"
-                  >
-                    {featuresDropDown}
-                  </div>
-                </li>
+
+                <ul className="hidden md:flex justify-center items-center space-x-4 md:space-x-8 md:space-y-0 tracking-wider">
+                  {leftItems}
+                </ul>
               </ul>
               <div className="md:hidden">
                 <button
@@ -179,6 +213,9 @@ const NavbarDemo = () => {
                 className={`items-center justify-center space-y-4 md:flex md:space-x-8 md:space-y-0 tracking-wider text-sm`}
               >
                 {NavLinks}
+                <ul className="flex md:hidden items-start justify-center space-y-4 md:space-x-8 md:space-y-0 tracking-wider text-sm flex-col">
+                  {leftItems}
+                </ul>
               </ul>
             </div>
           </div>
