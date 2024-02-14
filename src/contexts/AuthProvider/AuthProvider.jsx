@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
-  signInWithEmailAndPassword,
+  sendSignInLinkToEmail,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -36,9 +36,15 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const logInWithEmail = (email, password) => {
+  const logInWithEmail = (email) => {
     setIsLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    return sendSignInLinkToEmail(auth, email, {
+      // URL you want to redirect back to. The domain (www.example.com) for this
+      // URL must be in the authorized domains list in the Firebase Console.
+      url: "http://localhost:5173/",
+      // This must be true.
+      handleCodeInApp: true,
+    });
   };
 
   const logInWithGoogle = () => {

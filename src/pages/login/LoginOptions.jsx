@@ -6,13 +6,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/logos/main-logo.png";
 
 const onFinishFailed = (errorInfo) => {
   console.log("Failed:", errorInfo);
 };
 
 const LoginOptions = () => {
-  const { logInWithGoogle } = useContext(AuthContext);
+  const { logInWithGoogle, logInWithEmail } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
@@ -32,27 +33,29 @@ const LoginOptions = () => {
     navigate("/");
   };
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
-    toast.success(`Logged in`, {
+  const onFinish = async (values) => {
+    const data = await logInWithEmail(values.email);
+    console.log(data);
+    toast.success(`Please Check your mail to verify`, {
       id: "login",
-      duration: 2000,
+      duration: 5000,
       position: "top-right",
     });
-    navigate("/");
   };
 
   return (
     <div className="min-h-screen flex">
       <div className="flex flex-col px-10 items-center justify-center w-11/12 md:w-[35%] mx-auto">
+        <div className="flex flex-col justify-center items-center space-y-2 mb-2">
+          <img className="size-12" src={logo} alt="" />
+          <h2 className="text-3xl font-semibold tracking-wider">
+            Enter your email
+          </h2>
+          <p>We suggest using email address you use at work.</p>
+        </div>
         <Form
           className="w-full space-y-2"
           name="basic"
-          wrapperCol={
-            {
-              // span: 14,
-            }
-          }
           initialValues={{
             remember: true,
           }}
@@ -77,7 +80,7 @@ const LoginOptions = () => {
               type="email"
             />
           </Form.Item>
-          <button disabled type="submit" className="p-btn w-full">
+          <button type="submit" className="p-btn w-full">
             Log in
           </button>
         </Form>
