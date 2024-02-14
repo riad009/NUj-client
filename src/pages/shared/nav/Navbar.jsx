@@ -14,15 +14,6 @@ const NavbarDemo = () => {
   const [navbar, setNavbar] = useState(false);
   const { logOut } = useContext(AuthContext);
 
-  const featuresDropDown = (
-    <div className="p-3 grid grid-cols-2 gap-2 ">
-      <Link className="hover:font-semibold">Coming</Link>
-      <Link className="hover:font-semibold">Coming</Link>
-      <Link className="hover:font-semibold">Coming</Link>
-      <Link className="hover:font-semibold">Coming</Link>
-    </div>
-  );
-
   const [isScroll, setIsScroll] = useState(false);
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {

@@ -5,7 +5,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/main-logo.png";
 
-const CreateEcoSpace = () => {
+const CreateEcoSpaceDemo = () => {
   const { user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -155,4 +155,4 @@ const CreateEcoSpace = () => {
   );
 };
 
-export default CreateEcoSpace;
+export default CreateEcoSpaceDemo;

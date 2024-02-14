@@ -5,9 +5,13 @@ import { Navigate, useLocation } from "react-router-dom";
 const PrivateRoute = ({ children }) => {
   const { user, isLoading } = useContext(AuthContext);
   const location = useLocation();
-  console.log(user);
+
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <h2>Loading...</h2>
+      </div>
+    );
   }
   if (user) {
     return children;

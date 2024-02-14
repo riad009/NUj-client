@@ -27,7 +27,8 @@ const AuthProvider = ({ children }) => {
     phone: "",
     email: "",
     website: "",
-    service: "",
+    serviceTitle: "",
+    serviceDescription: "",
   });
 
   // function for signing in or singing out

@@ -9,7 +9,14 @@ import RegisterAsOrganization from "../pages/register/RegisterAsOrganization";
 import RegisterAsOrganizationPlans from "../pages/register/RegisterAsOrganizationPlans";
 import PageNotFound from "../pages/error/PageNotFound";
 import PrivateRoute from "./PrivateRoute";
-import CreateEcoSpace from "../pages/createEcoSpace/CreateEcoSpace";
+import CreateEcoSpaceS1 from "../pages/createEcoSpace/CreateEcoSpaceS1";
+import CreateEcoSpaceS2 from "../pages/createEcoSpace/CreateEcoSpaceS2";
+import CreateEcoSpaceLayout from "../components/layout/CreateEcoSpaceLayout";
+import CreateEcoSpaceS3 from "../pages/createEcoSpace/CreateEcoSpaceS3";
+import CreateEcoSpaceS4 from "../pages/createEcoSpace/CreateEcoSpaceS4";
+import CreateEcoSpaceS5 from "../pages/createEcoSpace/CreateEcoSpaceS5";
+import CreateEcoSpaceS6 from "../pages/createEcoSpace/CreateEcoSpaceS6";
+import CreateEcoSpaceBanner from "../pages/createEcoSpace/CreateEcoSpaceBanner";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -48,12 +55,48 @@ export const router = createBrowserRouter([
     path: "/login-options",
     element: <LoginOptions />,
   },
+
+  {
+    path: "/create-eco-space/banner",
+    element: (
+      <PrivateRoute>
+        <CreateEcoSpaceBanner />
+      </PrivateRoute>
+    ),
+  },
   {
     path: "/create-eco-space",
     element: (
       <PrivateRoute>
-        <CreateEcoSpace />
+        {" "}
+        <CreateEcoSpaceLayout />
       </PrivateRoute>
     ),
+    children: [
+      {
+        path: "/create-eco-space/s1",
+        element: <CreateEcoSpaceS1 />,
+      },
+      {
+        path: "/create-eco-space/s2",
+        element: <CreateEcoSpaceS2 />,
+      },
+      {
+        path: "/create-eco-space/s3",
+        element: <CreateEcoSpaceS3 />,
+      },
+      {
+        path: "/create-eco-space/s4",
+        element: <CreateEcoSpaceS4 />,
+      },
+      {
+        path: "/create-eco-space/s5",
+        element: <CreateEcoSpaceS5 />,
+      },
+      {
+        path: "/create-eco-space/s6",
+        element: <CreateEcoSpaceS6 />,
+      },
+    ],
   },
 ]);
