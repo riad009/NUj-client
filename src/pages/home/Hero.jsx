@@ -21,7 +21,7 @@ const Hero = () => {
             system offering cognitive monitoring & rehabilitative training
             solution offering a fresh approach to monitored movement.
           </p>
-          <div className="flex gap-2 ">
+          <div className="flex gap-2 w-full">
             {/* <Button
               className="text-white"
               size="large"
@@ -39,10 +39,13 @@ const Hero = () => {
             >
               Continue with Apple
             </Button> */}
-            <Link to="/create-eco-space/banner" className="p-btn">
+            <Link
+              to="/create-eco-space/banner"
+              className="p-btn w-full md:w-auto"
+            >
               Create Ecospace
             </Link>
-            <button className="p-btn !text-primary !bg-white ">
+            <button className="p-btn !text-primary !bg-white w-full md:w-auto ">
               Learn More
             </button>
           </div>

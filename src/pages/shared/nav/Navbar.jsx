@@ -16,7 +16,7 @@ const NavbarDemo = () => {
 
   const [isScroll, setIsScroll] = useState(false);
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 100) {
+    if (window.scrollY > 10) {
       setIsScroll(true);
     } else {
       setIsScroll(false);
