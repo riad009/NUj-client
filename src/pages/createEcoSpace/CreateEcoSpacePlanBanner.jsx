@@ -21,11 +21,7 @@ const CreateEcoSpacePlanBanner = () => {
         </Link>
       </div>
       <p className="text-xs text-gray-200">
-        <Link
-          to="/"
-          onClick={() => toast.success("EcoSpace Created Successfully")}
-          className="link"
-        >
+        <Link to="/create-eco-space/notification/consent" className="link">
           Skip
         </Link>{" "}
         & Continue with the free plan

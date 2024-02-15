@@ -20,6 +20,13 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   // states for holding user info
   const [user, setUser] = useState(null);
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   const [isLoading, setIsLoading] = useState(true);
   const [orgFormValues, setOrgFormValues] = useState({
     orgName: "",
@@ -87,6 +94,9 @@ const AuthProvider = ({ children }) => {
     setIsLoading,
     orgFormValues,
     setOrgFormValues,
+    open,
+    showDrawer,
+    onClose,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

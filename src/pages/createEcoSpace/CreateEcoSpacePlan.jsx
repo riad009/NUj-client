@@ -26,12 +26,7 @@ const CreateEcoSpacePlan = () => {
               </p>
             </div>
             <Link
-              to="/"
-              onClick={() =>
-                toast.success("Thank You! you have choosen a great a plan", {
-                  duration: 5000,
-                })
-              }
+              to="/create-eco-space/notification/consent"
               className="p-btn w-full"
             >
               Continue
@@ -56,12 +51,7 @@ const CreateEcoSpacePlan = () => {
               </p>
             </div>
             <Link
-              to="/"
-              onClick={() =>
-                toast.success("Thank You! you have choosen a great a plan", {
-                  duration: 5000,
-                })
-              }
+              to="/create-eco-space/notification/consent"
               className="p-btn w-full"
             >
               Continue
@@ -86,12 +76,7 @@ const CreateEcoSpacePlan = () => {
               </p>
             </div>
             <Link
-              to="/"
-              onClick={() =>
-                toast.success("Thank You! you have choosen a great a plan", {
-                  duration: 5000,
-                })
-              }
+              to="/create-eco-space/notification/consent"
               className="p-btn w-full"
             >
               Continue
@@ -100,11 +85,7 @@ const CreateEcoSpacePlan = () => {
         </div>
       </div>
       <p className="text-xs text-gray-200">
-        <Link
-          to="/"
-          onClick={() => toast.success("EcoSpace Created Successfully")}
-          className="link"
-        >
+        <Link to="/create-eco-space/notification/consent" className="link">
           Skip
         </Link>{" "}
         & Continue with the free plan

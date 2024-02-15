@@ -12,7 +12,7 @@ import { toast } from "sonner";
 
 const NavbarDemo = () => {
   const [navbar, setNavbar] = useState(false);
-  const { logOut } = useContext(AuthContext);
+  const { logOut, showDrawer } = useContext(AuthContext);
 
   const [isScroll, setIsScroll] = useState(false);
   window.addEventListener("scroll", () => {
@@ -116,14 +116,14 @@ const NavbarDemo = () => {
         </form>
       </li>
       <li className="text-grey tracking-wider flex">
-        <Link
-          className={`px-4 py-2 border uppercase font-semibold rounded-md ${
+        <button
+          className={`hidden md:block px-4 py-2 border uppercase font-semibold rounded-md ${
             isScroll ? "bg-base-100 text-primary border-primary" : ""
           }`}
-          to="/"
+          onClick={showDrawer}
         >
-          Talk to Sales
-        </Link>
+          Actions
+        </button>
       </li>
       {/* <li className="text-grey tracking-wider flex">
         <Link to="/">Create new workshop</Link>
@@ -204,9 +204,17 @@ const NavbarDemo = () => {
                   {leftItems}
                 </ul>
               </ul>
-              <div className="md:hidden">
+              <div className="flex items-center">
                 <button
-                  className="p-2  rounded-md outline-none "
+                  className={` text-sm md:hidden px-4 py-1 border font-semibold rounded-md ${
+                    isScroll ? "bg-base-100  text-primary border-primary" : ""
+                  }`}
+                  onClick={showDrawer}
+                >
+                  Actions
+                </button>
+                <button
+                  className="p-2  rounded-md outline-none md:hidden"
                   onClick={() => setNavbar(!navbar)}
                 >
                   {navbar ? (

@@ -35,9 +35,15 @@ const CreateEcoSpaceS4 = () => {
           >
             <Select placeholder="Select a Service" allowClear>
               <Option value="Diversion Program">Diversion Program</Option>
-              <Option value="Behavioral Health">Behavioral Health</Option>
-              <Option value="Supporttive Services">Supporttive Services</Option>
               <Option value="Mental Health">Mental Health</Option>
+              <Option value="Counseling">Counseling</Option>
+              <Option value="Group Supprt">Group Supprt</Option>
+              {/* <Option value="Behavioral Health">Behavioral Health</Option> */}
+              {/* <Option value="Supporttive Services">Supporttive Services</Option> */}
+              <Option value="Food Programs">Food Programs</Option>
+              <Option value="Financial Programs">Financial Programs</Option>
+              <Option value="Job Readiness">Job Readiness</Option>
+              <Option value="Outpatient Services">Outpatient Services</Option>
               <Option value="Reentry">Reentry</Option>
               <Option value="Children & Family Services">
                 Children & Family Services
