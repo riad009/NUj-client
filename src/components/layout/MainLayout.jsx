@@ -4,6 +4,7 @@ import Footer from "../../pages/shared/footer/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { Drawer } from "antd";
+import SidebarItems from "./SidebarItems";
 
 const MainLayout = () => {
   const { open, onClose } = useContext(AuthContext);
@@ -18,15 +19,13 @@ const MainLayout = () => {
 
       <Footer />
       <Drawer
-        title="Basic Drawer"
+        title="Navigation"
         placement="left"
         closable={false}
         onClose={onClose}
         open={open}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <SidebarItems />
       </Drawer>
     </div>
   );
