@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import { BsPerson, BsCart2 } from "react-icons/bs";
 import logo from "../../../assets/logos/main-logo.png";
 
@@ -25,16 +25,64 @@ const NavbarDemo = () => {
 
   const items = [
     {
-      label: "Coming",
-      key: "1",
+      key: "Diversion Program",
+      label: <NavLink to="/">Diversion Program</NavLink>,
     },
     {
-      label: "Coming",
-      key: "2",
+      key: "Behavioral Health",
+      label: "Behavioral Health",
+      children: [
+        {
+          key: "Mental Health",
+          label: <NavLink to="/">Mental Health</NavLink>,
+        },
+        {
+          key: "Counseling",
+          label: <NavLink to="/">Counseling</NavLink>,
+        },
+        {
+          key: "Group Support",
+          label: <NavLink to="/">Group Support</NavLink>,
+        },
+      ],
     },
     {
-      label: "Coming",
-      key: "3",
+      key: "Supporttive Services",
+      label: "Supporttive Services",
+      children: [
+        {
+          key: "Food Programs",
+          label: <NavLink to="/">Food Programs</NavLink>,
+        },
+        {
+          key: "Financial Programs",
+          label: <NavLink to="/">Financial Programs</NavLink>,
+        },
+        {
+          key: "Job Readiness",
+          label: <NavLink to="/">Job Readiness</NavLink>,
+        },
+        {
+          key: "Outpatient Services",
+          label: <NavLink to="/">Outpatient Services</NavLink>,
+        },
+      ],
+    },
+    {
+      key: "Mental Health",
+      label: <NavLink to="/">Mental Health</NavLink>,
+    },
+    {
+      key: "Reentry",
+      label: <NavLink to="/">Reentry</NavLink>,
+    },
+    {
+      key: "Child, Youth & Family",
+      label: <NavLink to="/">Child, Youth & Family</NavLink>,
+    },
+    {
+      key: "Other",
+      label: <NavLink to="/">Other </NavLink>,
     },
   ];
   const NavLinks = (
@@ -117,17 +165,14 @@ const NavbarDemo = () => {
         >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              Resources
+              Services
               <DownOutlined />
             </Space>
           </a>
         </Dropdown>
       </li>
-      <li className=" dropdown dropdown-hover py-6">
-        <Link
-          tabIndex={0}
-          className="flex flex-col justify-center items-center gap-[1px]"
-        >
+      <li className="">
+        <Link className="">
           <p className=" ">Pricing</p>
         </Link>
       </li>
@@ -151,7 +196,7 @@ const NavbarDemo = () => {
                     to="/"
                   >
                     {/* <h2 className="">pending</h2> */}
-                    <img className="h-[32px]" src={logo} alt="" />
+                    <img className="h-[32px] my-4" src={logo} alt="" />
                   </Link>
                 </li>
 
