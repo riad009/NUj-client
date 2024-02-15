@@ -17,6 +17,8 @@ import CreateEcoSpaceS4 from "../pages/createEcoSpace/CreateEcoSpaceS4";
 import CreateEcoSpaceS5 from "../pages/createEcoSpace/CreateEcoSpaceS5";
 import CreateEcoSpaceS6 from "../pages/createEcoSpace/CreateEcoSpaceS6";
 import CreateEcoSpaceBanner from "../pages/createEcoSpace/CreateEcoSpaceBanner";
+import CreateEcoSpacePlan from "../pages/createEcoSpace/CreateEcoSpacePlan";
+import CreateEcoSpacePlanBanner from "../pages/createEcoSpace/CreateEcoSpacePlanBanner";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -96,6 +98,14 @@ export const router = createBrowserRouter([
       {
         path: "/create-eco-space/s6",
         element: <CreateEcoSpaceS6 />,
+      },
+      {
+        path: "/create-eco-space/plans/banner",
+        element: <CreateEcoSpacePlanBanner />,
+      },
+      {
+        path: "/create-eco-space/plans",
+        element: <CreateEcoSpacePlan />,
       },
     ],
   },

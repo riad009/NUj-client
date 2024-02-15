@@ -9,14 +9,14 @@ const StatisticBanner = () => {
           VREMCAST securely unites staffs and participants around the world
         </p>
         <div className=" space-y-2 md:space-x-2">
-          <button className="p-btn w-full w-auto ">
+          <button className="p-btn w-full md:w-auto ">
             Meet VREMCAST for enterprise
           </button>
-          <button className="p-btn w-full w-auto !text-primary !bg-white !border !border-primary">
+          <button className="p-btn w-full md:w-auto !text-primary !bg-white !border !border-primary">
             Talk to Sales
           </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-center items-start">
           <div className="flex flex-col gap-2 p-10">
             <h2 className="text-5xl text-primary font-bold">80%</h2>
             <p>of users say VREMCAST has improved communication*</p>

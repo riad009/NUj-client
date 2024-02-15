@@ -18,6 +18,8 @@
   background-color: #4a154b;
   border: 1px solid white;
   border-radius: 5px;
+  display: inline-block;
+  text-align: center;
 }
 .p-btn:hover {
   /* background-color: #1a76e7; */

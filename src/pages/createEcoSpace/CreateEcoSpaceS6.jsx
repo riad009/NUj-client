@@ -34,6 +34,7 @@ const CreateEcoSpaceS6 = () => {
           ]}
         >
           <Input
+            style={{ input: { color: "red" } }}
             size="large"
             className="bg-transparent text-gray-200 w-full focus:bg-transparent"
             placeholder="Ex: budget, fire campaign"
@@ -41,8 +42,8 @@ const CreateEcoSpaceS6 = () => {
         </Form.Item>
 
         <Link
-          onClick={() => toast.success("Created successfully")}
-          to="/"
+          // onClick={() => toast.success("Created successfully")}
+          to="/create-eco-space/plans/banner"
           type="submit"
           className="p-btn !bg-accent"
         >
