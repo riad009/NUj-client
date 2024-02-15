@@ -4,10 +4,10 @@ import { HomeOutlined } from "@ant-design/icons";
 const CreateEcoSpaceLayout = () => {
   return (
     <div
-      style={{ gridTemplateColumns: "1fr 4fr 15fr" }}
+      style={{ gridTemplateColumns: "1fr" }}
       className="bg-accent min-h-screen text-white grid"
     >
-      <div className="py-10 md:py-20">
+      {/* <div className="py-10 md:py-20">
         <Link
           to="/"
           className="flex flex-col gap-2 justify-center items-center"
@@ -15,8 +15,8 @@ const CreateEcoSpaceLayout = () => {
           <HomeOutlined />
           <p className="text-xs text-gray-200">Home</p>
         </Link>
-      </div>
-      <div
+      </div> */}
+      {/* <div
         style={{ border: ".2px solid grey" }}
         className="bg-[#17191c] rounded-lg px-3 py-10 md:py-20 space-y-4"
       >
@@ -31,8 +31,8 @@ const CreateEcoSpaceLayout = () => {
             <p>XYZ</p>
           </div>
         </div>
-      </div>
-      <div className="w-full py-10 px-4 md:p-16">
+      </div> */}
+      <div className="w-full py-10 px-4 md:p-28">
         <Outlet />
       </div>
     </div>

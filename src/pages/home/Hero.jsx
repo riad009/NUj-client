@@ -8,19 +8,18 @@ import { Button } from "antd";
 const Hero = () => {
   return (
     <section className="bg-primary text-white h-auto md:h-screen flex justify-center items-center overflow-hidden">
-      <div className="w-11/12  mx-auto grid grid-cols-1 md:grid-cols-2 mt-20 ">
+      <div className="w-11/12  mx-auto grid grid-cols-1 md:grid-cols-2 mt-20 gap-5">
         <div className="flex flex-col justify-center items-start gap-5">
-          <h1 className="text-6xl font-bold">Lorem, ipsum dolor.</h1>
-          <h1 className="text-6xl font-bold text-secondary">
-            Lorem, rem dolor.
-          </h1>
+          <div>
+            <h1 className="text-6xl font-bold">VREMCAST</h1>
+            <h1 className="text-6xl font-bold text-secondary">
+              A Concept for Change.
+            </h1>
+          </div>
           <p className="tracking-wide ">
             Nuj is virtual restorative justice mobile eco-space monitoring
             system offering cognitive monitoring & rehabilitative training
-            solution offering a fresh approach to monitored movement. It is a
-            fully-integrated mobile monitoring platform connecting courts,
-            electronic monitoring units with community-based organizational
-            support services in an all-in-one technology platform.
+            solution offering a fresh approach to monitored movement.
           </p>
           <div className="flex gap-2 ">
             {/* <Button
