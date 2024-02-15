@@ -196,7 +196,7 @@ const NavbarDemo = () => {
                     to="/"
                   >
                     {/* <h2 className="">pending</h2> */}
-                    <img className="h-[32px] my-4" src={logo} alt="" />
+                    <img className="h-[32px] md:my-4" src={logo} alt="" />
                   </Link>
                 </li>
 
