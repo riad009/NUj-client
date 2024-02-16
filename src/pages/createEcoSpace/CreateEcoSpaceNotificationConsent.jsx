@@ -22,7 +22,7 @@ const CreateEcoSpaceNotificationConsent = () => {
           defaultChecked={true}
         />
         <label className="cursor-pointer" htmlFor="notifcation-consent">
-          I agree to receive notifications about
+          I agree to receive notifications from VREMCAST
         </label>
       </div>
       <Link

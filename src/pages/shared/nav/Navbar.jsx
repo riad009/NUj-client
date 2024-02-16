@@ -1,18 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
-import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
-import { BsPerson, BsCart2 } from "react-icons/bs";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { BsPerson } from "react-icons/bs";
 import logo from "../../../assets/logos/main-logo.png";
 
 import { BiSearchAlt2 } from "react-icons/bi";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
-import { toast } from "sonner";
 
 const NavbarDemo = () => {
   const [navbar, setNavbar] = useState(false);
-  const { logOut, showDrawer } = useContext(AuthContext);
+  const { showDrawer } = useContext(AuthContext);
 
   const [isScroll, setIsScroll] = useState(false);
   window.addEventListener("scroll", () => {
@@ -125,18 +124,10 @@ const NavbarDemo = () => {
           Actions
         </button>
       </li>
-      {/* <li className="text-grey tracking-wider flex">
-        <Link to="/">Create new workshop</Link>
-      </li> */}
       <li className="text-grey tracking-wider flex">
-        <button
-          className={`px-4 py-2 border uppercase  font-semibold rounded-md ${
-            isScroll ? "bg-primary text-base-100" : "bg-base-100 text-primary"
-          }`}
-          onClick={() => logOut().then(toast.success("Logged out"))}
-        >
-          Sign out
-        </button>
+        <Link to="/profile/user" className="text-4xl">
+          <BsPerson />
+        </Link>
       </li>
     </>
   );
@@ -182,8 +173,10 @@ const NavbarDemo = () => {
   return (
     <nav
       className={`${
-        isScroll ? "bg-white " : `${navbar ? "" : "bg-transparent text-white"}`
-      }  z-10 transition-all duration-500 w-full fixed top-0 left-0`}
+        isScroll
+          ? "bg-white shadow-md"
+          : `${navbar ? "" : "bg-primary text-white"}`
+      }  z-10 transition-all duration-500 w-full fixed top-0 left-0 `}
     >
       <div className={`${navbar ? "bg-base-300 shadow" : ""} py-3 md:py-0`}>
         <div className="justify-between w-11/12 mx-auto md:items-center md:flex">

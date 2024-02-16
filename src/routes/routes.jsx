@@ -20,6 +20,10 @@ import CreateEcoSpaceBanner from "../pages/createEcoSpace/CreateEcoSpaceBanner";
 import CreateEcoSpacePlan from "../pages/createEcoSpace/CreateEcoSpacePlan";
 import CreateEcoSpacePlanBanner from "../pages/createEcoSpace/CreateEcoSpacePlanBanner";
 import CreateEcoSpaceNotificationConsent from "../pages/createEcoSpace/CreateEcoSpaceNotificationConsent";
+import UserProfile from "../pages/userProfile/UserProfile";
+import EcoSpaceList from "../pages/companyProfile/EcoSpaceList";
+import EcoSpaceProfile from "../pages/companyProfile/EcoSpaceProfile";
+import MakeAppointment from "../pages/appointment/MakeAppointment";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -51,6 +55,22 @@ export const router = createBrowserRouter([
       {
         path: "/register/organization/plans",
         element: <RegisterAsOrganizationPlans />,
+      },
+      {
+        path: "/profile/user",
+        element: <UserProfile />,
+      },
+      {
+        path: "/profile/eco-space/list",
+        element: <EcoSpaceList />,
+      },
+      {
+        path: "/profile/eco-space",
+        element: <EcoSpaceProfile />,
+      },
+      {
+        path: "/make-appointment",
+        element: <MakeAppointment />,
       },
     ],
   },
