@@ -12,7 +12,7 @@ const UserProfile = () => {
     <div className="h-auto">
       <Form className="w-11/12 min-h-screen mt-24 mb-10 mx-auto space-y-5 flex flex-col items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
-          <div className="rounded-xl shadow-lg p-10 flex flex-col gap-10 items-center justify-center">
+          <div className="rounded-xl shadow-lg p-5 md:p-10 flex flex-col gap-10 items-center justify-center">
             <div className="flex flex-col gap-5 items-center">
               <img
                 className="size-40 rounded-full "
@@ -43,7 +43,7 @@ const UserProfile = () => {
                 >
                   <Input
                     defaultValue={user?.displayName}
-                    size="small"
+                    size="middle"
                     className=""
                     placeholder="Ex: John Doe"
                   />
@@ -63,7 +63,7 @@ const UserProfile = () => {
                   >
                     <Input
                       defaultValue={user?.email}
-                      size="small"
+                      size="middle"
                       className=""
                       placeholder="Ex: example@xyz.com"
                     />
@@ -80,7 +80,11 @@ const UserProfile = () => {
                       },
                     ]}
                   >
-                    <Input size="small" className="" placeholder="0123456789" />
+                    <Input
+                      size="middle"
+                      className=""
+                      placeholder="0123456789"
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -129,13 +133,17 @@ const UserProfile = () => {
                     },
                   ]}
                 >
-                  <Input size="small" className="" placeholder="Ex: 123, xyz" />
+                  <Input
+                    size="middle"
+                    className=""
+                    placeholder="Ex: 123, xyz"
+                  />
                 </Form.Item>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-10">
-            <div className="rounded-xl shadow-lg p-10 h-full">
+            <div className="rounded-xl shadow-lg p-5 md:p-10 h-full">
               <Form.Item
                 name="notify"
                 label="Recieve EcoSpace Notification?"
@@ -148,7 +156,9 @@ const UserProfile = () => {
               <h2>Notifications: </h2>
               <h2>Notifications: </h2>
             </div>
-            <div className="rounded-xl shadow-lg h-full p-10">Coming soon</div>
+            <div className="rounded-xl shadow-lg h-full p-5 md:p-10">
+              Coming soon
+            </div>
           </div>
         </div>
         <button type="submit" className="p-btn">

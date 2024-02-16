@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CreateEcoSpaceS1 = () => {
   return (
     <div className="w-full md:w-[60%] space-y-5">
-      <h4 className="text-xs text-gray-200">Step 1 of 6</h4>
+      <h4 className="text-xs text-gray-500">Step 1 of 6</h4>
       <h1 className="text-2xl md:text-4xl font-semibold">
         What is the Name of your Company/ Organization?
       </h1>
@@ -33,16 +33,12 @@ const CreateEcoSpaceS1 = () => {
         >
           <Input
             size="large"
-            className="bg-transparent text-gray-200 w-full focus:bg-transparent placeholder:text-gray-500"
+            className="bg-transparent  w-full focus:bg-transparent placeholder:text-gray-500"
             placeholder="Ex: xyz company ltd."
           />
         </Form.Item>
 
-        <Link
-          to="/create-eco-space/s2"
-          type="submit"
-          className="p-btn !bg-accent"
-        >
+        <Link to="/create-eco-space/s2" type="submit" className="p-btn">
           Next
         </Link>
       </Form>

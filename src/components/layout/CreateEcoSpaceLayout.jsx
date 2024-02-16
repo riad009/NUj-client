@@ -3,10 +3,7 @@ import { HomeOutlined } from "@ant-design/icons";
 
 const CreateEcoSpaceLayout = () => {
   return (
-    <div
-      style={{ gridTemplateColumns: "1fr" }}
-      className="bg-accent min-h-screen text-white grid"
-    >
+    <div style={{ gridTemplateColumns: "1fr" }} className=" min-h-screen  grid">
       {/* <div className="py-10 md:py-20">
         <Link
           to="/"

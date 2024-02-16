@@ -8,10 +8,10 @@ const CreateEcoSpaceNotificationConsent = () => {
       <h1 className="text-2xl md:text-4xl font-semibold">
         Stay in contact with EcoSpace Updates
       </h1>
-      <div className="flex flex-col gap-1 text-white">
+      <div className="flex flex-col gap-1 ">
         <label>Example: </label>
-        <p className="text-gray-200">A participant sent you request.</p>
-        <p className="text-gray-200">A team member sent you request.</p>
+        <p className="text-gray-500">A participant sent you request.</p>
+        <p className="text-gray-500">A team member sent you request.</p>
       </div>
       <div className="space-x-1  text-xl">
         <input
@@ -29,7 +29,7 @@ const CreateEcoSpaceNotificationConsent = () => {
         onClick={() =>
           toast.success("EcoSpace created successfully", { duration: 5000 })
         }
-        className="p-btn !bg-accent"
+        className="p-btn "
         to="/"
       >
         Finish

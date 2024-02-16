@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const CreateEcoSpaceS6 = () => {
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
-      <h4 className="text-xs text-gray-200">Step 6 of 6</h4>
+      <h4 className="text-xs text-gray-500">Step 6 of 6</h4>
       <h1 className="text-2xl md:text-4xl font-semibold">
         What is your EcoSpace Team Working on?
       </h1>
@@ -36,7 +36,7 @@ const CreateEcoSpaceS6 = () => {
           <Input
             style={{ input: { color: "red" } }}
             size="large"
-            className="bg-transparent text-gray-200 w-full focus:bg-transparent placeholder:text-gray-500"
+            className="bg-transparent  w-full focus:bg-transparent placeholder:text-gray-500"
             placeholder="Ex: budget, fire campaign"
           />
         </Form.Item>
@@ -45,7 +45,7 @@ const CreateEcoSpaceS6 = () => {
           // onClick={() => toast.success("Created successfully")}
           to="/create-eco-space/plans/banner"
           type="submit"
-          className="p-btn !bg-accent"
+          className="p-btn"
         >
           Next
         </Link>

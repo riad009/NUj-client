@@ -15,12 +15,12 @@ const CreateEcoSpacePlanBanner = () => {
           // onClick={() => toast.success("Created successfully")}
           to="/create-eco-space/plans"
           type="submit"
-          className="p-btn !bg-accent"
+          className="p-btn "
         >
           Continue To EcoSpace Plan
         </Link>
       </div>
-      <p className="text-xs text-gray-200">
+      <p className="text-xs text-gray-500">
         <Link to="/create-eco-space/notification/consent" className="link">
           Skip
         </Link>{" "}

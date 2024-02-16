@@ -105,7 +105,7 @@ const NavbarDemo = () => {
             </Link>
           }
           <input
-            className=" outline-none bg-transparent rounded-full px-3 py-1 w-28"
+            className=" outline-none bg-transparent text-black rounded-full px-3 py-1 w-28"
             type="search"
             placeholder="Search"
           />
@@ -125,7 +125,7 @@ const NavbarDemo = () => {
         </button>
       </li>
       <li className="text-grey tracking-wider flex">
-        <Link to="/profile/user" className="text-4xl">
+        <Link to="/profile/user" className="text-3xl">
           <BsPerson />
         </Link>
       </li>
