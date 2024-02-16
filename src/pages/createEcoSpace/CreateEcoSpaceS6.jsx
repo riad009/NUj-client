@@ -36,7 +36,7 @@ const CreateEcoSpaceS6 = () => {
           <Input
             style={{ input: { color: "red" } }}
             size="large"
-            className="bg-transparent text-gray-200 w-full focus:bg-transparent"
+            className="bg-transparent text-gray-200 w-full focus:bg-transparent placeholder:text-gray-500"
             placeholder="Ex: budget, fire campaign"
           />
         </Form.Item>

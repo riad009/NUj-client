@@ -65,7 +65,7 @@ const CreateEcoSpaceS4 = () => {
             ]}
           >
             <Input
-              className="h-20 bg-transparent text-gray-200 focus:bg-transparent"
+              className="h-20 bg-transparent text-gray-200 focus:bg-transparent placeholder:text-gray-500"
               size="large"
               placeholder="Details of company provided services"
             />

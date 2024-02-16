@@ -33,7 +33,7 @@ const CreateEcoSpaceS1 = () => {
         >
           <Input
             size="large"
-            className="bg-transparent text-gray-200 w-full focus:bg-transparent"
+            className="bg-transparent text-gray-200 w-full focus:bg-transparent placeholder:text-gray-500"
             placeholder="Ex: xyz company ltd."
           />
         </Form.Item>
