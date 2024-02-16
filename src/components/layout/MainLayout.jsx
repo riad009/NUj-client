@@ -3,7 +3,7 @@ import Navbar from "../../pages/shared/nav/Navbar";
 import Footer from "../../pages/shared/footer/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import { Drawer } from "antd";
+import { Button, Drawer, Space } from "antd";
 import SidebarItems from "./SidebarItems";
 
 const MainLayout = () => {
@@ -21,7 +21,7 @@ const MainLayout = () => {
       <Drawer
         title="Navigation"
         placement="left"
-        closable={false}
+        closable={true}
         onClose={onClose}
         open={open}
       >

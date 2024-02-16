@@ -39,13 +39,10 @@ const Hero = () => {
             >
               Continue with Apple
             </Button> */}
-            <Link
-              to="/create-eco-space/banner"
-              className="p-btn w-full md:w-auto"
-            >
+            <Link to="/create-eco-space/banner" className=" p-btn !px-2 w-auto">
               Create Ecospace
             </Link>
-            <button className="p-btn !text-primary !bg-white w-full md:w-auto ">
+            <button className=" p-btn !text-primary !bg-white !px-2 w-auto ">
               Learn More
             </button>
           </div>
