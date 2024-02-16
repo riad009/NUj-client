@@ -19,10 +19,15 @@ const EcoSpaceList = () => {
             Try using a different email
           </Link>
         </p>
-        <div className="flex flex-col p-10 gap-5 bg-[#ecdeec] rounded-lg">
+        <div className="flex flex-col p-5 md:p-10 gap-5 bg-[#ecdeec] rounded-lg">
           <EcoSpaceListItem />
           <EcoSpaceListItem />
           <EcoSpaceListItem />
+          <div className="text-center">
+            <Link to="/create-eco-space/banner" className="p-btn">
+              Create New
+            </Link>
+          </div>
         </div>
       </div>
     </section>
