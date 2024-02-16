@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import unknown from "../../assets/home/unknown.jpg";
+import EcoSpaceListItem from "./EcoSpaceListItem";
 
 const EcoSpaceList = () => {
+  const { user } = useContext(AuthContext);
   return (
-    <div>
-      <h2 className="mt-40">List</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. In, dicta eius
-        nulla nihil ipsam vel at, tempora dolorum quisquam, commodi autem
-        blanditiis molestias sequi perferendis itaque vero repellat illo modi
-        laborum aspernatur rem cupiditate vitae doloribus consequuntur.
-        Reiciendis in voluptates quidem deserunt harum ex sunt temporibus illo
-        libero repellendus ut, facere debitis sint sapiente expedita distinctio
-        aut! Iusto culpa sint quidem sequi beatae adipisci, cupiditate quam eum
-        dicta fugit quo earum minima illum consequuntur obcaecati sunt quia
-        inventore itaque enim et. Culpa ut deserunt nemo nesciunt vero magnam
-        perferendis adipisci optio? Laborum cum laboriosam magnam quos obcaecati
-        est vero maxime.
-      </p>
-      <Link className="p-btn" to="/profile/eco-space">
-        View EcoSpace
-      </Link>
-    </div>
+    <section className="bg-primary min-h-screen flex justify-center items-center overflow-hidden">
+      <div className="w-11/12 mx-auto my-20 space-y-5">
+        <h4 className="text-xs text-white">Welcome</h4>
+        <h1 className="text-2xl md:text-4xl font-semibold text-white">
+          EcoSpaces accociated with <br /> {user?.email}
+        </h1>
+        <p className="text-sm text-white">
+          Not seeing your EcoSpaces?
+          <Link to="/login-options" className="link">
+            Try using a different email
+          </Link>
+        </p>
+        <div className="flex flex-col p-10 gap-5 bg-[#ecdeec] rounded-lg">
+          <EcoSpaceListItem />
+          <EcoSpaceListItem />
+          <EcoSpaceListItem />
+        </div>
+      </div>
+    </section>
   );
 };
 
