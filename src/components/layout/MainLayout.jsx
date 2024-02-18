@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { Button, Drawer, Space } from "antd";
 import SidebarItems from "./SidebarItems";
+import logo from "../../assets/logos/main-logo.png";
 
 const MainLayout = () => {
   const { open, onClose } = useContext(AuthContext);
@@ -19,7 +20,7 @@ const MainLayout = () => {
 
       <Footer />
       <Drawer
-        title="Navigation"
+        title={<img src={logo} alt="" className="size-8" />}
         placement="left"
         closable={true}
         onClose={onClose}
