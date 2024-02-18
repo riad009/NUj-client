@@ -42,7 +42,7 @@ const UserProfile = () => {
                   ]}
                 >
                   <Input
-                    defaultValue={user?.displayName}
+                    // defaultValue={user?.displayName}
                     size="middle"
                     className=""
                     placeholder="Ex: John Doe"
@@ -62,10 +62,10 @@ const UserProfile = () => {
                     ]}
                   >
                     <Input
-                      defaultValue={user?.email}
+                      // defaultValue={user?.email}
                       size="middle"
                       className=""
-                      placeholder="Ex: example@xyz.com"
+                      placeholder="Ex: example@gmail.com"
                     />
                   </Form.Item>
                 </div>

@@ -37,7 +37,7 @@ const CreateEcoSpaceS2 = () => {
             <Input
               size="large"
               className="bg-transparent w-full focus:bg-transparent placeholder:text-gray-500"
-              placeholder="xyz@example.com"
+              placeholder="example@gmail.com"
               type="email"
             />
           </Form.Item>
