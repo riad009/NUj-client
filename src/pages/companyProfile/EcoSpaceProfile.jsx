@@ -12,8 +12,8 @@ const CompanyProfile = () => {
         <h1 className="text-2xl md:text-4xl font-semibold text-white">
           EcoSpace - BlockClub
         </h1>
-
-        <div className="flex flex-col p-5 md:p-10 gap-2 bg-[#ecdeec] rounded-lg">
+        {/* bg-[#ecdeec] */}
+        <div className="flex flex-col p-5 md:p-10 gap-2 bg-base-100  rounded-lg">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl md:text-4xl font-semibold">
               Company / Org Name
