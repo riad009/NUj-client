@@ -6,6 +6,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { CgPerformance } from "react-icons/cg";
 import { FaUsers } from "react-icons/fa";
 import { PiOfficeChair } from "react-icons/pi";
+import { FaHandshake } from "react-icons/fa";
 
 const items = [
   {
@@ -20,8 +21,13 @@ const items = [
   },
   {
     key: "EcoSpaces",
-    label: <NavLink to="/dashboard/ecospaces">EcoSpaces</NavLink>,
+    label: <NavLink to="/dashboard/eco-spaces">EcoSpaces</NavLink>,
     icon: <PiOfficeChair />,
+  },
+  {
+    key: "Appointment",
+    label: <NavLink to="/dashboard/appointments">Appointments</NavLink>,
+    icon: <FaHandshake />,
   },
   {
     key: "Back to Home",
@@ -34,6 +40,7 @@ const DashboardLayout = () => {
   return (
     <Layout>
       <Sider
+        className=""
         style={{ paddingTop: "80px", backgroundColor: "white" }}
         breakpoint="lg"
         collapsedWidth="0"
@@ -51,7 +58,7 @@ const DashboardLayout = () => {
         <Header>
           <DashboardNavbar />
         </Header>
-        <Content>
+        <Content className="h-[90vh] overflow-y-scroll">
           <div className="p-5">
             <Outlet />
           </div>

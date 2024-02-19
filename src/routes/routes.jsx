@@ -27,6 +27,8 @@ import MakeAppointment from "../pages/appointment/MakeAppointment";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import DashboardUsers from "../pages/dashboard/DashboardUsers";
+import DashboardEcospaces from "../pages/dashboard/DashboardEcospaces";
+import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -159,6 +161,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/users",
         element: <DashboardUsers />,
+      },
+      {
+        path: "/dashboard/eco-spaces",
+        element: <DashboardEcospaces />,
+      },
+      {
+        path: "/dashboard/appointments",
+        element: <DashboardAppointments />,
       },
     ],
   },
