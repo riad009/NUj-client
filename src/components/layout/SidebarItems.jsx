@@ -4,13 +4,18 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import { GoPerson } from "react-icons/go";
 import { PiOfficeChair } from "react-icons/pi";
-import { MdAddBusiness } from "react-icons/md";
+import { MdOutlineDashboard, MdAddBusiness } from "react-icons/md";
 import { LiaHandshakeSolid } from "react-icons/lia";
+import { IoHomeOutline } from "react-icons/io5";
 
 const SidebarItems = () => {
   const { logOut, onClose } = useContext(AuthContext);
   return (
     <div className="flex flex-col text-base tracking-wider space-y-4">
+      <Link onClick={onClose} to="/home" className="flex items-center gap-2">
+        <IoHomeOutline className="text-xl text-primary" />
+        <span>Home</span>
+      </Link>
       <Link
         onClick={onClose}
         to="/profile/user"
@@ -18,6 +23,14 @@ const SidebarItems = () => {
       >
         <GoPerson className="text-xl text-primary" />
         <span>Profile</span>
+      </Link>
+      <Link
+        onClick={onClose}
+        to="/dashboard"
+        className="flex items-center gap-2"
+      >
+        <MdOutlineDashboard className="text-xl text-primary" />
+        <span>Dashboard</span>
       </Link>
       <Link
         onClick={onClose}

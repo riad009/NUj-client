@@ -24,6 +24,9 @@ import UserProfile from "../pages/userProfile/UserProfile";
 import EcoSpaceList from "../pages/companyProfile/EcoSpaceList";
 import EcoSpaceProfile from "../pages/companyProfile/EcoSpaceProfile";
 import MakeAppointment from "../pages/appointment/MakeAppointment";
+import DashboardLayout from "../components/layout/DashboardLayout";
+import DashboardHome from "../pages/dashboard/DashboardHome";
+import DashboardUsers from "../pages/dashboard/DashboardUsers";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -38,6 +41,10 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/home",
         element: <Home />,
       },
       {
@@ -91,7 +98,6 @@ export const router = createBrowserRouter([
     path: "/create-eco-space",
     element: (
       <PrivateRoute>
-        {" "}
         <CreateEcoSpaceLayout />
       </PrivateRoute>
     ),
@@ -131,6 +137,28 @@ export const router = createBrowserRouter([
       {
         path: "/create-eco-space/notification/consent",
         element: <CreateEcoSpaceNotificationConsent />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard",
+        element: <DashboardHome />,
+      },
+      {
+        path: "/dashboard/statistics",
+        element: <DashboardHome />,
+      },
+      {
+        path: "/dashboard/users",
+        element: <DashboardUsers />,
       },
     ],
   },
