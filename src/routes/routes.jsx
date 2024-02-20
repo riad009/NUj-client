@@ -29,6 +29,7 @@ import DashboardHome from "../pages/dashboard/DashboardHome";
 import DashboardUsers from "../pages/dashboard/DashboardUsers";
 import DashboardEcospaces from "../pages/dashboard/DashboardEcospaces";
 import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
+import DashboardUserProfile from "../pages/dashboard/DashboardUserProfile";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -169,6 +170,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/appointments",
         element: <DashboardAppointments />,
+      },
+      {
+        path: "/dashboard/users/user",
+        element: <DashboardUserProfile />,
       },
     ],
   },
