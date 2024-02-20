@@ -13,8 +13,7 @@ const DashboardEcospaces = () => {
         <thead>
           <tr>
             <th>Company</th>
-            <th>Details</th>
-
+            <th>Service</th>
             <th>Staffs</th>
             <th>Plan</th>
             <th>Actions</th>

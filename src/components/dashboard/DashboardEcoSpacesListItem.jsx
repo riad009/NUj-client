@@ -8,19 +8,14 @@ const DashboardEcoSpacesListItem = () => {
       <td>
         <div>
           <div className="font-bold">XYZ Org</div>
-          <div className="text-sm opacity-50">Mental Support</div>
         </div>
       </td>
-      <td>
-        Address, Address, Address,
-        <br />
-        <span className="badge badge-ghost badge-sm">email, website</span>
-      </td>
+      <td>Mental Support</td>
 
       <td>0</td>
       <td>EcoSpace Enterprise</td>
       <td className="flex items-center justify-start gap-2">
-        <Link to="/dashboard/eco-spaces/eco-space">
+        <Link to="/profile/eco-space">
           <IoEye className="text-xl text-primary" />
         </Link>
       </td>
