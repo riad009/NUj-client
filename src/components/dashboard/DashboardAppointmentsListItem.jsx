@@ -17,7 +17,7 @@ const DashboardAppointmentsListItem = () => {
       <td>Reentry issues</td>
       <td>Approved</td>
       <td className="flex items-center justify-start gap-2">
-        <Link to="/dashboard/users/user">
+        <Link to="/profile/eco-space/appointments/appointment">
           <IoEye className="text-xl text-primary" />
         </Link>
         <button>

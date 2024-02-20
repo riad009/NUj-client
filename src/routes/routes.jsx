@@ -30,6 +30,7 @@ import DashboardUsers from "../pages/dashboard/DashboardUsers";
 import DashboardEcospaces from "../pages/dashboard/DashboardEcospaces";
 import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
 import DashboardUserProfile from "../pages/dashboard/DashboardUserProfile";
+import AppointmentPage from "../pages/appointment/AppointmentPage";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile/eco-space",
         element: <EcoSpaceProfile />,
+      },
+      {
+        path: "/profile/eco-space/appointments/appointment",
+        element: <AppointmentPage />,
       },
       {
         path: "/make-appointment",

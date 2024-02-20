@@ -5,15 +5,13 @@ import unknown from "../../assets/home/unknown.jpg";
 import { Option } from "antd/es/mentions";
 import DashboardUserProfileEcoSpaceListItem from "../../components/dashboard/DashboardUserProfileEcoSpaceListItem";
 import DashboardUserProfileAppointmentListItem from "../../components/dashboard/DashboardUserProfileAppointmentListItem";
-import { usePDF } from "react-to-pdf";
 
 const DashboardUserProfile = () => {
   const { user } = useContext(AuthContext);
-  const { toPDF, targetRef } = usePDF({ filename: "profile_johnDoe.pdf" });
   return (
     <div className="h-auto space-y-5">
       <Form className="w-full">
-        <div ref={targetRef} className="  space-y-5 flex flex-col items-center">
+        <div className="  space-y-5 flex flex-col items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
             <div className="rounded-xl shadow-lg p-5 md:p-10 flex flex-col gap-10 items-center justify-center bg-base-100">
               <div className="flex flex-col gap-5 items-center">
@@ -199,9 +197,7 @@ const DashboardUserProfile = () => {
         </div>
       </Form>
       <div className="text-center">
-        <button onClick={() => toPDF()} className="p-btn">
-          Download Information
-        </button>
+        <button className="p-btn">Download Information</button>
       </div>
     </div>
   );
