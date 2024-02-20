@@ -1,5 +1,6 @@
 import React from "react";
 import { IoEye } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const DashboardEcoSpacesListItem = () => {
@@ -18,6 +19,9 @@ const DashboardEcoSpacesListItem = () => {
         <Link to="/profile/eco-space">
           <IoEye className="text-xl text-primary" />
         </Link>
+        <button>
+          <MdDelete className="text-xl text-error" />
+        </button>
       </td>
     </tr>
   );
