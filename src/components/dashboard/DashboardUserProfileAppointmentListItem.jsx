@@ -12,7 +12,7 @@ const DashboardUserProfileAppointmentListItem = () => {
       <td>Requires Court Verification</td>
       <td>Approved</td>
       <td className="flex items-center justify-start gap-2">
-        <Link to="/profile/eco-space">
+        <Link>
           <IoEye className="text-xl text-primary" />
         </Link>
       </td>

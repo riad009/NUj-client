@@ -18,7 +18,7 @@ const CompanyProfile = () => {
           </h1>
           {/* bg-[#ecdeec] */}
           <div className="flex flex-col p-5 md:p-10 gap-2 bg-base-100  rounded-lg">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-start md:items-center">
               <h1 className="text-2xl md:text-4xl font-semibold">
                 Company / Org Name
               </h1>
@@ -64,7 +64,7 @@ const CompanyProfile = () => {
               </div>
             </div>
             <h3>Website - websiteURL</h3>
-            <div className="flex justify-between items-center my-4">
+            <div className="flex flex-col md:flex-row justify-between items-center my-4">
               <div className="flex items-center justify-center gap-1">
                 <MdOutlineEmail className="text-2xl" />
                 <span>example@gmail.com</span>

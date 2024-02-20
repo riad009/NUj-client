@@ -75,12 +75,12 @@ const Navbar = () => {
                   </Link>
                 </li>
               </ul>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <Link to="/profile/user" className="text-3xl block md:hidden">
                   <BsPerson />
                 </Link>
                 <button
-                  className={` text-sm md:hidden px-4 py-1  font-semibold rounded-md ${
+                  className={` text-sm md:hidden py-1  font-semibold rounded-md ${
                     isScroll ? "bg-base-100  text-primary border-primary" : ""
                   }`}
                   onClick={showDrawer}
