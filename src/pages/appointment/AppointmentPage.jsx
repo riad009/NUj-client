@@ -33,10 +33,16 @@ const AppointmentPage = () => {
                 </button>
               </div>
             </div>
-            <h2 className="text-lg">Participant - John Doe</h2>
+            <Link
+              to="/dashboard/users/user"
+              className="text-lg flex items-center gap-1"
+            >
+              <span>Participant - John Doe</span>
+              <FaArrowRight />
+            </Link>
+            {/* <h2 className="text-lg">Participant - John Doe</h2> */}
             <h3>Reason - Requiring court verification</h3>
 
-            <h3>Website - websiteURL</h3>
             <div className="flex flex-col md:flex-row justify-between items-center my-4">
               <div className="flex items-center justify-center gap-1">
                 <CiTimer className="text-2xl" />

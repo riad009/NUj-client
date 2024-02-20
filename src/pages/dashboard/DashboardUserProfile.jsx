@@ -1,17 +1,45 @@
 import { DatePicker, Form, Input, Select, Switch } from "antd";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import unknown from "../../assets/home/unknown.jpg";
 import { Option } from "antd/es/mentions";
 import DashboardUserProfileEcoSpaceListItem from "../../components/dashboard/DashboardUserProfileEcoSpaceListItem";
 import DashboardUserProfileAppointmentListItem from "../../components/dashboard/DashboardUserProfileAppointmentListItem";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const DashboardUserProfile = () => {
   const { user } = useContext(AuthContext);
+  const pdfRef = useRef();
+
+  const handleDownloadPDF = () => {
+    const input = pdfRef.current;
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4", true);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+      const imgX = (pdfWidth - imgWidth * ratio) / 2;
+      const imgY = 30;
+      pdf.addImage(
+        imgData,
+        "PNG",
+        imgX,
+        imgY,
+        imgWidth * ratio,
+        imgHeight * ratio
+      );
+      pdf.save("user_data.pdf");
+    });
+  };
+
   return (
     <div className="h-auto space-y-5">
       <Form className="w-full">
-        <div className="  space-y-5 flex flex-col items-center">
+        <div ref={pdfRef} className="  space-y-5 flex flex-col items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
             <div className="rounded-xl shadow-lg p-5 md:p-10 flex flex-col gap-10 items-center justify-center bg-base-100">
               <div className="flex flex-col gap-5 items-center">
@@ -197,7 +225,9 @@ const DashboardUserProfile = () => {
         </div>
       </Form>
       <div className="text-center">
-        <button className="p-btn">Download Information</button>
+        <button onClick={handleDownloadPDF} className="p-btn">
+          Download Information
+        </button>
       </div>
     </div>
   );
