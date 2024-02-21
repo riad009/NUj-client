@@ -4,9 +4,21 @@ import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TiTickOutline } from "react-icons/ti";
 import { FaArrowRight } from "react-icons/fa";
-import { Image } from "antd";
+import { Image, Modal, Select } from "antd";
+import { Option } from "antd/es/mentions";
+import { useState } from "react";
 
 const AppointmentPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <section className="bg-primary min-h-screen flex justify-center items-center overflow-hidden">
@@ -24,10 +36,7 @@ const AppointmentPage = () => {
                 <FaArrowRight />
               </Link>
               <div className="flex gap-2">
-                <button className="p-btn ">
-                  {/* <TiTickOutline /> */}
-                  Finish
-                </button>
+                <button className="p-btn ">Completed</button>
                 <button className="p-btn !bg-error">
                   <AiOutlineDelete />
                 </button>
@@ -74,13 +83,23 @@ const AppointmentPage = () => {
               </div>
             </div>
             <div className="text-center">
-              <Link to="/dashboard/appointments" className="p-btn ">
-                Approve
-              </Link>
+              <p>Pending</p>
+              <button onClick={showModal} className="p-btn ">
+                Update Status
+              </button>
             </div>
           </div>
         </div>
       </section>
+      <Modal
+        title="Accept the appointment request?"
+        okType="default"
+        okText="Accept"
+        cancelText="Decline"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      ></Modal>
     </>
   );
 };
