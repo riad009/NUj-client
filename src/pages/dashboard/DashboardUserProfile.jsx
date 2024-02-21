@@ -5,41 +5,117 @@ import unknown from "../../assets/home/unknown.jpg";
 import { Option } from "antd/es/mentions";
 import DashboardUserProfileEcoSpaceListItem from "../../components/dashboard/DashboardUserProfileEcoSpaceListItem";
 import DashboardUserProfileAppointmentListItem from "../../components/dashboard/DashboardUserProfileAppointmentListItem";
-import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
+const ecoSpaces = [
+  {
+    company: "XYZ ltd.",
+    service: "Mental Service",
+    project: "Camp fire",
+    id: "mongodb_id",
+  },
+  {
+    company: "XYZ ltd.",
+    service: "Mental Service",
+    project: "Camp fire",
+    id: "mongodb_id",
+  },
+  {
+    company: "XYZ ltd.",
+    service: "Mental Service",
+    project: "Camp fire",
+    id: "mongodb_id",
+  },
+];
+
+const appointments = [
+  {
+    company: "XYZ ltd.",
+    location: "address, address",
+    date: "18:06:00 - 2024-02-13",
+    reason: "Requires court verification",
+    status: "completed",
+    id: "mongodb_id",
+  },
+  {
+    company: "XYZ ltd.",
+    location: "address, address",
+    date: "18:06:00 - 2024-02-13",
+    reason: "Requires court verification",
+    status: "completed",
+    id: "mongodb_id",
+  },
+  {
+    company: "XYZ ltd.",
+    location: "address, address",
+    date: "18:06:00 - 2024-02-13",
+    reason: "Requires court verification",
+    status: "completed",
+    id: "mongodb_id",
+  },
+  {
+    company: "XYZ ltd.",
+    location: "address, address",
+    date: "18:06:00 - 2024-02-13",
+    reason: "Requires court verification",
+    status: "completed",
+    id: "mongodb_id",
+  },
+  {
+    company: "XYZ ltd.",
+    location: "address, address",
+    date: "18:06:00 - 2024-02-13",
+    reason: "Requires court verification",
+    status: "completed",
+    id: "mongodb_id",
+  },
+];
 
 const DashboardUserProfile = () => {
   const { user } = useContext(AuthContext);
-  const pdfRef = useRef();
 
-  const handleDownloadPDF = () => {
-    const input = pdfRef.current;
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4", true);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 30;
-      pdf.addImage(
-        imgData,
-        "PNG",
-        imgX,
-        imgY,
-        imgWidth * ratio,
-        imgHeight * ratio
-      );
-      pdf.save("user_data.pdf");
+  const doc = new jsPDF();
+
+  const printPdf = () => {
+    doc.text(`Profile Information - John Doe`, 15, 10);
+    autoTable(doc, {
+      head: [["Name", "Email", "Phone", "Gender", "Birth", "Address"]],
+      body: [
+        [
+          "John Doe",
+          "example@gmail.com",
+          "0123456789",
+          "male",
+          "2024-02-21",
+          "address, address",
+        ],
+      ],
     });
+    // Get the height of the first table
+    const firstTableHeight = doc.previousAutoTable.finalY;
+
+    doc.text(`Eco Spaces`, 15, firstTableHeight + 5);
+    autoTable(doc, {
+      head: [["Company", "Service", "Project", "ID"]],
+      body: ecoSpaces.map((item) => Object.values(item)),
+    });
+    // Get the height of the second table
+    const secondTableHeight = doc.previousAutoTable.finalY;
+
+    doc.text(`Appointments`, 15, secondTableHeight + 5);
+    autoTable(doc, {
+      head: [["Company", "Location", "Date", "Reason", "Status", "ID"]],
+      body: appointments.map((item) => Object.values(item)),
+    });
+
+    doc.save("john_doe.pdf");
   };
 
   return (
     <div className="h-auto space-y-5">
       <Form className="w-full">
-        <div ref={pdfRef} className="  space-y-5 flex flex-col items-center">
+        <div className="  space-y-5 flex flex-col items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
             <div className="rounded-xl shadow-lg p-5 md:p-10 flex flex-col gap-10 items-center justify-center bg-base-100">
               <div className="flex flex-col gap-5 items-center">
@@ -225,7 +301,7 @@ const DashboardUserProfile = () => {
         </div>
       </Form>
       <div className="text-center">
-        <button onClick={handleDownloadPDF} className="p-btn">
+        <button onClick={printPdf} className="p-btn">
           Download Information
         </button>
       </div>
