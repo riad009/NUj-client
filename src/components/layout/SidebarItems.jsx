@@ -76,24 +76,41 @@ const SidebarItems = () => {
     },
   ];
   return (
-    <div className="flex flex-col text-base tracking-wider space-y-4">
-      <Link onClick={onClose} to="/home" className="flex items-center gap-2">
+    <div className="flex flex-col text-base tracking-wider space-y-2">
+      <NavLink
+        onClick={onClose}
+        to="/home"
+        // activeClassName="active-link"
+        // className=""
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
+      >
         <IoHomeOutline className="text-xl text-primary" />
         <span>Home</span>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         onClick={onClose}
         to="/profile/user"
-        className="flex items-center gap-2"
+        // activeClassName="active-link"
+        // className="flex items-center gap-2"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
       >
         <GoPerson className="text-xl text-primary" />
         <span>Profile</span>
-      </Link>
+      </NavLink>
 
       <Dropdown
         menu={{
           items,
         }}
+        className="p-2"
       >
         <a onClick={(e) => e.preventDefault()}>
           <Space>
@@ -107,6 +124,7 @@ const SidebarItems = () => {
         menu={{
           items,
         }}
+        className="p-2"
       >
         <a onClick={(e) => e.preventDefault()}>
           <Space>
@@ -115,42 +133,66 @@ const SidebarItems = () => {
           </Space>
         </a>
       </Dropdown>
-      <Link onClick={onClose} to="/pricing" className="flex items-center gap-2">
+      <NavLink
+        onClick={onClose}
+        to="/pricing"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
+      >
         <AiOutlineDollar className="text-xl text-primary" />
         <span>Pricing</span>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         onClick={onClose}
         to="/dashboard"
-        className="flex items-center gap-2"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
       >
         <MdOutlineDashboard className="text-xl text-primary" />
         <span>Dashboard</span>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         onClick={onClose}
         to="/profile/eco-space/list"
-        className="flex items-center gap-2"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
       >
         <PiOfficeChair className="text-xl text-primary" />
         <span>My EcoSpaces</span>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         onClick={onClose}
         to="/create-eco-space/banner"
-        className="flex items-center gap-2"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
       >
         <MdAddBusiness className="text-xl text-primary" />
         <span>Add new EcoSpace</span>
-      </Link>
-      <Link
+      </NavLink>
+      <NavLink
         onClick={onClose}
         to="/make-appointment"
-        className="flex items-center gap-2"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
       >
         <LiaHandshakeSolid className="text-xl text-primary" />
         <span>Make an Appointment</span>
-      </Link>
+      </NavLink>
       <button
         className={`px-4 py-2 border uppercase  font-semibold rounded-md
           bg-error text-base-100

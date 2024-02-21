@@ -62,3 +62,8 @@
 .bg-t {
   background-color: rgba(235, 234, 234, 0.274);
 }
+
+.active-link {
+  background-color: black !important;
+  font-size: 30px;
+}

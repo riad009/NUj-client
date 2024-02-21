@@ -52,7 +52,7 @@ const DashboardLayout = () => {
         }}
       >
         <div className="demo-logo-vertical" />
-        <Menu theme="light" mode="inline" items={items} />
+        <Menu theme="light" mode="vertical" items={items} />
       </Sider>
       <Layout>
         <Header>

@@ -3,7 +3,7 @@ import Navbar from "../../pages/shared/nav/Navbar";
 import Footer from "../../pages/shared/footer/Footer";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import { Button, Drawer, Space } from "antd";
+import { Drawer } from "antd";
 import SidebarItems from "./SidebarItems";
 import logo from "../../assets/logos/main-logo.png";
 
