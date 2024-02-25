@@ -10,6 +10,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { Dropdown, Space } from "antd";
 import { AiOutlineDollar } from "react-icons/ai";
 import { DownOutlined } from "@ant-design/icons";
+import { RiQrScan2Line } from "react-icons/ri";
 
 const SidebarItems = () => {
   const { logOut, onClose } = useContext(AuthContext);
@@ -104,6 +105,18 @@ const SidebarItems = () => {
       >
         <GoPerson className="text-xl text-primary" />
         <span>Profile</span>
+      </NavLink>
+      <NavLink
+        onClick={onClose}
+        to="/toxic-detection"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
+      >
+        <RiQrScan2Line className="text-xl text-primary" />
+        <span>Toxicity Detection</span>
       </NavLink>
 
       <Dropdown

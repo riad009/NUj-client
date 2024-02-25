@@ -10,3 +10,15 @@ _____________________________
 (locationphoto), (reason), documents
 
 -------------------------------
+
+
+1. Text input
+2. good ui
+3. resopnse display ()
+4. graph
+5. pdf to txt
+6. previous rec
+
+
+
+response - ({rating, plan, suggestion})

@@ -28,8 +28,8 @@ const Navbar = () => {
       </li>
       <li className="text-grey tracking-wider flex">
         <button
-          className={`hidden md:block px-4 py-2  uppercase font-semibold rounded-md ${
-            isScroll ? "bg-base-100 text-primary border-primary" : ""
+          className={`hidden md:block ps-4 py-2  uppercase font-semibold rounded-md ${
+            isScroll ? " text-primary border-primary" : ""
           }`}
           onClick={showDrawer}
         >
