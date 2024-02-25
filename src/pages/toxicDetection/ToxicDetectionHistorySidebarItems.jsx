@@ -4,6 +4,9 @@ const ToxicDetectionHistorySidebarItems = ({ onClose, setResult }) => {
   const history = {
     rating: 3,
     plan: "Education",
+    psaTitle: "Effective Project Management",
+    psaIntroduction:
+      "This PSA highlights effective project management strategies, emphasizing the importance of addressing challenges collaboratively.",
     suggestion:
       "You need education and everything, You need education and everything, You need education and everything, You need education and everything, You need education and everything, You need education and everything, You need education and everything, ",
     text: "I eat Rice",

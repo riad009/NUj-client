@@ -24,6 +24,9 @@ const ToxicDetection = () => {
   const response = {
     rating: 4,
     plan: "Family Counseling",
+    psaTitle: "Effective Project Management",
+    psaIntroduction:
+      "This PSA highlights effective project management strategies, emphasizing the importance of addressing challenges collaboratively.",
     suggestion:
       "Your comprehensive success plan needs to include Family Counseling,Your comprehensive success plan needs to include Family CounselingYour comprehensive success plan needs to include Family CounselingYour comprehensive success plan needs to include Family CounselingYour comprehensive success plan needs to include Family Counseling",
   };

@@ -1,8 +1,8 @@
-import { Chart as chartJs } from "chart.js/auto";
+import { Title, Chart as chartJs } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 const ToxicDetectionResponseDisplay = ({ result }) => {
-  const { rating, plan, suggestion } = result;
+  const { rating, plan, suggestion, psaTitle, psaIntroduction } = result;
 
   return (
     <div>
@@ -10,7 +10,7 @@ const ToxicDetectionResponseDisplay = ({ result }) => {
       <div className="  space-y-5 flex flex-col items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
           <div className="rounded-xl shadow-lg p-5 md:p-10 h-full bg-base-100">
-            <h1 className="text-lg">Rating: </h1>
+            <h1 className="text-lg font-semibold">Rating: </h1>
             <Bar
               data={{
                 labels: ["Toxicity"],
@@ -45,16 +45,23 @@ const ToxicDetectionResponseDisplay = ({ result }) => {
               }}
             />
           </div>
-          <div className="rounded-xl shadow-lg p-5 md:p-10 h-full bg-base-100 space-y-2">
-            <h1 className="text-lg">Plan: </h1>
-            <p>
-              Your comprehensive success plan needs to include{" "}
-              <span className="link">{plan}</span>
-            </p>
+          <div className="rounded-xl shadow-lg p-5 md:p-10 h-full bg-base-100 space-y-4">
+            <div>
+              <h1 className="text-lg font-semibold">Comprehensive Plan: </h1>
+              <p>
+                Your comprehensive success plan needs to include
+                <span className="link">{plan}</span>
+              </p>
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold">PSA: </h1>
+              <p>Title - {psaTitle}</p>
+              <p>Introduction - {psaIntroduction}</p>
+            </div>
           </div>
         </div>
         <div className="rounded-xl shadow-lg p-5 md:p-10 w-full bg-base-100 space-y-2">
-          <h1 className="text-lg">Suggestion: </h1>
+          <h1 className="text-lg font-semibold">Suggestion: </h1>
           <p>{suggestion}</p>
         </div>
       </div>
