@@ -32,6 +32,8 @@ import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
 import DashboardUserProfile from "../pages/dashboard/DashboardUserProfile";
 import AppointmentPage from "../pages/appointment/AppointmentPage";
 import ToxicDetection from "../pages/toxicDetection/ToxicDetection";
+import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppointment";
+import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -85,12 +87,20 @@ export const router = createBrowserRouter([
         element: <AppointmentPage />,
       },
       {
+        path: "/eco-space-list",
+        element: <EcoSpaceListForAppointment />,
+      },
+      {
         path: "/make-appointment",
         element: <MakeAppointment />,
       },
       {
         path: "/toxic-detection",
         element: <ToxicDetection />,
+      },
+      {
+        path: "/upload-documents",
+        element: <UploadDocuments />,
       },
     ],
   },

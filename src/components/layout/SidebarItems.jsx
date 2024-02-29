@@ -11,6 +11,7 @@ import { Dropdown, Space } from "antd";
 import { AiOutlineDollar } from "react-icons/ai";
 import { DownOutlined } from "@ant-design/icons";
 import { RiQrScan2Line } from "react-icons/ri";
+import { RiFolderUploadLine } from "react-icons/ri";
 
 const SidebarItems = () => {
   const { logOut, onClose } = useContext(AuthContext);
@@ -119,7 +120,7 @@ const SidebarItems = () => {
         <span>Toxicity Detection</span>
       </NavLink>
 
-      <Dropdown
+      {/* <Dropdown
         menu={{
           items,
         }}
@@ -145,7 +146,7 @@ const SidebarItems = () => {
             Services
           </Space>
         </a>
-      </Dropdown>
+      </Dropdown> */}
       <NavLink
         onClick={onClose}
         to="/pricing"
@@ -196,7 +197,7 @@ const SidebarItems = () => {
       </NavLink>
       <NavLink
         onClick={onClose}
-        to="/make-appointment"
+        to="/eco-space-list"
         className={({ isActive, isPending }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
@@ -205,6 +206,18 @@ const SidebarItems = () => {
       >
         <LiaHandshakeSolid className="text-xl text-primary" />
         <span>Make an Appointment</span>
+      </NavLink>
+      <NavLink
+        onClick={onClose}
+        to="/upload-documents"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-gray-200" : ""
+          }`
+        }
+      >
+        <RiFolderUploadLine className="text-xl text-primary" />
+        <span>Upload Documents</span>
       </NavLink>
       <button
         className={`px-4 py-2 border uppercase  font-semibold rounded-md
