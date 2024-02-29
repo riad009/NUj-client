@@ -97,7 +97,7 @@ const UploadDocuments = () => {
             </Form.Item>
           </div>
 
-          <Link to="/create-eco-space/s4" type="submit" className="p-btn ">
+          <Link to="/home" type="submit" className="p-btn ">
             Next
           </Link>
         </Form>

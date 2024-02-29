@@ -84,7 +84,7 @@ const CompanyProfile = () => {
               </div>
             </div>
             <h2 className="text-lg mt-4">Documents: </h2>
-            <div className="grid grid-cols-2 gap-8 mt-2 mb-6 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2 mb-6 items-center">
               <video className="w-full" controls>
                 <source
                   src="https://www.w3schools.com/html/mov_bbb.mp4"
@@ -95,7 +95,7 @@ const CompanyProfile = () => {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <h3 className="font-semibold">Voice: </h3>
-                  <audio className="" controls>
+                  <audio className="w-full md:w-8/12" controls>
                     <source
                       src="https://www.w3schools.com/html/horse.ogg"
                       type="audio/ogg"
