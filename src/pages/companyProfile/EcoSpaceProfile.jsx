@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
-import { MdOutlineEmail } from "react-icons/md";
+import {
+  MdOutlineCloudDownload,
+  MdOutlineDriveFolderUpload,
+  MdOutlineEmail,
+} from "react-icons/md";
 import { CiPhone } from "react-icons/ci";
 import { IoLocationOutline } from "react-icons/io5";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineDelete } from "react-icons/ai";
 import { useState } from "react";
 import EcoSpaceProfileEditMpdal from "./EcoSpaceProfileEditModal";
+import { Button } from "antd";
 
 const CompanyProfile = () => {
   const [open, setOpen] = useState(false);
@@ -76,6 +81,47 @@ const CompanyProfile = () => {
               <div className="flex items-center justify-center gap-1">
                 <IoLocationOutline className="text-2xl" />
                 <span>Address, address, address</span>
+              </div>
+            </div>
+            <h2 className="text-lg mt-4">Documents: </h2>
+            <div className="grid grid-cols-2 gap-8 mt-2 mb-6 items-center">
+              <video className="w-full" controls>
+                <source
+                  src="https://www.w3schools.com/html/mov_bbb.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support this video.
+              </video>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <h3 className="font-semibold">Voice: </h3>
+                  <audio className="" controls>
+                    <source
+                      src="https://www.w3schools.com/html/horse.ogg"
+                      type="audio/ogg"
+                    />
+                    <source
+                      src="https://www.w3schools.com/html/horse.ogg"
+                      type="audio/mpeg"
+                    />
+                    Your browser does not support this audio.
+                  </audio>
+                </div>
+                <div className="space-y-2">
+                  <h3 className="font-semibold">
+                    Documents Uploaded to EcoSpace:
+                  </h3>
+                  {/* <button className="p-btn">Download Document</button> */}
+                  <Button
+                    size="large"
+                    className="flex items-center"
+                    icon={
+                      <MdOutlineCloudDownload className="text-blue-500 size-6" />
+                    }
+                  >
+                    Download Document
+                  </Button>
+                </div>
               </div>
             </div>
             <div className="text-center">
