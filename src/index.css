@@ -1,21 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Conthrax";
+  src: url("./fonts/conthrax-sb.otf") format("truetype"); */
+  font-family: "Geomentos";
+  src: url("./fonts/geomentos.ttf") format("truetype");
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+.title-font {
 }
 
 .p-btn {
   text-transform: uppercase;
   padding: 8px 20px;
   color: white;
-  background-color: #4a154b;
+  /* background-color: #4a154b; */
+  background-color: #b76aab;
   border: 1px solid white;
   border-radius: 5px;
   display: inline-block;

@@ -9,11 +9,14 @@ export default {
     themes: [
       {
         mytheme: {
-          // primary: "#41038f",
-          primary: "#4a154b",
+          primary: "#262262",
           secondary: "#cb935d",
-          accent: "#1a1d21",
-          neutral: "#3d4451",
+          accent: "#B76AAB",
+          neutral: "#282561",
+          // primary: "#4a154b",
+          // secondary: "#cb935d",
+          // accent: "#1a1d21",
+          // neutral: "#3d4451",
           "base-100": "#ffffff",
 
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes

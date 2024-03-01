@@ -57,7 +57,7 @@ const Navbar = () => {
       className={`${
         isScroll
           ? "bg-white shadow-md"
-          : `${navbar ? "" : "bg-primary text-white"}`
+          : `${navbar ? "" : "bg-neutral text-white"}`
       }  z-10 transition-all duration-500 w-full fixed top-0 left-0 `}
     >
       <div className={`${navbar ? "bg-base-300 shadow" : ""} py-3 md:py-0`}>
@@ -71,7 +71,7 @@ const Navbar = () => {
                     to="/"
                   >
                     <img className="h-[32px] md:my-4" src={logo} alt="" />
-                    <h2 className="">remcast</h2>
+                    {/* <h2 className="">remcast</h2> */}
                   </Link>
                 </li>
               </ul>

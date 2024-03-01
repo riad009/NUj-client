@@ -7,7 +7,7 @@ import AppointmentEcoSpaceListItem from "../../components/appointment/Appointmen
 
 const EcoSpaceListForAppointment = () => {
   return (
-    <div className="mt-24">
+    <div className="my-24">
       <div className="w-11/12 mx-auto">
         <Form
           className="w-full md:w-3/12"

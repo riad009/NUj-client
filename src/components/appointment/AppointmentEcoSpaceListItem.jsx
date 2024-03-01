@@ -20,11 +20,11 @@ const AppointmentEcoSpaceListItem = () => {
         </div>
       </div>
       <h2>EcoSpace Working on</h2>
-      <div className="flex items-center">
-        <Link to="/make-appointment" className="p-btn w-full md:w-auto">
+      <div className="flex items-center w-full md:w-auto gap-2">
+        <Link to="/make-appointment" className="p-btn w-auto">
           Make Appointment
         </Link>
-        <Link to="/profile/eco-space" className="p-btn w-full md:w-auto">
+        <Link to="/profile/eco-space" className="p-btn w-auto">
           Visit
         </Link>
       </div>

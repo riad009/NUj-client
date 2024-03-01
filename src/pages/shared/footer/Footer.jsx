@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../assets/logos/main-logo.png";
+import logo from "../../../assets/logos/faith-cloud-logo.png";
 import { Link } from "react-router-dom";
 import { FacebookFilled, DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
@@ -14,7 +14,7 @@ const Footer = () => {
             href="#"
             className="flex justify-center space-x-3 lg:justify-start"
           >
-            <img className="size-12" src={logo} alt="" />
+            <img className="size-36" src={logo} alt="" />
           </Link>
         </div>
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
