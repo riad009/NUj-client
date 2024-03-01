@@ -4,9 +4,10 @@ import unknown from "../../assets/home/unknown.jpg";
 import { Button, DatePicker, Form, Input, Select, Switch, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { Option } from "antd/es/mentions";
+import moment from "moment";
 
 const UserProfile = () => {
-  const { user } = useContext(AuthContext);
+  const { user, userDB } = useContext(AuthContext);
   console.log(user);
   return (
     <div className="h-auto">
@@ -16,7 +17,14 @@ const UserProfile = () => {
             <div className="flex flex-col gap-5 items-center">
               <img
                 className="size-40 rounded-full "
-                src={user?.photoURL ? user?.photoURL : unknown}
+                // src={user?.photoURL ? user?.photoURL : unknown}
+                src={
+                  userDB?.photo
+                    ? userDB?.photo
+                    : user?.photo
+                    ? user?.photo
+                    : unknown
+                }
                 alt=""
               />
               <Form.Item
@@ -42,7 +50,7 @@ const UserProfile = () => {
                   ]}
                 >
                   <Input
-                    // defaultValue={user?.displayName}
+                    defaultValue={userDB?.name}
                     size="middle"
                     className=""
                     placeholder="Ex: John Doe"
@@ -62,7 +70,7 @@ const UserProfile = () => {
                     ]}
                   >
                     <Input
-                      // defaultValue={user?.email}
+                      defaultValue={user?.email}
                       size="middle"
                       className=""
                       placeholder="Ex: example@gmail.com"
@@ -81,6 +89,7 @@ const UserProfile = () => {
                     ]}
                   >
                     <Input
+                      defaultValue={userDB?.phone ? userDB?.phone : ""}
                       size="middle"
                       className=""
                       placeholder="0123456789"
@@ -100,7 +109,10 @@ const UserProfile = () => {
                       },
                     ]}
                   >
-                    <Select placeholder="Select a Gender" allowClear>
+                    <Select
+                      defaultValue={userDB?.gender ? userDB?.gender : "male"}
+                      placeholder="Select a Gender"
+                    >
                       <Option value="male">male</Option>
                       <Option value="female">female</Option>
                       <Option value="other">other</Option>
@@ -118,7 +130,12 @@ const UserProfile = () => {
                       },
                     ]}
                   >
-                    <DatePicker className="w-full" />
+                    <DatePicker
+                      defaultValue={
+                        userDB?.dateOfBirth ? moment(userDB?.dateOfBirth) : ""
+                      }
+                      className="w-full"
+                    />
                   </Form.Item>
                 </div>
               </div>
@@ -134,6 +151,7 @@ const UserProfile = () => {
                   ]}
                 >
                   <Input
+                    defaultValue={userDB?.address ? userDB?.address : ""}
                     size="middle"
                     className=""
                     placeholder="Ex: 123, xyz"

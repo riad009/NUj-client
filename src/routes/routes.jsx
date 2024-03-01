@@ -34,6 +34,7 @@ import AppointmentPage from "../pages/appointment/AppointmentPage";
 import ToxicDetection from "../pages/toxicDetection/ToxicDetection";
 import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppointment";
 import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
+import config from "../config";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -79,7 +80,8 @@ export const router = createBrowserRouter([
         element: <EcoSpaceList />,
       },
       {
-        path: "/profile/eco-space",
+        path: "/profile/eco-space/:id",
+        loader: ({ params }) => fetch(`${config}/eco-spaces/${params.id}`),
         element: <EcoSpaceProfile />,
       },
       {

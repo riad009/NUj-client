@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import {
   MdOutlineCloudDownload,
   MdOutlineDriveFolderUpload,
@@ -13,7 +13,9 @@ import EcoSpaceProfileEditMpdal from "./EcoSpaceProfileEditModal";
 import { Button } from "antd";
 
 const CompanyProfile = () => {
+  const ecoSpace = useLoaderData();
   const [open, setOpen] = useState(false);
+  console.log({ ecoSpace });
   return (
     <>
       <section className="bg-primary min-h-screen flex justify-center items-center overflow-hidden">
