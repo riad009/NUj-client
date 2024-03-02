@@ -80,8 +80,9 @@ export const router = createBrowserRouter([
         element: <EcoSpaceList />,
       },
       {
-        path: "/profile/eco-space/:id",
-        loader: ({ params }) => fetch(`${config}/eco-spaces/${params.id}`),
+        path: "/profile/eco-space/:ecoSpaceId",
+        loader: ({ params }) =>
+          fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
         element: <EcoSpaceProfile />,
       },
       {

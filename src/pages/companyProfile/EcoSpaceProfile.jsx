@@ -13,7 +13,21 @@ import EcoSpaceProfileEditMpdal from "./EcoSpaceProfileEditModal";
 import { Button } from "antd";
 
 const CompanyProfile = () => {
-  const ecoSpace = useLoaderData();
+  const ecoSpaceData = useLoaderData();
+  const { ecoSpace, documents } = ecoSpaceData.data;
+  const {
+    company,
+    project,
+    serviceId,
+    serviceDescription,
+    staffs,
+    website,
+    email,
+    phone,
+    address,
+  } = ecoSpace;
+
+  const { generalDocument, voice, video } = documents;
   const [open, setOpen] = useState(false);
   console.log({ ecoSpace });
   return (
@@ -26,9 +40,7 @@ const CompanyProfile = () => {
           {/* bg-[#ecdeec] */}
           <div className="flex flex-col p-5 md:p-10 gap-2 bg-base-100  rounded-lg">
             <div className="flex justify-between items-start md:items-center">
-              <h1 className="text-2xl md:text-4xl font-semibold">
-                Company / Org Name
-              </h1>
+              <h1 className="text-2xl md:text-4xl font-semibold">{company}</h1>
               <div className="flex gap-2">
                 <button onClick={() => setOpen(true)} className="p-btn ">
                   <FaRegEdit />
@@ -38,74 +50,45 @@ const CompanyProfile = () => {
                 </button>
               </div>
             </div>
-            <h2 className="text-lg">Project - Project Working On</h2>
-            <h3>Service - Service Name</h3>
-            <p className="text-sm">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Molestiae nam exercitationem esse ipsam reprehenderit! Quam earum
-              voluptatum minima, et soluta asperiores quibusdam accusantium
-              fugiat ipsa molestias, omnis quas corporis odit sapiente tempore
-              impedit vel id beatae quisquam culpa harum! Recusandae error
-              cupiditate saepe dolore ratione accusantium sit earum, inventore
-              laboriosam modi ipsam consectetur officia voluptatibus tenetur
-              nemo est dignissimos iure deserunt amet facilis culpa facere,
-              eligendi impedit qui! Magni, totam ipsa? Dolorum maiores laborum
-              at, nesciunt rem nam sapiente ipsa doloribus commodi et id aliquam
-              natus deleniti asperiores facere ea tempora nostrum impedit,
-              beatae est? Culpa atque sed doloremque, illo possimus, aspernatur
-              explicabo error mollitia asperiores nesciunt praesentium aut nemo
-              dignissimos voluptas non? Corrupti molestias nostrum sint esse
-              debitis maiores nobis sapiente amet ipsam unde! Quos, minima
-              temporibus officia sunt magni impedit quo maxime ducimus
-              doloremque aspernatur, expedita quod non dolore necessitatibus
-              dolorem repudiandae cum, omnis nemo neque doloribus tempore itaque
-              quasi assumenda nobis! Earum, eum dolorum sapiente, exercitationem
-              veniam, esse explicabo rerum reprehenderit ipsum nemo ab possimus
-              laudantium accusantium quam magnam consequatur? Animi ipsam dolor
-              tempora libero adipisci quia.
-            </p>
+            <h2 className="text-lg">Project - {project}</h2>
+            <h3>Service - {serviceId?.title}</h3>
+            <p className="text-sm">{serviceDescription}</p>
             <div>
               <h2>Staffs: </h2>
               <div>
-                <p>example@gmail.com, example@gmail.com, example@gmail.com</p>
+                <p>
+                  {staffs.length &&
+                    staffs.map((staff, i) => <span key={i}>{staff}</span>)}
+                </p>
               </div>
             </div>
-            <h3>Website - websiteURL</h3>
+            <h3>Website - {website}</h3>
             <div className="flex flex-col md:flex-row justify-between items-center my-4">
               <div className="flex items-center justify-center gap-1">
                 <MdOutlineEmail className="text-2xl" />
-                <span>example@gmail.com</span>
+                <span>{email}</span>
               </div>
               <div className="flex items-center justify-center gap-1">
                 <CiPhone className="text-2xl" />
-                <span>0123456789</span>
+                <span>{phone}</span>
               </div>
               <div className="flex items-center justify-center gap-1">
                 <IoLocationOutline className="text-2xl" />
-                <span>Address, address, address</span>
+                <span>{address}</span>
               </div>
             </div>
             <h2 className="text-lg mt-4">Documents: </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-2 mb-6 items-center">
               <video className="w-full" controls>
-                <source
-                  src="https://www.w3schools.com/html/mov_bbb.mp4"
-                  type="video/mp4"
-                />
+                <source src={video} type="video/mp4" />
                 Your browser does not support this video.
               </video>
               <div className="space-y-6">
                 <div className="space-y-2">
                   <h3 className="font-semibold">Voice: </h3>
                   <audio className="w-full md:w-8/12" controls>
-                    <source
-                      src="https://www.w3schools.com/html/horse.ogg"
-                      type="audio/ogg"
-                    />
-                    <source
-                      src="https://www.w3schools.com/html/horse.ogg"
-                      type="audio/mpeg"
-                    />
+                    <source src={voice} type="audio/ogg" />
+                    <source src={voice} type="audio/mpeg" />
                     Your browser does not support this audio.
                   </audio>
                 </div>
