@@ -196,7 +196,8 @@ export const router = createBrowserRouter([
         element: <DashboardAppointments />,
       },
       {
-        path: "/dashboard/users/user",
+        path: "/dashboard/users/:userId",
+        loader: ({ params }) => params.userId,
         element: <DashboardUserProfile />,
       },
     ],

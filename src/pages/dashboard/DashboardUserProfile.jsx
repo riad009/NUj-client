@@ -1,5 +1,5 @@
 import { DatePicker, Form, Input, Select, Switch } from "antd";
-import React, { useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import unknown from "../../assets/home/unknown.jpg";
 import { Option } from "antd/es/mentions";
@@ -7,20 +7,11 @@ import DashboardUserProfileEcoSpaceListItem from "../../components/dashboard/Das
 import DashboardUserProfileAppointmentListItem from "../../components/dashboard/DashboardUserProfileAppointmentListItem";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { useLoaderData } from "react-router-dom";
+import config from "../../config";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const ecoSpaces = [
-  {
-    company: "XYZ ltd.",
-    service: "Mental Service",
-    project: "Camp fire",
-    id: "mongodb_id",
-  },
-  {
-    company: "XYZ ltd.",
-    service: "Mental Service",
-    project: "Camp fire",
-    id: "mongodb_id",
-  },
   {
     company: "XYZ ltd.",
     service: "Mental Service",
@@ -38,45 +29,28 @@ const appointments = [
     status: "completed",
     id: "mongodb_id",
   },
-  {
-    company: "XYZ ltd.",
-    location: "address, address",
-    date: "18:06:00 - 2024-02-13",
-    reason: "Requires court verification",
-    status: "completed",
-    id: "mongodb_id",
-  },
-  {
-    company: "XYZ ltd.",
-    location: "address, address",
-    date: "18:06:00 - 2024-02-13",
-    reason: "Requires court verification",
-    status: "completed",
-    id: "mongodb_id",
-  },
-  {
-    company: "XYZ ltd.",
-    location: "address, address",
-    date: "18:06:00 - 2024-02-13",
-    reason: "Requires court verification",
-    status: "completed",
-    id: "mongodb_id",
-  },
-  {
-    company: "XYZ ltd.",
-    location: "address, address",
-    date: "18:06:00 - 2024-02-13",
-    reason: "Requires court verification",
-    status: "completed",
-    id: "mongodb_id",
-  },
 ];
 
 const DashboardUserProfile = () => {
-  const { user } = useContext(AuthContext);
+  const userId = useLoaderData();
+  // setting the states
+  const [user, setUser] = useState(null);
+  const [isUserLoading, setIsUserLoading] = useState(true);
+  // user profile data
+  useEffect(() => {
+    fetch(`${config.api_url}/users/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data.data);
+        setIsUserLoading(false);
+      });
+  }, [userId]);
+  // preventing loading delation
+  if (isUserLoading) {
+    return <LoadingScreen />;
+  }
 
   const doc = new jsPDF();
-
   const printPdf = () => {
     doc.text(`Profile Information - John Doe`, 15, 10);
     autoTable(doc, {
@@ -121,7 +95,7 @@ const DashboardUserProfile = () => {
               <div className="flex flex-col gap-5 items-center">
                 <img
                   className="size-40 rounded-full "
-                  src={user?.photoURL ? user?.photoURL : unknown}
+                  src={user?.photo}
                   alt=""
                 />
               </div>
@@ -138,9 +112,8 @@ const DashboardUserProfile = () => {
                     ]}
                   >
                     <Input
+                      defaultValue={user?.name}
                       disabled
-                      // defaultValue={user?.displayName}
-                      defaultValue="John Doe"
                       size="middle"
                       className="disabled:text-black"
                     />
@@ -160,8 +133,7 @@ const DashboardUserProfile = () => {
                     >
                       <Input
                         disabled
-                        // defaultValue={user?.email}
-                        defaultValue="example@gmail.com"
+                        defaultValue={user?.email}
                         size="middle"
                         className="disabled:text-black"
                       />
@@ -179,8 +151,8 @@ const DashboardUserProfile = () => {
                       ]}
                     >
                       <Input
-                        defaultValue="0123456789"
                         disabled
+                        defaultValue={user?.phone}
                         size="middle"
                         className="disabled:text-black"
                       />
@@ -200,7 +172,7 @@ const DashboardUserProfile = () => {
                       ]}
                     >
                       <Input
-                        defaultValue="male"
+                        defaultValue={user?.gender}
                         disabled
                         size="middle"
                         className="disabled:text-black"
@@ -219,7 +191,7 @@ const DashboardUserProfile = () => {
                       ]}
                     >
                       <Input
-                        defaultValue="2024-02-21"
+                        defaultValue={user?.dateOfBirth}
                         disabled
                         size="middle"
                         className="disabled:text-black"
@@ -239,8 +211,8 @@ const DashboardUserProfile = () => {
                     ]}
                   >
                     <Input
+                      defaultValue={user?.address}
                       disabled
-                      defaultValue="address, address, address"
                       size="middle"
                       className="disabled:text-black"
                     />

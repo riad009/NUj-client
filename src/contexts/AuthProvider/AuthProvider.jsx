@@ -46,7 +46,6 @@ const AuthProvider = ({ children }) => {
     // project: "",
     // plan: "",
   });
-  console.log(newEcoSpaceData);
   // function for signing in or singing out
   const createUser = (email, password) => {
     setIsLoading(true);
@@ -105,7 +104,7 @@ const AuthProvider = ({ children }) => {
       fetch(`${config.api_url}/users/create-user`, {
         method: "POST",
         headers: {
-          "content-type": "application/json",
+          "content-type": "Application/json",
         },
         body: JSON.stringify(newUser),
       })

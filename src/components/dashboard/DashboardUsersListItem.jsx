@@ -27,7 +27,7 @@ const DashboardUsersListItem = ({ user }) => {
       </td>
 
       <td className="flex items-center justify-start gap-2">
-        <Link to="/dashboard/users/user">
+        <Link to={`/dashboard/users/${_id}`}>
           <IoEye className="text-xl text-primary" />
         </Link>
         {/* <button>
