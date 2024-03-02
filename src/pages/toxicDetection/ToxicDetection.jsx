@@ -3,6 +3,7 @@ import { useState } from "react";
 import ToxicDetectionHistorySidebarItems from "./ToxicDetectionHistorySidebarItems";
 import ToxicDetectionResponseDisplay from "./ToxicDetectionResponseDisplay";
 import { MdHistory } from "react-icons/md";
+import axios from "axios";
 
 const ToxicDetection = () => {
   const [text, setText] = useState("");
@@ -19,7 +20,23 @@ const ToxicDetection = () => {
     console.log(e.target.value);
   };
 
-  console.log({ text });
+  const handleGenerate = async () => {
+    try {
+      const payload = "test";
+
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/eco-space-documents/toxicity-detection",
+        {
+          payload,
+        }
+      );
+      const response = res.data;
+
+      console.log({ response });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const response = {
     rating: 4,
