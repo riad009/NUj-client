@@ -1,7 +1,18 @@
 import React from "react";
 import DashboardUsersListItem from "../../components/dashboard/DashboardUsersListItem";
+import { useQuery } from "@tanstack/react-query";
+import config from "../../config";
 
 const DashboardUsers = () => {
+  const { data: users } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const res = await fetch(`${config.api_url}/users/all`);
+      const data = await res.json();
+      return data.data;
+    },
+  });
+  console.log(users);
   return (
     <div className="overflow-x-auto p-5">
       <table className="table">
@@ -10,19 +21,15 @@ const DashboardUsers = () => {
           <tr>
             <th>Name</th>
             <th>Address</th>
-            <th>EcoSpaces</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
-          <DashboardUsersListItem />
-          <DashboardUsersListItem />
-          <DashboardUsersListItem />
-          <DashboardUsersListItem />
-          <DashboardUsersListItem />
-          <DashboardUsersListItem />
-          <DashboardUsersListItem />
+          {users?.length
+            ? users.map((user, i) => (
+                <DashboardUsersListItem key={i} user={user} />
+              ))
+            : ""}
         </tbody>
       </table>
     </div>
