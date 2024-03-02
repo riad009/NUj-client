@@ -1,11 +1,32 @@
 import { Form, Select } from "antd";
 import { Option } from "antd/es/mentions";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import EcoSpaceListItem from "../companyProfile/EcoSpaceListItem";
 import AppointmentEcoSpaceListItem from "../../components/appointment/AppointmentEcoSpaceListItem";
+import config from "../../config";
 
 const EcoSpaceListForAppointment = () => {
+  const [services, setServices] = useState(null);
+  const [serviceId, setServiceId] = useState(null);
+  const [filteredEcoSpaces, setFilteredEcoSpaces] = useState(null);
+
+  useEffect(() => {
+    fetch(`${config.api_url}/services/list`)
+      .then((res) => res.json())
+      .then((data) => setServices(data.data));
+  }, []);
+
+  useEffect(() => {
+    fetch(`${config.api_url}/eco-spaces/eco-space-list/${serviceId}`)
+      .then((res) => res.json())
+      .then((data) => setFilteredEcoSpaces(data.data));
+  }, [serviceId]);
+
+  const handleFilterService = (changedValues, prevValues) => {
+    setServiceId(changedValues.serviceId);
+  };
+
   return (
     <div className="my-24">
       <div className="w-11/12 mx-auto">
@@ -16,12 +37,13 @@ const EcoSpaceListForAppointment = () => {
             remember: true,
           }}
           autoComplete="off"
+          onValuesChange={handleFilterService}
         >
           {/* name */}
           <div className="flex flex-col gap-1 mb-6">
             <label>Service Type: </label>
             <Form.Item
-              name="serviceTitle"
+              name="serviceId"
               className="mb-1"
               rules={[
                 {
@@ -30,31 +52,27 @@ const EcoSpaceListForAppointment = () => {
                 },
               ]}
             >
-              <Select defaultValue="Diversion Program" allowClear>
-                <Option value="Diversion Program">Diversion Program</Option>
-                <Option value="Mental Health">Mental Health</Option>
-                <Option value="Counseling">Counseling</Option>
-                <Option value="Group Supprt">Group Supprt</Option>
-                {/* <Option value="Behavioral Health">Behavioral Health</Option> */}
-                {/* <Option value="Supporttive Services">Supporttive Services</Option> */}
-                <Option value="Food Programs">Food Programs</Option>
-                <Option value="Financial Programs">Financial Programs</Option>
-                <Option value="Job Readiness">Job Readiness</Option>
-                <Option value="Outpatient Services">Outpatient Services</Option>
-                <Option value="Reentry">Reentry</Option>
-                <Option value="Children & Family Services">
-                  Children & Family Services
-                </Option>
-                <Option value="Other">Other</Option>
+              <Select allowClear>
+                {services?.length
+                  ? services.map((service, i) => (
+                      <Option key={i} value={service._id}>
+                        {service.title}
+                      </Option>
+                    ))
+                  : ""}
               </Select>
             </Form.Item>
-            <p className="text-sm ">Showing result for Diversion Program*</p>
+            <p className="text-sm ">{filteredEcoSpaces?.length} result found</p>
           </div>
         </Form>
         <div className="flex flex-col p-2 md:p-5 gap-2 md:gap-5 bg-[#ecdeec] rounded-lg">
-          <AppointmentEcoSpaceListItem />
-          <AppointmentEcoSpaceListItem />
-          <AppointmentEcoSpaceListItem />
+          {filteredEcoSpaces?.length ? (
+            filteredEcoSpaces.map((ecoSpace, i) => (
+              <AppointmentEcoSpaceListItem key={i} ecoSpace={ecoSpace} />
+            ))
+          ) : (
+            <h2>No EcoSpces found</h2>
+          )}
         </div>
       </div>
     </div>

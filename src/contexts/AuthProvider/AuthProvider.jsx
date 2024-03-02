@@ -87,29 +87,28 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   // saving the user info if the user is logging in for the first time
-  useEffect(() => {
-    if (user?.email) {
-      setIsLoading(true);
-      let newUser = {
-        email: user?.email,
-        name: user?.displayName,
-      };
-      if (user?.photoURL) newUser.photo = user?.photoURL;
+  // useEffect(() => {
+  //   if (user?.email) {
+  //     setIsLoading(true);
+  //     let newUser = {
+  //       email: user?.email,
+  //       name: user?.displayName,
+  //     };
+  //     if (user?.photoURL) newUser.photo = user?.photoURL;
 
-      fetch(`${config.api_url}/users/create-user`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setIsLoading(false);
-          console.log(data);
-        });
-    }
-  }, [user, user?.email]);
+  //     fetch(`${config.api_url}/users/create-user`, {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/json",
+  //       },
+  //       body: JSON.stringify(newUser),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setIsLoading(false);
+  //       });
+  //   }
+  // }, [user, user?.email]);
 
   // Getting the user from mongodb database
   useEffect(() => {
@@ -123,7 +122,6 @@ const AuthProvider = ({ children }) => {
         });
     }
   }, [user, user?.email]);
-  console.log(userDB);
 
   const authInfo = {
     user,
