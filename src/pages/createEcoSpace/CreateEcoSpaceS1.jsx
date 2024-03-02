@@ -4,12 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS1 = () => {
-  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const { setNewEcoSpaceData, userDB } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleCreateEcoSpace1 = (data) => {
     setNewEcoSpaceData((prevValue) => ({
       ...prevValue,
       company: data.company,
+      owner: userDB?._id,
     }));
 
     navigate("/create-eco-space/s2");

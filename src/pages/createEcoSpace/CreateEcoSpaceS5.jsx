@@ -1,7 +1,19 @@
 import { Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS5 = () => {
+  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleCreateEcoSpace5 = (data) => {
+    setNewEcoSpaceData((prevValue) => ({
+      ...prevValue,
+      staffs: [data.staffs],
+    }));
+
+    navigate("/create-eco-space/s6");
+  };
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <h4 className="text-xs text-gray-500">Step 5 of 6</h4>
@@ -16,6 +28,7 @@ const CreateEcoSpaceS5 = () => {
           remember: true,
         }}
         autoComplete="off"
+        onFinish={handleCreateEcoSpace5}
       >
         {/* name */}
 
@@ -23,7 +36,7 @@ const CreateEcoSpaceS5 = () => {
           <label>Add Coworker by email </label>
           <Form.Item
             className=""
-            name="staff"
+            name="staffs"
             rules={[
               {
                 required: false,
@@ -38,13 +51,16 @@ const CreateEcoSpaceS5 = () => {
           </Form.Item>
         </div>
         <div className="space-x-2">
-          <Link to="/create-eco-space/s6" type="submit" className="p-btn ">
+          <button type="submit" className="p-btn ">
             Next
-          </Link>
-
-          <button to="/" type="submit" className="p-btn ">
-            Copy Invite Link
           </button>
+          {/* <Link to="/create-eco-space/s6" type="submit" className="p-btn ">
+            Next
+          </Link> */}
+
+          {/* <button to="/" type="submit" className="p-btn ">
+            Copy Invite Link
+          </button> */}
         </div>
       </Form>
     </div>

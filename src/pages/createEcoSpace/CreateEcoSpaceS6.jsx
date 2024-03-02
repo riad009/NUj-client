@@ -1,9 +1,20 @@
 import { Form, Input } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS6 = () => {
+  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleCreateEcoSpace6 = (data) => {
+    setNewEcoSpaceData((prevValue) => ({
+      ...prevValue,
+      project: data.project,
+    }));
+
+    navigate("/create-eco-space/plans/banner");
+  };
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <h4 className="text-xs text-gray-500">Step 6 of 6</h4>
@@ -21,11 +32,12 @@ const CreateEcoSpaceS6 = () => {
           remember: true,
         }}
         autoComplete="off"
+        onFinish={handleCreateEcoSpace6}
       >
         {/* name */}
         <Form.Item
           className=" "
-          name="projectName"
+          name="project"
           rules={[
             {
               required: true,
@@ -41,14 +53,17 @@ const CreateEcoSpaceS6 = () => {
           />
         </Form.Item>
 
-        <Link
+        <button type="submit" className="p-btn">
+          Next
+        </button>
+        {/* <Link
           // onClick={() => toast.success("Created successfully")}
           to="/create-eco-space/plans/banner"
           type="submit"
           className="p-btn"
         >
           Next
-        </Link>
+        </Link> */}
       </Form>
     </div>
   );

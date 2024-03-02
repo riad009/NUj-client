@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceNotificationConsent = () => {
+  const { setNewEcoSpaceData } = useContext(AuthContext);
   return (
     <div className="w-full md:w-[60%] space-y-5">
       {/* <h4 className="text-xs text-gray-200">Step 1 of 6</h4> */}
@@ -20,6 +23,12 @@ const CreateEcoSpaceNotificationConsent = () => {
           id="notifcation-consent"
           className="cursor-pointer"
           defaultChecked={true}
+          onChange={(e) =>
+            setNewEcoSpaceData((prevValues) => ({
+              ...prevValues,
+              ecoSpaceNotify: Boolean(e.target.value),
+            }))
+          }
         />
         <label className="cursor-pointer" htmlFor="notifcation-consent">
           I agree to receive notifications from VREMCAST
@@ -29,7 +38,7 @@ const CreateEcoSpaceNotificationConsent = () => {
         onClick={() =>
           toast.success("EcoSpace created successfully", { duration: 5000 })
         }
-        className="p-btn "
+        className="p-btn"
         to="/"
       >
         Finish

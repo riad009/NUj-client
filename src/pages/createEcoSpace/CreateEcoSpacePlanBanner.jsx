@@ -11,12 +11,7 @@ const CreateEcoSpacePlanBanner = () => {
         Are you ready to choose an EcoSpace plan now or continue for free?
       </p>
       <div className="">
-        <Link
-          // onClick={() => toast.success("Created successfully")}
-          to="/create-eco-space/plans"
-          type="submit"
-          className="p-btn "
-        >
+        <Link to="/create-eco-space/plans" type="submit" className="p-btn ">
           Continue To EcoSpace Plan
         </Link>
       </div>
