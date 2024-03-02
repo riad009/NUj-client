@@ -29,6 +29,10 @@
 .p-btn:hover {
   /* background-color: #1a76e7; */
   border-radius: 8px;
+  color: #b76aab;
+  /* background-color: #4a154b; */
+  background-color: white;
+  border: 1px solid #b76aab;
 }
 .p-btn-sm {
   color: white;

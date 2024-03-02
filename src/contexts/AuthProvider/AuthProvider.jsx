@@ -22,6 +22,7 @@ const AuthProvider = ({ children }) => {
   // states for holding user info
   const [user, setUser] = useState(null);
   const [userDB, setUserDB] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -30,15 +31,20 @@ const AuthProvider = ({ children }) => {
   const onClose = () => {
     setOpen(false);
   };
-  const [isLoading, setIsLoading] = useState(true);
-  const [orgFormValues, setOrgFormValues] = useState({
-    orgName: "",
+
+  // values for creating new Ecospace
+  const [newEcoSpaceData, setNewEcoSpaceData] = useState({
+    owner: userDB?._id,
+    company: "",
     address: "",
     phone: "",
     email: "",
     website: "",
-    serviceTitle: "",
+    serviceId: "",
     serviceDescription: "",
+    staffs: [],
+    project: "",
+    plan: "",
   });
 
   // function for signing in or singing out
@@ -87,28 +93,28 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   // saving the user info if the user is logging in for the first time
-  // useEffect(() => {
-  //   if (user?.email) {
-  //     setIsLoading(true);
-  //     let newUser = {
-  //       email: user?.email,
-  //       name: user?.displayName,
-  //     };
-  //     if (user?.photoURL) newUser.photo = user?.photoURL;
+  useEffect(() => {
+    if (user?.email) {
+      setIsLoading(true);
+      let newUser = {
+        email: user?.email,
+        name: user?.displayName,
+      };
+      if (user?.photoURL) newUser.photo = user?.photoURL;
 
-  //     fetch(`${config.api_url}/users/create-user`, {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(newUser),
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setIsLoading(false);
-  //       });
-  //   }
-  // }, [user, user?.email]);
+      fetch(`${config.api_url}/users/create-user`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setIsLoading(false);
+        });
+    }
+  }, [user, user?.email]);
 
   // Getting the user from mongodb database
   useEffect(() => {
@@ -133,8 +139,8 @@ const AuthProvider = ({ children }) => {
     update,
     logOut,
     setIsLoading,
-    orgFormValues,
-    setOrgFormValues,
+    newEcoSpaceData,
+    setNewEcoSpaceData,
     open,
     showDrawer,
     onClose,

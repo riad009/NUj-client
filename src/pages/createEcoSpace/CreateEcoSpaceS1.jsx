@@ -1,7 +1,12 @@
 import { Form, Input } from "antd";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS1 = () => {
+  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const handleCreateEcoSpace1 = (data) => {};
+
   return (
     <div className="w-full md:w-[60%] space-y-5">
       <h4 className="text-xs text-gray-500">Step 1 of 6</h4>
@@ -19,11 +24,12 @@ const CreateEcoSpaceS1 = () => {
           remember: true,
         }}
         autoComplete="off"
+        onFinish={handleCreateEcoSpace1}
       >
         {/* name */}
         <Form.Item
-          className=" "
-          name="orgName"
+          className=""
+          name="company"
           rules={[
             {
               required: true,
@@ -35,12 +41,16 @@ const CreateEcoSpaceS1 = () => {
             size="large"
             className="bg-transparent  w-full focus:bg-transparent placeholder:text-gray-500"
             placeholder="Ex: xyz company ltd."
+            // onChange={(e) => console.log(e.target.value)}
           />
         </Form.Item>
 
-        <Link to="/create-eco-space/s2" type="submit" className="p-btn">
+        <button type="submit" className="p-btn">
           Next
-        </Link>
+        </button>
+        {/* <Link to="/create-eco-space/s2" type="submit" className="p-btn">
+          Next
+        </Link> */}
       </Form>
     </div>
   );
