@@ -68,6 +68,7 @@ const ToxicDetection = () => {
               <div className="flex flex-col gap-1 ">
                 <label>Text to process: </label>
                 <textarea
+                  required
                   onChange={(e) => setText(e.target.value)}
                   className="h-28 bg-base-200 rounded-lg p-2 focus:outline-none"
                   defaultValue={result?.text ? result?.text : ""}

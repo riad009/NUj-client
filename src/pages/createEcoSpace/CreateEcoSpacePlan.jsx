@@ -13,6 +13,8 @@ const CreateEcoSpacePlan = () => {
         setPlans(data.data);
       });
   }, []);
+
+  console.log(plans);
   return (
     <div className="w-full md:w-[90%] space-y-5">
       {/* <h4 className="text-xs text-gray-200">Step 6 of 6</h4> */}
@@ -21,7 +23,7 @@ const CreateEcoSpacePlan = () => {
       </h1>
       <p className="text-sm">Monthly Plans</p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {plans.length
+        {plans?.length
           ? plans.map((plan, i) => (
               <CreateEcoSpacePlanCard key={i} plan={plan} />
             ))

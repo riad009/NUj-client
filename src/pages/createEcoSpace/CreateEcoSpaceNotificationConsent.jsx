@@ -1,10 +1,38 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import config from "../../config";
 
 const CreateEcoSpaceNotificationConsent = () => {
-  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleCreateEcoSpaceFinal = () => {
+    fetch(`${config.api_url}/eco-spaces/create-eco-space`, {
+      method: "POST",
+      headers: {
+        "content-type": "Application/json",
+      },
+      body: JSON.stringify(newEcoSpaceData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          toast.success(data.message, { id: "create-eco-space" });
+          return navigate("/profile/eco-space/list");
+        } else {
+          toast.error(data.message, { id: "create-eco-space" });
+          // return navigate("/profile/eco-space/list");
+        }
+      })
+      .catch((err) =>
+        toast.error(err.message || "Something went wrong", {
+          id: "create-eco-space",
+        })
+      );
+  };
+
   return (
     <div className="w-full md:w-[60%] space-y-5">
       {/* <h4 className="text-xs text-gray-200">Step 1 of 6</h4> */}
@@ -34,7 +62,10 @@ const CreateEcoSpaceNotificationConsent = () => {
           I agree to receive notifications from VREMCAST
         </label>
       </div>
-      <Link
+      <button onClick={handleCreateEcoSpaceFinal} className="p-btn" to="/">
+        Finish
+      </button>
+      {/* <Link
         onClick={() =>
           toast.success("EcoSpace created successfully", { duration: 5000 })
         }
@@ -42,7 +73,7 @@ const CreateEcoSpaceNotificationConsent = () => {
         to="/"
       >
         Finish
-      </Link>
+      </Link> */}
     </div>
   );
 };
