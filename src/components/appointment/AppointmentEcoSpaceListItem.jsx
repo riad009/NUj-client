@@ -18,7 +18,7 @@ const AppointmentEcoSpaceListItem = ({ ecoSpace }) => {
       </div>
       <h2>{project}</h2>
       <div className="flex items-center w-full md:w-auto gap-2">
-        <Link to="/make-appointment" className="p-btn w-auto">
+        <Link to={`/make-appointment/${_id}`} className="p-btn w-auto">
           Make Appointment
         </Link>
         <Link to={`/profile/eco-space/${_id}`} className="p-btn w-auto">

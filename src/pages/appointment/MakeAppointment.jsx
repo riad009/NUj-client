@@ -8,10 +8,53 @@ import {
   Button,
 } from "antd";
 import { Option } from "antd/es/mentions";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { UploadOutlined } from "@ant-design/icons";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import moment from "moment";
+import { toast } from "sonner";
+import config from "../../config";
 
 const MakeAppointment = () => {
+  const ecoSpaceId = useLoaderData();
+  const { userDB } = useContext(AuthContext);
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+
+  const handleMakeAppointment = (data) => {
+    const newAppointment = {
+      ...data,
+      date: data["date"].format("YYYY-MM-DD"),
+      time: data["time"].format("HH:mm:ss"),
+      participantId: userDB?._id,
+      ecoSpaceId,
+      locationImage: "www.google/d.com",
+    };
+    toast.loading("Processing", { id: "appointment" });
+    // !first upload the image on hosting and add it to newAppointment
+    fetch(`${config.api_url}/appointments/create-appointment`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newAppointment),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          return toast.success(data.message, { id: "appointment" });
+        }
+      })
+      .catch((err) => {
+        return toast.error(err.message || data.message, { id: "appointment" });
+      });
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center overflow-hidden">
       <div className="w-11/12 mx-auto space-y-5">
@@ -27,6 +70,7 @@ const MakeAppointment = () => {
               remember: true,
             }}
             autoComplete="off"
+            onFinish={handleMakeAppointment}
           >
             {/* name */}
             <div className="w-full">
@@ -35,7 +79,7 @@ const MakeAppointment = () => {
                   <label>Date: </label>
                   <Form.Item
                     className="mb-1 "
-                    name="appointmentDate"
+                    name="date"
                     rules={[
                       {
                         required: true,
@@ -43,14 +87,14 @@ const MakeAppointment = () => {
                       },
                     ]}
                   >
-                    <DatePicker className="w-full" />
+                    <DatePicker format="YYYY-MM-DD" className="w-full" />
                   </Form.Item>
                 </div>
                 <div className="flex flex-col gap-1 w-full">
                   <label>Time: </label>
                   <Form.Item
                     className="mb-1"
-                    name="appointmentTime"
+                    name="time"
                     rules={[
                       {
                         required: true,
@@ -67,7 +111,7 @@ const MakeAppointment = () => {
                   <label>Location: </label>
                   <Form.Item
                     className="mb-1"
-                    name="address"
+                    name="location"
                     rules={[
                       {
                         required: true,
@@ -109,9 +153,9 @@ const MakeAppointment = () => {
                 <label>Picture of location: </label>
                 <Form.Item
                   className="mb-1"
-                  name="upload"
+                  name="locationImage"
                   valuePropName="fileList"
-                  // getValueFromEvent={normFile}
+                  getValueFromEvent={normFile}
                   rules={[
                     {
                       required: true,

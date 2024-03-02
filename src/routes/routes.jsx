@@ -94,7 +94,8 @@ export const router = createBrowserRouter([
         element: <EcoSpaceListForAppointment />,
       },
       {
-        path: "/make-appointment",
+        path: "/make-appointment/:ecoSpaceId",
+        loader: ({ params }) => params.ecoSpaceId,
         element: <MakeAppointment />,
       },
       {

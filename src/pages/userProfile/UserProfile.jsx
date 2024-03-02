@@ -5,13 +5,64 @@ import { Button, DatePicker, Form, Input, Select, Switch, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { Option } from "antd/es/mentions";
 import moment from "moment";
+import config from "../../config";
+import { toast } from "sonner";
 
 const UserProfile = () => {
   const { user, userDB } = useContext(AuthContext);
-  console.log(user);
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
+  };
+
+  const handleUpdateProfile = (data) => {
+    const values = {
+      ...data,
+      dateOfBirth: data?.dateOfBirth
+        ? data["dateOfBirth"].format("YYYY-MM-DD")
+        : undefined,
+    };
+    const payload = Object.fromEntries(
+      Object.entries(values).filter(([key, value]) => value !== undefined)
+    );
+    // ! host the image and proceed post to the url
+
+    fetch(`${config.api_url}/users/update-user/${userDB?._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          toast.success(data.message, { id: "profile" });
+          console.log({ data, payload });
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message || data.message, { id: "profile" });
+      });
+  };
+
   return (
     <div className="h-auto">
-      <Form className="w-11/12 min-h-screen mt-24 mb-10 mx-auto space-y-5 flex flex-col items-center">
+      <Form
+        onFinish={handleUpdateProfile}
+        initialValues={{
+          name: userDB?.name,
+          email: user?.email,
+          phone: userDB?.phone,
+          gender: userDB?.gender,
+          // dateOfBirth: userDB?.dateOfBirth,
+          address: userDB?.address,
+          // Add other form field initial values as needed
+        }}
+        className="w-11/12 min-h-screen mt-24 mb-10 mx-auto space-y-5 flex flex-col items-center"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
           <div className="rounded-xl shadow-lg p-5 md:p-10 flex flex-col gap-10 items-center justify-center">
             <div className="flex flex-col gap-5 items-center">
@@ -28,9 +79,9 @@ const UserProfile = () => {
                 alt=""
               />
               <Form.Item
-                name="upload"
+                name="photo"
                 valuePropName="fileList"
-                // getValueFromEvent={normFile}
+                getValueFromEvent={normFile}
               >
                 <Upload name="logo" action="/upload.do" listType="picture">
                   <Button icon={<UploadOutlined />}>Change</Button>
@@ -50,7 +101,6 @@ const UserProfile = () => {
                   ]}
                 >
                   <Input
-                    defaultValue={userDB?.name}
                     size="middle"
                     className=""
                     placeholder="Ex: John Doe"
@@ -70,9 +120,9 @@ const UserProfile = () => {
                     ]}
                   >
                     <Input
-                      defaultValue={user?.email}
                       size="middle"
                       className=""
+                      disabled
                       placeholder="Ex: example@gmail.com"
                     />
                   </Form.Item>
@@ -89,7 +139,6 @@ const UserProfile = () => {
                     ]}
                   >
                     <Input
-                      defaultValue={userDB?.phone ? userDB?.phone : ""}
                       size="middle"
                       className=""
                       placeholder="0123456789"
@@ -109,10 +158,7 @@ const UserProfile = () => {
                       },
                     ]}
                   >
-                    <Select
-                      defaultValue={userDB?.gender ? userDB?.gender : "male"}
-                      placeholder="Select a Gender"
-                    >
+                    <Select placeholder="Select a Gender">
                       <Option value="male">male</Option>
                       <Option value="female">female</Option>
                       <Option value="other">other</Option>
@@ -120,7 +166,7 @@ const UserProfile = () => {
                   </Form.Item>
                 </div>
                 <div className="flex flex-col gap-1 w-full">
-                  <label>Date Of Birth: </label>
+                  <label>Date Of Birth: {userDB?.dateOfBirth}</label>
                   <Form.Item
                     className="mb-1 "
                     name="dateOfBirth"
@@ -130,12 +176,7 @@ const UserProfile = () => {
                       },
                     ]}
                   >
-                    <DatePicker
-                      defaultValue={
-                        userDB?.dateOfBirth ? moment(userDB?.dateOfBirth) : ""
-                      }
-                      className="w-full"
-                    />
+                    <DatePicker className="w-full" />
                   </Form.Item>
                 </div>
               </div>
@@ -151,7 +192,6 @@ const UserProfile = () => {
                   ]}
                 >
                   <Input
-                    defaultValue={userDB?.address ? userDB?.address : ""}
                     size="middle"
                     className=""
                     placeholder="Ex: 123, xyz"
@@ -163,11 +203,14 @@ const UserProfile = () => {
           <div className="flex flex-col gap-10">
             <div className="rounded-xl shadow-lg p-5 md:p-10 h-full">
               <Form.Item
-                name="notify"
+                name="isNotify"
                 label="Recieve EcoSpace Notification?"
-                valuePropName="notify"
+                valuePropName="checked"
               >
-                <Switch className="shadow-lg" defaultChecked />
+                <Switch
+                  defaultChecked={userDB?.isNotify}
+                  className="shadow-lg"
+                />
               </Form.Item>
               <h2>Notifications: </h2>
               <h2>Notifications: </h2>
