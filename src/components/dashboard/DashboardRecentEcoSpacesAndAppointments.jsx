@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
+import config from "../../config";
 
 const DashboardRecentEcoSpacesAndAppointments = () => {
+  const [recentEcoSpaces, setRecentEcoSpaces] = useState(null);
+  const [recentAppointments, setRecentAppointments] = useState(null);
+
+  // setting recent ecospaces
+  useEffect(() => {
+    fetch(`${config.api_url}/eco-spaces/recent-eco-spaces`)
+      .then((res) => res.json())
+      .then((data) => setRecentEcoSpaces(data.data));
+  }, []);
+
+  // setting recent appointments
+  useEffect(() => {
+    fetch(`${config.api_url}/appointments/recent-appointments`)
+      .then((res) => res.json())
+      .then((data) => setRecentAppointments(data.data));
+  }, []);
+
+  console.log({ recentAppointments });
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <div className="bg-base-100 shadow-sm rounded-lg p-5 space-y-5">
@@ -14,21 +33,23 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
           </Link>
         </div>
         <div>
-          <div className="flex justify-between items-center gap-2 border-b py-2">
+          <div className="grid grid-cols-3  gap-4 border-t py-2">
             <h3 className="font-semibold">Company Name</h3>
-            <p>Project working on</p>
-            <p>Plan</p>
+            <p className="font-semibold">Project working on</p>
+            <p className="font-semibold text-end">Plan</p>
           </div>
-          <div className="flex justify-between items-center gap-2 border-b py-2">
-            <h3 className="font-semibold">Company</h3>
-            <p>working on</p>
-            <p>free</p>
-          </div>
-          <div className="flex justify-between items-center gap-2  py-2">
-            <h3 className="font-semibold">Company</h3>
-            <p>working on</p>
-            <p>free</p>
-          </div>
+
+          {recentEcoSpaces?.length
+            ? recentEcoSpaces.map((ecoSpace, i) => (
+                <div key={i} className="grid grid-cols-3  gap-4 border-t py-2">
+                  <h3>{ecoSpace?.company}</h3>
+                  <p>{ecoSpace?.project}</p>
+                  <p className="text-end">
+                    {ecoSpace?.plan ? "premium" : "free"}
+                  </p>
+                </div>
+              ))
+            : ""}
         </div>
       </div>
       <div className="bg-base-100 shadow-sm rounded-lg p-5 space-y-5">
@@ -43,21 +64,21 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
           </Link>
         </div>
         <div>
-          <div className="flex justify-between items-center gap-2 border-b py-2">
+          <div className="grid grid-cols-3  gap-4 border-t py-2">
             <h3 className="font-semibold">Company Name</h3>
-            <p>Particimant Name</p>
-            <p>Reason</p>
+            <p className="font-semibold">Particimant Name</p>
+            <p className="font-semibold text-end">Reason</p>
           </div>
-          <div className="flex justify-between items-center gap-2 border-b py-2">
-            <h3 className="font-semibold">Company Name</h3>
-            <p>Particimant Name</p>
-            <p>Reason</p>
-          </div>
-          <div className="flex justify-between items-center gap-2 py-2">
-            <h3 className="font-semibold">Company Name</h3>
-            <p>Particimant Name</p>
-            <p>Reason</p>
-          </div>
+
+          {recentAppointments?.length
+            ? recentAppointments.map((appointment, i) => (
+                <div key={i} className="grid grid-cols-3  gap-4 border-t py-2">
+                  <h3>{appointment?.ecoSpaceId?.company}</h3>
+                  <p className="">{appointment?.participantId?.name}</p>
+                  <p className="text-end">{appointment?.reason}</p>
+                </div>
+              ))
+            : ""}
         </div>
       </div>
     </div>
