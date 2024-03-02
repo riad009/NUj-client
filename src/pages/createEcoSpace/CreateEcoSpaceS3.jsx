@@ -1,7 +1,20 @@
 import { Form, Input } from "antd";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS3 = () => {
+  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleCreateEcoSpace3 = (data) => {
+    setNewEcoSpaceData((prevValue) => ({
+      ...prevValue,
+      address: data.address,
+      website: data.website,
+    }));
+
+    navigate("/create-eco-space/s4");
+  };
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <h4 className="text-xs text-gray-500">Step 3 of 6</h4>
@@ -19,6 +32,7 @@ const CreateEcoSpaceS3 = () => {
           remember: true,
         }}
         autoComplete="off"
+        onFinish={handleCreateEcoSpace3}
       >
         {/* name */}
         <div className="flex flex-col gap-1">
@@ -60,9 +74,13 @@ const CreateEcoSpaceS3 = () => {
           </Form.Item>
         </div>
 
+        <button type="submit" className="p-btn ">
+          Next
+        </button>
+        {/* 
         <Link to="/create-eco-space/s4" type="submit" className="p-btn ">
           Next
-        </Link>
+        </Link> */}
       </Form>
     </div>
   );

@@ -1,8 +1,30 @@
 import { Form, Input, Select } from "antd";
 import { Option } from "antd/es/mentions";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import config from "../../config";
 
 const CreateEcoSpaceS4 = () => {
+  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const [services, setServices] = useState(null);
+  const navigate = useNavigate();
+  const handleCreateEcoSpace4 = (data) => {
+    setNewEcoSpaceData((prevValue) => ({
+      ...prevValue,
+      serviceId: data.serviceId,
+      serviceDescription: data.serviceDescription,
+    }));
+
+    navigate("/create-eco-space/s5");
+  };
+
+  useEffect(() => {
+    fetch(`${config.api_url}/services/list`)
+      .then((res) => res.json())
+      .then((data) => setServices(data.data));
+  }, []);
+
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <h4 className="text-xs text-gray-500">Step 4 of 6</h4>
@@ -20,12 +42,13 @@ const CreateEcoSpaceS4 = () => {
           remember: true,
         }}
         autoComplete="off"
+        onFinish={handleCreateEcoSpace4}
       >
         {/* name */}
         <div className="flex flex-col gap-1 ">
           <label>Service: </label>
           <Form.Item
-            name="serviceTitle"
+            name="serviceId"
             className="w-full"
             rules={[
               {
@@ -33,22 +56,14 @@ const CreateEcoSpaceS4 = () => {
               },
             ]}
           >
-            <Select placeholder="Select a Service" allowClear>
-              <Option value="Diversion Program">Diversion Program</Option>
-              <Option value="Mental Health">Mental Health</Option>
-              <Option value="Counseling">Counseling</Option>
-              <Option value="Group Supprt">Group Supprt</Option>
-              {/* <Option value="Behavioral Health">Behavioral Health</Option> */}
-              {/* <Option value="Supporttive Services">Supporttive Services</Option> */}
-              <Option value="Food Programs">Food Programs</Option>
-              <Option value="Financial Programs">Financial Programs</Option>
-              <Option value="Job Readiness">Job Readiness</Option>
-              <Option value="Outpatient Services">Outpatient Services</Option>
-              <Option value="Reentry">Reentry</Option>
-              <Option value="Children & Family Services">
-                Children & Family Services
-              </Option>
-              <Option value="Other">Other</Option>
+            <Select allowClear>
+              {services?.length
+                ? services.map((service, i) => (
+                    <Option key={i} value={service._id}>
+                      {service.title}
+                    </Option>
+                  ))
+                : ""}
             </Select>
           </Form.Item>
         </div>
@@ -72,9 +87,12 @@ const CreateEcoSpaceS4 = () => {
           </Form.Item>
         </div>
 
-        <Link to="/create-eco-space/s5" type="submit" className="p-btn ">
+        <button type="submit" className="p-btn ">
           Next
-        </Link>
+        </button>
+        {/* <Link to="/create-eco-space/s5" type="submit" className="p-btn ">
+          Next
+        </Link> */}
       </Form>
     </div>
   );

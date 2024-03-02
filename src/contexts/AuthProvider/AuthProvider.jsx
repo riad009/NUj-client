@@ -34,19 +34,19 @@ const AuthProvider = ({ children }) => {
 
   // values for creating new Ecospace
   const [newEcoSpaceData, setNewEcoSpaceData] = useState({
-    owner: userDB?._id,
-    company: "",
-    address: "",
-    phone: "",
-    email: "",
-    website: "",
-    serviceId: "",
-    serviceDescription: "",
-    staffs: [],
-    project: "",
-    plan: "",
+    // owner: userDB?._id,
+    // company: "",
+    // address: "",
+    // phone: "",
+    // email: "",
+    // website: "",
+    // serviceId: "",
+    // serviceDescription: "",
+    // staffs: [],
+    // project: "",
+    // plan: "",
   });
-
+  console.log(newEcoSpaceData);
   // function for signing in or singing out
   const createUser = (email, password) => {
     setIsLoading(true);

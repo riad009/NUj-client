@@ -1,11 +1,19 @@
 import { Form, Input } from "antd";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS1 = () => {
   const { setNewEcoSpaceData } = useContext(AuthContext);
-  const handleCreateEcoSpace1 = (data) => {};
+  const navigate = useNavigate();
+  const handleCreateEcoSpace1 = (data) => {
+    setNewEcoSpaceData((prevValue) => ({
+      ...prevValue,
+      company: data.company,
+    }));
+
+    navigate("/create-eco-space/s2");
+  };
 
   return (
     <div className="w-full md:w-[60%] space-y-5">
