@@ -102,7 +102,7 @@ const MakeAppointment = () => {
                       },
                     ]}
                   >
-                    <TimePicker className="w-full" />
+                    <TimePicker className="w-full " />
                   </Form.Item>
                 </div>
               </div>

@@ -4,10 +4,12 @@ import DashboardAppointmentsList from "../../components/dashboard/DashboardAppoi
 import { useContext, useEffect, useState } from "react";
 import config from "../../config";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { useLoaderData } from "react-router-dom";
 
 const DashboardAppointments = () => {
+  const initialEcoSpaceId = useLoaderData();
   const { userDB } = useContext(AuthContext);
-  const [ecoSpaceId, setEcoSpaceId] = useState(null);
+  const [ecoSpaceId, setEcoSpaceId] = useState(initialEcoSpaceId);
   const [ecoSpaceList, setEcoSpaceList] = useState(null);
   const [appointments, setAppointments] = useState(null);
 
@@ -42,7 +44,7 @@ const DashboardAppointments = () => {
       >
         {/* name */}
         <div className="flex flex-col gap-1 mb-6">
-          <label>Service Type: </label>
+          <label>EcoSpace: </label>
           <Form.Item
             name="ecoSpaceId"
             className="mb-1"
@@ -63,7 +65,7 @@ const DashboardAppointments = () => {
                 : ""}
             </Select>
           </Form.Item>
-          {/* <p className="text-sm ">{filteredEcoSpaces?.length} result found</p> */}
+          {ecoSpaceId ? "" : <p className="text-sm ">Choose an EcoSpace</p>}
         </div>
       </Form>
       <DashboardAppointmentsList appointments={appointments} />

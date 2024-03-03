@@ -35,7 +35,10 @@ const DashboardUserProfile = () => {
   const userId = useLoaderData();
   // setting the states
   const [user, setUser] = useState(null);
+  const [ecoSpaces, setEcoSpaces] = useState(null);
+  const [appointments, setAppointments] = useState(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
+
   // user profile data
   useEffect(() => {
     fetch(`${config.api_url}/users/${userId}`)
@@ -45,34 +48,74 @@ const DashboardUserProfile = () => {
         setIsUserLoading(false);
       });
   }, [userId]);
+  // getting ecpspces data
+  useEffect(() => {
+    fetch(`${config.api_url}/eco-spaces/list/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEcoSpaces(data.data);
+      });
+  }, [userId]);
+  // getting appointments data
+  useEffect(() => {
+    fetch(`${config.api_url}/appointments/user/appointment/list/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAppointments(data.data);
+      });
+  }, [userId]);
   // preventing loading delation
   if (isUserLoading) {
     return <LoadingScreen />;
   }
 
+  console.log({ ecoSpaces, appointments });
+
   const doc = new jsPDF();
   const printPdf = () => {
-    doc.text(`Profile Information - John Doe`, 15, 10);
+    doc.text(`Profile Information - ${user?.name}`, 15, 10);
     autoTable(doc, {
       head: [["Name", "Email", "Phone", "Gender", "Birth", "Address"]],
       body: [
         [
-          "John Doe",
-          "example@gmail.com",
-          "0123456789",
-          "male",
-          "2024-02-21",
-          "address, address",
+          user?.name,
+          user?.email,
+          user?.phone,
+          user?.gender,
+          user?.dateOfBirth,
+          user?.address,
         ],
       ],
     });
+
+    let filteredAppointments =
+      appointments?.length &&
+      appointments.map(
+        ({ ecoSpaceId, location, reason, status, date, _id }) => ({
+          company: ecoSpaceId?.company,
+          location,
+          date,
+          reason,
+          status,
+          _id,
+        })
+      );
+
+    let filteredEcoSpaces =
+      ecoSpaces?.length &&
+      ecoSpaces.map(({ company, serviceId, project, _id }) => ({
+        company,
+        service: serviceId?.title,
+        project,
+        _id,
+      }));
     // Get the height of the first table
     const firstTableHeight = doc.previousAutoTable.finalY;
 
     doc.text(`Eco Spaces`, 15, firstTableHeight + 5);
     autoTable(doc, {
       head: [["Company", "Service", "Project", "ID"]],
-      body: ecoSpaces.map((item) => Object.values(item)),
+      body: filteredEcoSpaces.map((item) => Object.values(item)),
     });
     // Get the height of the second table
     const secondTableHeight = doc.previousAutoTable.finalY;
@@ -80,10 +123,10 @@ const DashboardUserProfile = () => {
     doc.text(`Appointments`, 15, secondTableHeight + 5);
     autoTable(doc, {
       head: [["Company", "Location", "Date", "Reason", "Status", "ID"]],
-      body: appointments.map((item) => Object.values(item)),
+      body: filteredAppointments.map((item) => Object.values(item)),
     });
 
-    doc.save("john_doe.pdf");
+    doc.save(`${user?.name}.pdf`);
   };
 
   return (
@@ -228,17 +271,20 @@ const DashboardUserProfile = () => {
                   <thead>
                     <tr>
                       <th>Company</th>
-                      <th>Service</th>
+                      {/* <th>Service</th> */}
                       <th>Project</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* row 1 */}
-                    <DashboardUserProfileEcoSpaceListItem />
-                    <DashboardUserProfileEcoSpaceListItem />
-                    <DashboardUserProfileEcoSpaceListItem />
-                    <DashboardUserProfileEcoSpaceListItem />
+                    {ecoSpaces?.length
+                      ? ecoSpaces.map((ecoSpace, i) => (
+                          <DashboardUserProfileEcoSpaceListItem
+                            key={i}
+                            ecoSpace={ecoSpace}
+                          />
+                        ))
+                      : ""}
                   </tbody>
                 </table>
               </div>
@@ -251,7 +297,7 @@ const DashboardUserProfile = () => {
                 {/* head */}
                 <thead>
                   <tr>
-                    <th>Company/Org</th>
+                    {/* <th>Company/Org</th> */}
                     <th>Location</th>
                     <th>Date</th>
                     <th>Reason</th>
@@ -260,12 +306,14 @@ const DashboardUserProfile = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
+                  {appointments?.length
+                    ? appointments.map((appointment, i) => (
+                        <DashboardUserProfileAppointmentListItem
+                          key={i}
+                          appointment={appointment}
+                        />
+                      ))
+                    : ""}
                 </tbody>
               </table>
             </div>

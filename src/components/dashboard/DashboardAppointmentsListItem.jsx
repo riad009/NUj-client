@@ -32,9 +32,9 @@ const DashboardAppointmentsListItem = ({ appointment }) => {
         <Link to={`/profile/eco-space/appointments/${_id}`}>
           <IoEye className="text-xl text-primary" />
         </Link>
-        <button>
+        {/* <button>
           <MdDelete className="text-xl text-error" />
-        </button>
+        </button> */}
       </td>
     </tr>
   );

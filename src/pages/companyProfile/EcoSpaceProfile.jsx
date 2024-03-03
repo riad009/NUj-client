@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import {
   MdOutlineCloudDownload,
   MdOutlineDriveFolderUpload,
@@ -11,6 +11,8 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useState } from "react";
 import EcoSpaceProfileEditMpdal from "./EcoSpaceProfileEditModal";
 import { Button } from "antd";
+import { toast } from "sonner";
+import config from "../../config";
 
 const CompanyProfile = () => {
   const ecoSpaceData = useLoaderData();
@@ -25,11 +27,33 @@ const CompanyProfile = () => {
     email,
     phone,
     address,
-  } = ecoSpace;
+    _id,
+  } = ecoSpace ?? {};
 
   const { generalDocument, voice, video } = documents ?? {};
   const [open, setOpen] = useState(false);
-  console.log({ ecoSpace });
+  const navigate = useNavigate();
+
+  const handleDeleteEcoSpace = (id) => {
+    let consent = window.confirm(
+      "Are you sure you want to delete the EcoSpace?"
+    );
+    if (consent) {
+      fetch(`${config.api_url}/eco-spaces/delete/eco-space/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            toast.success(data.message);
+            navigate("/home");
+          } else {
+            toast.error(data.message);
+          }
+        });
+    }
+  };
+
   return (
     <>
       <section className="bg-primary min-h-screen flex justify-center items-center overflow-hidden">
@@ -45,7 +69,10 @@ const CompanyProfile = () => {
                 <button onClick={() => setOpen(true)} className="p-btn ">
                   <FaRegEdit />
                 </button>
-                <button className="p-btn !bg-error">
+                <button
+                  onClick={() => handleDeleteEcoSpace(_id)}
+                  className="p-btn !bg-error"
+                >
                   <AiOutlineDelete />
                 </button>
               </div>
@@ -110,14 +137,18 @@ const CompanyProfile = () => {
               </div>
             </div>
             <div className="text-center">
-              <Link to="/dashboard/appointments" className="p-btn ">
+              <Link to={`/dashboard/appointments/${_id}`} className="p-btn ">
                 Appointments
               </Link>
             </div>
           </div>
         </div>
       </section>
-      <EcoSpaceProfileEditMpdal open={open} setOpen={setOpen} />
+      <EcoSpaceProfileEditMpdal
+        open={open}
+        setOpen={setOpen}
+        ecoSpace={ecoSpace}
+      />
     </>
   );
 };

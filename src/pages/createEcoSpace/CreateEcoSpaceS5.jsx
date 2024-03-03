@@ -39,7 +39,7 @@ const CreateEcoSpaceS5 = () => {
             name="staffs"
             rules={[
               {
-                required: false,
+                required: true,
               },
             ]}
           >
@@ -47,6 +47,7 @@ const CreateEcoSpaceS5 = () => {
               className="h-20 bg-transparent  focus:bg-transparent placeholder:text-gray-500"
               size="large"
               placeholder="Details of company provided services"
+              type="email"
             />
           </Form.Item>
         </div>
