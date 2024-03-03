@@ -47,10 +47,8 @@ const ToxicDetectionResponseDisplay = ({ result }) => {
           <div className="rounded-xl shadow-lg p-5 md:p-10 h-full bg-base-100 space-y-4">
             <div>
               <h1 className="text-lg font-semibold">Comprehensive Plan: </h1>
-              <p>
-                Your comprehensive success plan needs to include
-                <span className="link">{plan}</span>
-              </p>
+              <p>Your comprehensive success plan needs to include</p>
+              <p className="">{plan}</p>
             </div>
             <div>
               <h1 className="text-lg font-semibold">PSA: </h1>
