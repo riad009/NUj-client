@@ -73,27 +73,49 @@ const DashboardUserProfile = () => {
 
   const doc = new jsPDF();
   const printPdf = () => {
-    doc.text(`Profile Information - John Doe`, 15, 10);
+    doc.text(`Profile Information - ${user?.name}`, 15, 10);
     autoTable(doc, {
       head: [["Name", "Email", "Phone", "Gender", "Birth", "Address"]],
       body: [
         [
-          "John Doe",
-          "example@gmail.com",
-          "0123456789",
-          "male",
-          "2024-02-21",
-          "address, address",
+          user?.name,
+          user?.email,
+          user?.phone,
+          user?.gender,
+          user?.dateOfBirth,
+          user?.address,
         ],
       ],
     });
+
+    let filteredAppointments =
+      appointments?.length &&
+      appointments.map(
+        ({ ecoSpaceId, location, reason, status, date, _id }) => ({
+          company: ecoSpaceId?.company,
+          location,
+          date,
+          reason,
+          status,
+          _id,
+        })
+      );
+
+    let filteredEcoSpaces =
+      ecoSpaces?.length &&
+      ecoSpaces.map(({ company, serviceId, project, _id }) => ({
+        company,
+        service: serviceId?.title,
+        project,
+        _id,
+      }));
     // Get the height of the first table
     const firstTableHeight = doc.previousAutoTable.finalY;
 
     doc.text(`Eco Spaces`, 15, firstTableHeight + 5);
     autoTable(doc, {
       head: [["Company", "Service", "Project", "ID"]],
-      body: ecoSpaces.map((item) => Object.values(item)),
+      body: filteredEcoSpaces.map((item) => Object.values(item)),
     });
     // Get the height of the second table
     const secondTableHeight = doc.previousAutoTable.finalY;
@@ -101,10 +123,10 @@ const DashboardUserProfile = () => {
     doc.text(`Appointments`, 15, secondTableHeight + 5);
     autoTable(doc, {
       head: [["Company", "Location", "Date", "Reason", "Status", "ID"]],
-      body: appointments.map((item) => Object.values(item)),
+      body: filteredAppointments.map((item) => Object.values(item)),
     });
 
-    doc.save("john_doe.pdf");
+    doc.save(`${user?.name}.pdf`);
   };
 
   return (
