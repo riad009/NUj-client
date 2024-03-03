@@ -46,18 +46,14 @@ const AuthProvider = ({ children }) => {
     // project: "",
     // plan: "",
   });
-  // function for signing in or singing out
-  const createUser = (email, password) => {
-    setIsLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
 
   const logInWithEmail = (email) => {
     setIsLoading(true);
     return sendSignInLinkToEmail(auth, email, {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be in the authorized domains list in the Firebase Console.
-      url: "http://localhost:5173/",
+      // url: "http://localhost:5173/",
+      url: "https://nu-j-9c35c.web.app/",
       // This must be true.
       handleCodeInApp: true,
     });
@@ -132,7 +128,6 @@ const AuthProvider = ({ children }) => {
     user,
     userDB,
     isLoading,
-    createUser,
     logInWithEmail,
     logInWithGoogle,
     update,

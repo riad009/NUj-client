@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import config from "../../config";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { useLoaderData } from "react-router-dom";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const DashboardAppointments = () => {
   const initialEcoSpaceId = useLoaderData();
@@ -12,12 +13,15 @@ const DashboardAppointments = () => {
   const [ecoSpaceId, setEcoSpaceId] = useState(initialEcoSpaceId);
   const [ecoSpaceList, setEcoSpaceList] = useState(null);
   const [appointments, setAppointments] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${config.api_url}/eco-spaces/list/${userDB?._id}`)
       .then((res) => res.json())
       .then((data) => {
         setEcoSpaceList(data.data);
+        setEcoSpaceId(data.data[0]._id);
+        setIsLoading(false);
       });
   }, [userDB, userDB?._id]);
 
@@ -31,13 +35,17 @@ const DashboardAppointments = () => {
     setEcoSpaceId(changedValues.ecoSpaceId);
   };
 
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
-    <div>
+    <div className="overflow-x-auto p-5">
       <Form
         className="w-full md:w-3/12"
         name="basic"
         initialValues={{
-          remember: true,
+          ecoSpaceId: ecoSpaceList[0].company,
         }}
         autoComplete="off"
         onValuesChange={handleFilterAppointments}
@@ -65,7 +73,9 @@ const DashboardAppointments = () => {
                 : ""}
             </Select>
           </Form.Item>
-          {ecoSpaceId ? "" : <p className="text-sm ">Choose an EcoSpace</p>}
+          <p className="text-sm ">
+            {appointments?.length ? appointments?.length : 0} result found
+          </p>
         </div>
       </Form>
       <DashboardAppointmentsList appointments={appointments} />

@@ -12,7 +12,7 @@ const DashboardEcoSpacesListItem = ({ ecoSpace }) => {
           <div className="font-bold">{company}</div>
         </div>
       </td>
-      <td>{serviceId?.title}</td>
+      {/* <td>{serviceId?.title}</td> */}
 
       <td>{staffs?.length || "N/A"}</td>
       <td>{plan?.title || "free"}</td>
