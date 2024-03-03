@@ -2,7 +2,41 @@ import React, { useState } from "react";
 import { Button, Form, Input, Modal, Select } from "antd";
 import { Option } from "antd/es/mentions";
 import TextArea from "antd/es/input/TextArea";
-const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
+import { toast } from "sonner";
+import config from "../../config";
+import { useNavigate } from "react-router-dom";
+const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
+  const navigate = useNavigate();
+  const {
+    company,
+    project,
+    serviceId,
+    serviceDescription,
+    staffs,
+    website,
+    email,
+    phone,
+    address,
+    _id,
+  } = ecoSpace ?? {};
+
+  const handleUpdateEcoSpace = (data) => {
+    fetch(`${config.api_url}/eco-spaces/update/eco-space/${_id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "Application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success(data.message);
+        console.log(data);
+        setOpen(false);
+        navigate("/profile/eco-space/list");
+      });
+  };
+
   return (
     <>
       <Modal
@@ -12,16 +46,24 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         width={1000}
-        okText="Update"
-        okType="default"
+        // okText="Update"
+        // okType="default"
+        footer={null}
       >
         <Form
           className="space-y-5"
           name="basic"
           initialValues={{
-            remember: true,
+            company,
+            project,
+            serviceDescription,
+            website,
+            email,
+            phone,
+            address,
           }}
           autoComplete="off"
+          onFinish={handleUpdateEcoSpace}
         >
           {/* name */}
           <div className="w-full">
@@ -30,7 +72,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
                 <label>Company/Org Name: </label>
                 <Form.Item
                   className="mb-1"
-                  name="name"
+                  name="company"
                   rules={[
                     {
                       required: false,
@@ -42,7 +84,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
                     // defaultValue={user?.email}
                     size="middle"
                     className=""
-                    placeholder="Ex: John Doe"
+                    placeholder="Ex: Comant ltd"
                   />
                 </Form.Item>
               </div>
@@ -51,11 +93,11 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
                 <label>Project Name: </label>
                 <Form.Item
                   className="mb-1"
-                  name="projectName"
+                  name="project"
                   rules={[
                     {
                       required: true,
-                      message: "Provide a reason",
+                      message: "Provide a Project",
                     },
                   ]}
                 >
@@ -126,52 +168,36 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
                     // defaultValue={user?.email}
                     size="middle"
                     className=""
-                    placeholder="Ex: example@gmail.com"
+                    placeholder="Ex: www.xyz.com"
                   />
                 </Form.Item>
               </div>
-
               <div className="flex flex-col gap-1 w-full">
-                <label>Service: </label>
+                <label>Address: </label>
                 <Form.Item
                   className="mb-1"
-                  name="service"
+                  name="address"
                   rules={[
                     {
-                      required: true,
-                      message: "Provide a phone",
+                      required: false,
+                      message: "Provide an address",
                     },
                   ]}
                 >
-                  <Select placeholder="Select a Service" allowClear>
-                    <Option value="Diversion Program">Diversion Program</Option>
-                    <Option value="Mental Health">Mental Health</Option>
-                    <Option value="Counseling">Counseling</Option>
-                    <Option value="Group Supprt">Group Supprt</Option>
-                    {/* <Option value="Behavioral Health">Behavioral Health</Option> */}
-                    {/* <Option value="Supporttive Services">Supporttive Services</Option> */}
-                    <Option value="Food Programs">Food Programs</Option>
-                    <Option value="Financial Programs">
-                      Financial Programs
-                    </Option>
-                    <Option value="Job Readiness">Job Readiness</Option>
-                    <Option value="Outpatient Services">
-                      Outpatient Services
-                    </Option>
-                    <Option value="Reentry">Reentry</Option>
-                    <Option value="Children & Family Services">
-                      Children & Family Services
-                    </Option>
-                    <Option value="Other">Other</Option>
-                  </Select>
+                  <Input
+                    // defaultValue={user?.email}
+                    size="middle"
+                    className=""
+                    placeholder="Ex: 123, xyz"
+                  />
                 </Form.Item>
               </div>
             </div>
             <div className="flex flex-col gap-1 w-full">
-              <label>Website: </label>
+              <label>Service Description: </label>
               <Form.Item
                 className="mb-1"
-                name="description"
+                name="serviceDescription"
                 rules={[
                   {
                     required: false,
@@ -182,6 +208,14 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen }) => {
                 <TextArea rows={4} />
               </Form.Item>
             </div>
+          </div>
+          <div className="space-x-2">
+            <button className="p-btn " onClick={() => setOpen(false)}>
+              Cancel
+            </button>
+            <button className="p-btn" type="submit">
+              Update
+            </button>
           </div>
         </Form>
       </Modal>
