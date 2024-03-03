@@ -4,6 +4,7 @@ import { useState } from "react";
 import ToxicDetectionResponseDisplay from "./ToxicDetectionResponseDisplay";
 import { MdHistory } from "react-icons/md";
 import axios from "axios";
+import config from "../../config";
 
 const ToxicDetection = () => {
   const [text, setText] = useState("");
@@ -37,7 +38,8 @@ const ToxicDetection = () => {
         const payload = "test";
 
         const res = await axios.post(
-          "http://localhost:5000/api/v1/eco-space-documents/toxicity-detection",
+          `${config.api_url}/eco-space-documents/toxicity-detection`,
+
           {
             payload,
           }
