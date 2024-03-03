@@ -34,8 +34,6 @@ const UserProfile = () => {
     );
     // ! host the image and proceed post to the url
 
-    console.log({ payload });
-
     fetch(`${config.api_url}/users/update-user/${userDB?._id}`, {
       method: "PUT",
       headers: {
@@ -47,7 +45,6 @@ const UserProfile = () => {
       .then((data) => {
         if (data.success) {
           toast.success(data.message, { id: "profile" });
-          console.log({ data, payload });
         }
       })
       .catch((err) => {
@@ -55,20 +52,18 @@ const UserProfile = () => {
       });
   };
 
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-
+  const handleImageChange = async (file) => {
     if (file) {
       setloading(true);
       const formdata = new FormData();
       formdata.append("image", file);
 
-      const response = await axios.post(
+      const response = await axios.patch(
         `${config.api_url}/users/update-image/${userDB?._id}`,
         formdata
       );
-      console.log({ response });
-      setSelectedImage(response.data.image);
+
+      setSelectedImage(response.data.data.photo);
 
       setloading(false);
     }
@@ -110,7 +105,7 @@ const UserProfile = () => {
                     ? userDB?.photo
                     : user
                     ? user?.photo
-                    : null
+                    : unknown
                 }
                 alt=""
               />
@@ -119,7 +114,12 @@ const UserProfile = () => {
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
-                <Upload name="logo" action="" listType="picture">
+                <Upload
+                  name="logo"
+                  beforeUpload={() => false}
+                  listType="picture"
+                  onChange={(e) => handleImageChange(e.file)}
+                >
                   <Button icon={<UploadOutlined />}>Change</Button>
                 </Upload>
               </Form.Item>
