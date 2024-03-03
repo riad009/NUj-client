@@ -3,21 +3,33 @@ import { IoEye } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const DashboardAppointmentsListItem = () => {
+const DashboardAppointmentsListItem = ({ appointment }) => {
+  const {
+    participantId,
+    location,
+    date,
+    time,
+    reason,
+    status,
+    isApproved,
+    _id,
+  } = appointment ?? {};
   return (
     <tr>
       <td>
         <div>
-          <div className="font-bold">John Doe</div>
+          <div className="font-bold">{participantId?.name}</div>
         </div>
       </td>
-      <td>Address, Address, Address</td>
+      <td>{location}</td>
 
-      <td>18:06:00 - 2024-02-13</td>
-      <td>Reentry issues</td>
+      <td>
+        {time} - {date}
+      </td>
+      <td>{reason}</td>
       <td>Approved</td>
       <td className="flex items-center justify-start gap-2">
-        <Link to="/profile/eco-space/appointments/appointment">
+        <Link to={`/profile/eco-space/appointments/${_id}`}>
           <IoEye className="text-xl text-primary" />
         </Link>
         <button>

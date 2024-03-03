@@ -27,7 +27,7 @@ const CompanyProfile = () => {
     address,
   } = ecoSpace;
 
-  const { generalDocument, voice, video } = documents;
+  const { generalDocument, voice, video } = documents ?? {};
   const [open, setOpen] = useState(false);
   console.log({ ecoSpace });
   return (

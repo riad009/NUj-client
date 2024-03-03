@@ -1,6 +1,6 @@
 import { IoLocationOutline } from "react-icons/io5";
 import { CiTimer, CiCalendarDate } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import { TiTickOutline } from "react-icons/ti";
 import { FaArrowRight } from "react-icons/fa";
@@ -9,6 +9,18 @@ import { Option } from "antd/es/mentions";
 import { useState } from "react";
 
 const AppointmentPage = () => {
+  const appointment = useLoaderData();
+  const {
+    ecoSpaceId,
+    participantId,
+    status,
+    date,
+    time,
+    location,
+    locationImage,
+    _id,
+  } = appointment.data ?? {};
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -66,7 +78,7 @@ const AppointmentPage = () => {
                 <span>location, location, location</span>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-20 my-5">
+            <div className=" my-5">
               <div className="space-y-2">
                 <h2 className="text-xl">Location Photo:</h2>
                 {/* <img
@@ -78,9 +90,9 @@ const AppointmentPage = () => {
                   src="https://miro.medium.com/v2/resize:fit:1400/0*6lX9i2AVnurxCQgx"
                 />
               </div>
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <h2 className="text-xl">Documents Uploaded: </h2>
-              </div>
+              </div> */}
             </div>
             <div className="text-center">
               <p>Pending</p>

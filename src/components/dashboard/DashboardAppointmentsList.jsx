@@ -1,7 +1,7 @@
 import React from "react";
 import DashboardAppointmentsListItem from "./DashboardAppointmentsListItem";
 
-const DashboardAppointmentsList = () => {
+const DashboardAppointmentsList = ({ appointments }) => {
   return (
     <table className="table">
       {/* head */}
@@ -16,10 +16,14 @@ const DashboardAppointmentsList = () => {
         </tr>
       </thead>
       <tbody>
-        {/* row 1 */}
-        <DashboardAppointmentsListItem />
-        <DashboardAppointmentsListItem />
-        <DashboardAppointmentsListItem />
+        {appointments?.length
+          ? appointments.map((appointment, i) => (
+              <DashboardAppointmentsListItem
+                key={i}
+                appointment={appointment}
+              />
+            ))
+          : ""}
       </tbody>
     </table>
   );

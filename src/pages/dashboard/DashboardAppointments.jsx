@@ -1,8 +1,34 @@
 import { Form, Select } from "antd";
 import { Option } from "antd/es/mentions";
 import DashboardAppointmentsList from "../../components/dashboard/DashboardAppointmentsList";
+import { useContext, useEffect, useState } from "react";
+import config from "../../config";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const DashboardAppointments = () => {
+  const { userDB } = useContext(AuthContext);
+  const [ecoSpaceId, setEcoSpaceId] = useState(null);
+  const [ecoSpaceList, setEcoSpaceList] = useState(null);
+  const [appointments, setAppointments] = useState(null);
+
+  useEffect(() => {
+    fetch(`${config.api_url}/eco-spaces/list/${userDB?._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEcoSpaceList(data.data);
+      });
+  }, [userDB, userDB?._id]);
+
+  useEffect(() => {
+    fetch(`${config.api_url}/appointments/list/${ecoSpaceId}`)
+      .then((res) => res.json())
+      .then((data) => setAppointments(data.data));
+  }, [ecoSpaceId]);
+
+  const handleFilterAppointments = (changedValues, prevValues) => {
+    setEcoSpaceId(changedValues.ecoSpaceId);
+  };
+
   return (
     <div>
       <Form
@@ -12,13 +38,14 @@ const DashboardAppointments = () => {
           remember: true,
         }}
         autoComplete="off"
+        onValuesChange={handleFilterAppointments}
       >
         {/* name */}
-        <div className="flex flex-col gap-1 ">
-          <label>Appointments: </label>
+        <div className="flex flex-col gap-1 mb-6">
+          <label>Service Type: </label>
           <Form.Item
-            name="serviceTitle"
-            className=""
+            name="ecoSpaceId"
+            className="mb-1"
             rules={[
               {
                 required: true,
@@ -26,15 +53,20 @@ const DashboardAppointments = () => {
               },
             ]}
           >
-            <Select defaultValue="EcoSpace1" allowClear>
-              <Option value="EcoSpace1">EcoSpace1</Option>
-              <Option value="EcoSpace2">EcoSpace2</Option>
-              <Option value="EcoSpace3">EcoSpace3</Option>
+            <Select allowClear>
+              {ecoSpaceList?.length
+                ? ecoSpaceList.map((ecoSpace, i) => (
+                    <Option key={i} value={ecoSpace._id}>
+                      {ecoSpace.company}
+                    </Option>
+                  ))
+                : ""}
             </Select>
           </Form.Item>
+          {/* <p className="text-sm ">{filteredEcoSpaces?.length} result found</p> */}
         </div>
       </Form>
-      <DashboardAppointmentsList />
+      <DashboardAppointmentsList appointments={appointments} />
     </div>
   );
 };

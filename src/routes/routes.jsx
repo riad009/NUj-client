@@ -86,7 +86,11 @@ export const router = createBrowserRouter([
         element: <EcoSpaceProfile />,
       },
       {
-        path: "/profile/eco-space/appointments/appointment",
+        path: "/profile/eco-space/appointments/:appointmentId",
+        loader: ({ params }) =>
+          fetch(
+            `${config.api_url}/appointments/details/${params.appointmentId}`
+          ),
         element: <AppointmentPage />,
       },
       {
