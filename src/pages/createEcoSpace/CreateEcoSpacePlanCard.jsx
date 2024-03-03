@@ -8,7 +8,11 @@ const CreateEcoSpacePlanCard = ({ plan }) => {
   const navigate = useNavigate();
 
   const handlePurchasePlan = (planId) => {
-    setNewEcoSpaceData((prevValues) => ({ ...prevValues, plan: planId }));
+    setNewEcoSpaceData((prevValues) => ({
+      ...prevValues,
+      plan: planId,
+      planPrice: Number(price),
+    }));
     navigate("/create-eco-space/notification/consent");
   };
 

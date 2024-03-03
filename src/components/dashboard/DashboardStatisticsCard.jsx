@@ -15,7 +15,7 @@ const DashboardStatisticsCard = () => {
   }, []);
   console.log(stats);
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
       <Link
         to="/dashboard/eco-spaces"
         className="p-5 shadow-sm bg-base-100 rounded-lg flex justify-start items-center gap-4 hover:shadow-lg  hover:!text-black"
@@ -43,13 +43,13 @@ const DashboardStatisticsCard = () => {
           <p className="text-3xl font-semibold">{stats?.subscribersCount}</p>
         </div>
       </div>
-      {/* <div className="p-5 shadow-sm bg-base-100 rounded-lg flex justify-start items-center gap-4 hover:shadow-lg">
+      <div className="p-5 shadow-sm bg-base-100 rounded-lg flex justify-start items-center gap-4 hover:shadow-lg">
         <AiOutlineDollar className="text-4xl text-primary " />
         <div className="space-y-1">
           <h2>Revenue</h2>
           <p className="text-3xl font-semibold">${stats?.revenue}</p>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
