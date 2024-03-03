@@ -1,4 +1,3 @@
-import { Title, Chart as chartJs } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 
 const ToxicDetectionResponseDisplay = ({ result }) => {
@@ -55,7 +54,7 @@ const ToxicDetectionResponseDisplay = ({ result }) => {
             </div>
             <div>
               <h1 className="text-lg font-semibold">PSA: </h1>
-              <p>Title - {psaTitle}</p>
+              {/* <p>Title - {psaTitle}</p> */}
               <p>Introduction - {psaIntroduction}</p>
             </div>
           </div>
