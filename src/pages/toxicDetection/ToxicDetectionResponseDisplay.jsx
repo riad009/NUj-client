@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
-
+import "chart.js/auto";
 const ToxicDetectionResponseDisplay = ({ result }) => {
-  const { rating, plan, suggestion, psaTitle, psaIntroduction } = result;
+  const { rating, plan, suggestion, psaIntroduction } = result;
 
   return (
     <div>
@@ -16,7 +16,7 @@ const ToxicDetectionResponseDisplay = ({ result }) => {
                 datasets: [
                   {
                     label: "Your score",
-                    data: [rating],
+                    data: [2],
                     maxBarThickness: 20,
                     backgroundColor: ["#4a154b"],
                   },
