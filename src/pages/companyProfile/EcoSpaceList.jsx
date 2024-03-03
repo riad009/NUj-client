@@ -34,7 +34,7 @@ const EcoSpaceList = () => {
         </p>
         <div className="flex flex-col p-5 md:p-10 gap-5 bg-[#ecdeec] rounded-lg">
           <>
-            {!isLoading && ecoSpaces.data.length
+            {!isLoading && ecoSpaces?.data?.length
               ? ecoSpaces.data.map((ecoSpace, i) => (
                   <EcoSpaceListItem ecoSpace={ecoSpace} key={i} />
                 ))
