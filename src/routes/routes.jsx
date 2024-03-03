@@ -35,6 +35,7 @@ import ToxicDetection from "../pages/toxicDetection/ToxicDetection";
 import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppointment";
 import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 import config from "../config";
+import PricingBanner from "../pages/pricing/PricingBanner";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -87,10 +88,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile/eco-space/appointments/:appointmentId",
-        loader: ({ params }) =>
-          fetch(
-            `${config.api_url}/appointments/details/${params.appointmentId}`
-          ),
+        loader: ({ params }) => params.appointmentId,
+        // loader: ({ params }) =>
+        //   fetch(
+        //     `${config.api_url}/appointments/details/${params.appointmentId}`
+        //   ),
         element: <AppointmentPage />,
       },
       {
@@ -109,6 +111,10 @@ export const router = createBrowserRouter([
       {
         path: "/upload-documents",
         element: <UploadDocuments />,
+      },
+      {
+        path: "/pricing",
+        element: <PricingBanner />,
       },
     ],
   },
@@ -197,6 +203,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/appointments",
+        element: <DashboardAppointments />,
+      },
+      {
+        path: "/dashboard/appointments/:ecoSpaceId",
+        loader: ({ params }) => params.ecoSpaceId,
         element: <DashboardAppointments />,
       },
       {

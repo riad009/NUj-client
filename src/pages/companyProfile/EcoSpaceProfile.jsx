@@ -25,6 +25,7 @@ const CompanyProfile = () => {
     email,
     phone,
     address,
+    _id,
   } = ecoSpace;
 
   const { generalDocument, voice, video } = documents ?? {};
@@ -110,7 +111,7 @@ const CompanyProfile = () => {
               </div>
             </div>
             <div className="text-center">
-              <Link to="/dashboard/appointments" className="p-btn ">
+              <Link to={`/dashboard/appointments/${_id}`} className="p-btn ">
                 Appointments
               </Link>
             </div>

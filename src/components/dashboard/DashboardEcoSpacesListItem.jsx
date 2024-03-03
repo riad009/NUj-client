@@ -20,9 +20,9 @@ const DashboardEcoSpacesListItem = ({ ecoSpace }) => {
         <Link to={`/profile/eco-space/${_id}`}>
           <IoEye className="text-xl text-primary" />
         </Link>
-        <button>
+        {/* <button>
           <MdDelete className="text-xl text-error" />
-        </button>
+        </button> */}
       </td>
     </tr>
   );

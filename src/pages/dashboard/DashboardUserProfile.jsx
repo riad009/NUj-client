@@ -35,7 +35,10 @@ const DashboardUserProfile = () => {
   const userId = useLoaderData();
   // setting the states
   const [user, setUser] = useState(null);
+  const [ecoSpaces, setEcoSpaces] = useState(null);
+  const [appointments, setAppointments] = useState(null);
   const [isUserLoading, setIsUserLoading] = useState(true);
+
   // user profile data
   useEffect(() => {
     fetch(`${config.api_url}/users/${userId}`)
@@ -45,10 +48,28 @@ const DashboardUserProfile = () => {
         setIsUserLoading(false);
       });
   }, [userId]);
+  // getting ecpspces data
+  useEffect(() => {
+    fetch(`${config.api_url}/eco-spaces/list/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEcoSpaces(data.data);
+      });
+  }, [userId]);
+  // getting appointments data
+  useEffect(() => {
+    fetch(`${config.api_url}/appointments/user/appointment/list/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setAppointments(data.data);
+      });
+  }, [userId]);
   // preventing loading delation
   if (isUserLoading) {
     return <LoadingScreen />;
   }
+
+  console.log({ ecoSpaces, appointments });
 
   const doc = new jsPDF();
   const printPdf = () => {
@@ -228,17 +249,20 @@ const DashboardUserProfile = () => {
                   <thead>
                     <tr>
                       <th>Company</th>
-                      <th>Service</th>
+                      {/* <th>Service</th> */}
                       <th>Project</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* row 1 */}
-                    <DashboardUserProfileEcoSpaceListItem />
-                    <DashboardUserProfileEcoSpaceListItem />
-                    <DashboardUserProfileEcoSpaceListItem />
-                    <DashboardUserProfileEcoSpaceListItem />
+                    {ecoSpaces?.length
+                      ? ecoSpaces.map((ecoSpace, i) => (
+                          <DashboardUserProfileEcoSpaceListItem
+                            key={i}
+                            ecoSpace={ecoSpace}
+                          />
+                        ))
+                      : ""}
                   </tbody>
                 </table>
               </div>
@@ -251,7 +275,7 @@ const DashboardUserProfile = () => {
                 {/* head */}
                 <thead>
                   <tr>
-                    <th>Company/Org</th>
+                    {/* <th>Company/Org</th> */}
                     <th>Location</th>
                     <th>Date</th>
                     <th>Reason</th>
@@ -260,12 +284,14 @@ const DashboardUserProfile = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* row 1 */}
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
-                  <DashboardUserProfileAppointmentListItem />
+                  {appointments?.length
+                    ? appointments.map((appointment, i) => (
+                        <DashboardUserProfileAppointmentListItem
+                          key={i}
+                          appointment={appointment}
+                        />
+                      ))
+                    : ""}
                 </tbody>
               </table>
             </div>

@@ -2,16 +2,17 @@ import { IoEye } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const DashboardUserProfileEcoSpaceListItem = () => {
+const DashboardUserProfileEcoSpaceListItem = ({ ecoSpace }) => {
+  const { company, project, _id } = ecoSpace ?? {};
   return (
     <tr>
       <td>
-        <div className="font-bold">XYZ Org</div>
+        <div className="font-bold">{company}</div>
       </td>
-      <td>Mental Support</td>
-      <td>Camp fire</td>
+      {/* <td>Mental Support</td> */}
+      <td>{project}</td>
       <td className="flex items-center justify-start gap-2">
-        <Link to="/profile/eco-space">
+        <Link to={`/profile/eco-space/${_id}`}>
           <IoEye className="text-xl text-primary" />
         </Link>
       </td>
