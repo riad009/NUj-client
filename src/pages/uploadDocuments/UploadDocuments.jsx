@@ -1,16 +1,32 @@
-import { Button, Form, Upload } from "antd";
-import { useState } from "react";
+import { Button, Form, Select, Upload } from "antd";
+import { useContext, useState } from "react";
 
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { RiRecordCircleLine } from "react-icons/ri";
 import { IoVideocam } from "react-icons/io5";
 import axios from "axios";
 import { toast } from "sonner";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import config from "../../config";
+import { useQuery } from "@tanstack/react-query";
+import { Option } from "antd/es/mentions";
 
 const UploadDocuments = () => {
+  const { user, userDB } = useContext(AuthContext);
+  const [ecoSpaceId, setEcoSpaceId] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const [files, setFiles] = useState([]);
+
+  const { data: ecoSpaces, isLoading: isEcoSpaceLoading } = useQuery({
+    queryKey: [user, user?.email, userDB, userDB?._id, "email"],
+    queryFn: async () => {
+      const res = await fetch(
+        `${config.api_url}/eco-spaces/list/${userDB?._id}`
+      );
+      const data = await res.json();
+      return data.data;
+    },
+  });
 
   const handleFileChange = (file, fileType) => {
     setFiles((prevFiles) => {
@@ -38,7 +54,7 @@ const UploadDocuments = () => {
 
     return axios
       .patch(
-        `http://localhost:5000/api/v1/eco-space-documents/upload-files/65e17288cc12321ed34bc047?fieldName=${fileItem.type}`,
+        `${config.api_url}/eco-space-documents/upload-files/${ecoSpaceId}?fieldName=${fileItem.type}`,
         formData
       )
       .then((response) => response.data)
@@ -84,7 +100,33 @@ const UploadDocuments = () => {
           }}
           autoComplete="off"
         >
-          {/* name */}
+          <div className="flex flex-col gap-1 mb-6">
+            <label>Select an EcoSpace: </label>
+            <Form.Item
+              name="ecoSpaceId"
+              className="mb-1 w-full md:w-6/12"
+              rules={[
+                {
+                  required: true,
+                  message: "Select an EcoSpace",
+                },
+              ]}
+            >
+              <Select
+                onSelect={(value, option) => setEcoSpaceId(value)}
+                size="large"
+                allowClear
+              >
+                {ecoSpaces?.length
+                  ? ecoSpaces.map((ecoSpace, i) => (
+                      <Option key={i} value={ecoSpace._id}>
+                        {ecoSpace.company}
+                      </Option>
+                    ))
+                  : ""}
+              </Select>
+            </Form.Item>
+          </div>
           <div className="flex flex-col gap-1">
             <label>Document: </label>
             <Form.Item name="upload">

@@ -16,7 +16,7 @@ import config from "../../config";
 
 const CompanyProfile = () => {
   const ecoSpaceData = useLoaderData();
-  const { ecoSpace, documents } = ecoSpaceData.data;
+  const { ecoSpace } = ecoSpaceData.data;
   const {
     company,
     project,
@@ -28,9 +28,11 @@ const CompanyProfile = () => {
     phone,
     address,
     _id,
+    generalDocument,
+    voice,
+    video,
   } = ecoSpace ?? {};
 
-  const { generalDocument, voice, video } = documents ?? {};
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
