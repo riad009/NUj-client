@@ -1,23 +1,19 @@
-import {
-  Input,
-  Form,
-  DatePicker,
-  Select,
-  TimePicker,
-  Upload,
-  Button,
-} from "antd";
-import { Option } from "antd/es/mentions";
+import { Input, Form, DatePicker, TimePicker, Upload, Button } from "antd";
+
 import { Link, useLoaderData } from "react-router-dom";
 import { UploadOutlined } from "@ant-design/icons";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import moment from "moment";
+
 import { toast } from "sonner";
 import config from "../../config";
+import axios from "axios";
 
 const MakeAppointment = () => {
   const ecoSpaceId = useLoaderData();
+  const [loading, setloading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const { userDB } = useContext(AuthContext);
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -27,32 +23,54 @@ const MakeAppointment = () => {
   };
 
   const handleMakeAppointment = (data) => {
-    const newAppointment = {
-      ...data,
-      date: data["date"].format("YYYY-MM-DD"),
-      time: data["time"].format("HH:mm:ss"),
-      participantId: userDB?._id,
-      ecoSpaceId,
-      locationImage: "www.google/d.com",
-    };
-    toast.loading("Processing", { id: "appointment" });
-    // !first upload the image on hosting and add it to newAppointment
-    fetch(`${config.api_url}/appointments/create-appointment`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newAppointment),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          return toast.success(data.message, { id: "appointment" });
-        }
+    if (selectedImage) {
+      const newAppointment = {
+        ...data,
+        date: data["date"].format("YYYY-MM-DD"),
+        time: data["time"].format("HH:mm:ss"),
+        participantId: userDB?._id,
+        ecoSpaceId,
+        locationImage: selectedImage,
+      };
+
+      toast.loading("Processing", { id: "appointment" });
+      // !first upload the image on hosting and add it to newAppointment
+      fetch(`${config.api_url}/appointments/create-appointment`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newAppointment),
       })
-      .catch((err) => {
-        return toast.error(err.message || data.message, { id: "appointment" });
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            return toast.success(data.message, { id: "appointment" });
+          }
+        })
+        .catch((err) => {
+          return toast.error(err.message || data.message, {
+            id: "appointment",
+          });
+        });
+    }
+  };
+
+  const handleImageChange = async (file) => {
+    if (file) {
+      setloading(true);
+      const formdata = new FormData();
+      formdata.append("image", file);
+
+      const response = await axios.patch(
+        `${config.api_url}/appointments/location-image`,
+        formdata
+      );
+
+      setSelectedImage(response.data.data);
+
+      setloading(false);
+    }
   };
 
   return (
@@ -163,7 +181,12 @@ const MakeAppointment = () => {
                     },
                   ]}
                 >
-                  <Upload name="logo" action="/upload.do" listType="picture">
+                  <Upload
+                    name="logo"
+                    listType="picture"
+                    onChange={(e) => handleImageChange(e.file)}
+                    beforeUpload={() => false}
+                  >
                     <Button size="large" icon={<UploadOutlined />}>
                       Location
                     </Button>

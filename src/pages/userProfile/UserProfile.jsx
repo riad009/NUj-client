@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import unknown from "../../assets/home/unknown.jpg";
 import { Button, DatePicker, Form, Input, Select, Switch, Upload } from "antd";
@@ -7,9 +7,14 @@ import { Option } from "antd/es/mentions";
 import moment from "moment";
 import config from "../../config";
 import { toast } from "sonner";
+import axios from "axios";
 
 const UserProfile = () => {
   const { user, userDB } = useContext(AuthContext);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [loading, setloading] = useState(false);
+
   const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
@@ -40,12 +45,28 @@ const UserProfile = () => {
       .then((data) => {
         if (data.success) {
           toast.success(data.message, { id: "profile" });
-          console.log({ data, payload });
         }
       })
       .catch((err) => {
         toast.error(err.message || data.message, { id: "profile" });
       });
+  };
+
+  const handleImageChange = async (file) => {
+    if (file) {
+      setloading(true);
+      const formdata = new FormData();
+      formdata.append("image", file);
+
+      const response = await axios.patch(
+        `${config.api_url}/users/update-image/${userDB?._id}`,
+        formdata
+      );
+
+      setSelectedImage(response.data.data.photo);
+
+      setloading(false);
+    }
   };
 
   return (
@@ -69,10 +90,20 @@ const UserProfile = () => {
               <img
                 className="size-40 rounded-full "
                 // src={user?.photoURL ? user?.photoURL : unknown}
+                // src={
+                //   userDB?.photo
+                //     ? userDB?.photo
+                //     : user?.photo
+                //     ? user?.photo
+                //     : unknown
+                // }
+
                 src={
-                  userDB?.photo
+                  selectedImage
+                    ? selectedImage
+                    : userDB?.photo
                     ? userDB?.photo
-                    : user?.photo
+                    : user
                     ? user?.photo
                     : unknown
                 }
@@ -83,7 +114,12 @@ const UserProfile = () => {
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
               >
-                <Upload name="logo" action="/upload.do" listType="picture">
+                <Upload
+                  name="logo"
+                  beforeUpload={() => false}
+                  listType="picture"
+                  onChange={(e) => handleImageChange(e.file)}
+                >
                   <Button icon={<UploadOutlined />}>Change</Button>
                 </Upload>
               </Form.Item>
