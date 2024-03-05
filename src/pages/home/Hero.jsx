@@ -7,7 +7,7 @@ import { Button } from "antd";
 
 const Hero = () => {
   return (
-    <section className="bg-neutral text-white h-auto md:h-screen flex justify-center items-center overflow-hidden">
+    <section className="bg-primary text-white h-auto md:h-screen flex justify-center items-center overflow-hidden">
       <div className="w-11/12  mx-auto grid grid-cols-1 md:grid-cols-2 mt-20 gap-5">
         <div className="flex flex-col justify-center items-start gap-5">
           <div className="">

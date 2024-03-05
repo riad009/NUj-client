@@ -12,7 +12,7 @@ const PricingBanner = () => {
       });
   }, []);
   return (
-    <div className="w-11/12 mx-auto space-y-5 my-5">
+    <div className="w-11/12 mx-auto space-y-5 mt-24 mb-10">
       {/* <h4 className="text-xs text-gray-200">Step 6 of 6</h4> */}
       <h1 className="text-2xl md:text-4xl font-semibold">
         Choose the right EcoSpace EcoSystem for your Organization.

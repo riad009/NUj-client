@@ -92,17 +92,17 @@ const CompanyProfile = () => {
               </div>
             </div>
             <h3>Website - {website}</h3>
-            <div className="flex flex-col md:flex-row justify-between items-center my-4">
+            <div className="flex flex-col items-start">
               <div className="flex items-center justify-center gap-1">
-                <MdOutlineEmail className="text-2xl" />
+                <MdOutlineEmail className="text-xl" />
                 <span>{email}</span>
               </div>
               <div className="flex items-center justify-center gap-1">
-                <CiPhone className="text-2xl" />
+                <CiPhone className="text-xl" />
                 <span>{phone}</span>
               </div>
               <div className="flex items-center justify-center gap-1">
-                <IoLocationOutline className="text-2xl" />
+                <IoLocationOutline className="text-xl" />
                 <span>{address}</span>
               </div>
             </div>
