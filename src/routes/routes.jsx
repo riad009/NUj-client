@@ -36,6 +36,7 @@ import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppo
 import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 import config from "../config";
 import PricingBanner from "../pages/pricing/PricingBanner";
+import EcoSpaceHome from "../pages/ecoSpace/EcoSpaceHome";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -98,6 +99,10 @@ export const router = createBrowserRouter([
       {
         path: "/eco-space-list",
         element: <EcoSpaceListForAppointment />,
+      },
+      {
+        path: "/eco-space/:ecoSpaceId",
+        element: <EcoSpaceHome />,
       },
       {
         path: "/make-appointment/:ecoSpaceId",

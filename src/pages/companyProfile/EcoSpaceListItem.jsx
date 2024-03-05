@@ -20,9 +20,12 @@ const EcoSpaceListItem = ({ ecoSpace }) => {
         </div>
       </div>
       <h2>Working on - {project}</h2>
-      <Link to={`/profile/eco-space/${_id}`} className="p-btn w-full md:w-auto">
+      <Link to={`/eco-space/${_id}`} className="p-btn w-full md:w-auto">
         Visit EcoSpace
       </Link>
+      {/* <Link to={`/profile/eco-space/${_id}`} className="p-btn w-full md:w-auto">
+        Visit EcoSpace
+      </Link> */}
     </div>
   );
 };
