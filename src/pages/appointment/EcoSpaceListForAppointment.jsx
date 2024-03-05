@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import EcoSpaceListItem from "../companyProfile/EcoSpaceListItem";
 import AppointmentEcoSpaceListItem from "../../components/appointment/AppointmentEcoSpaceListItem";
 import config from "../../config";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const EcoSpaceListForAppointment = () => {
   const [services, setServices] = useState(null);
   const [serviceId, setServiceId] = useState(null);
   const [filteredEcoSpaces, setFilteredEcoSpaces] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch(`${config.api_url}/services/list`)
@@ -18,9 +20,14 @@ const EcoSpaceListForAppointment = () => {
   }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     fetch(`${config.api_url}/eco-spaces/eco-space-list/${serviceId}`)
       .then((res) => res.json())
-      .then((data) => setFilteredEcoSpaces(data.data));
+      .then((data) => {
+        setFilteredEcoSpaces(data.data);
+        setIsLoading(false);
+      })
+      .catch((err) => setIsLoading(false));
   }, [serviceId]);
 
   const handleFilterService = (changedValues, prevValues) => {
@@ -66,6 +73,7 @@ const EcoSpaceListForAppointment = () => {
           </div>
         </Form>
         <div className="flex flex-col p-2 md:p-5 gap-2 md:gap-5 bg-[#ecdeec] rounded-lg">
+          {isLoading ? <LoadingScreen /> : ""}
           {filteredEcoSpaces?.length ? (
             filteredEcoSpaces.map((ecoSpace, i) => (
               <AppointmentEcoSpaceListItem key={i} ecoSpace={ecoSpace} />

@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import EcoSpaceListItem from "./EcoSpaceListItem";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
+import LoadingScreen from "../../components/LoadingScreen";
 
 const EcoSpaceList = () => {
   const { user, userDB } = useContext(AuthContext);
@@ -18,7 +19,7 @@ const EcoSpaceList = () => {
       return data;
     },
   });
-  console.log(ecoSpaces);
+
   return (
     <section className="bg-primary min-h-screen flex justify-center items-center overflow-hidden">
       <div className="w-11/12 mx-auto my-20 space-y-5">
@@ -34,7 +35,8 @@ const EcoSpaceList = () => {
         </p>
         <div className="flex flex-col p-5 md:p-10 gap-5 bg-[#ecdeec] rounded-lg">
           <>
-            {!isLoading && ecoSpaces?.data?.length
+            {isLoading ? <LoadingScreen /> : ""}
+            {ecoSpaces?.data?.length
               ? ecoSpaces.data.map((ecoSpace, i) => (
                   <EcoSpaceListItem ecoSpace={ecoSpace} key={i} />
                 ))

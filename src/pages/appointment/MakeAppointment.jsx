@@ -12,6 +12,7 @@ import axios from "axios";
 const MakeAppointment = () => {
   const ecoSpaceId = useLoaderData();
   const [loading, setloading] = useState(false);
+  const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
   const { userDB } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const MakeAppointment = () => {
 
   const handleMakeAppointment = (data) => {
     if (selectedImage) {
+      setIsAppointmentLoading(true);
       const newAppointment = {
         ...data,
         date: data["date"].format("YYYY-MM-DD"),
@@ -45,10 +47,12 @@ const MakeAppointment = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
+            setIsAppointmentLoading(false);
             return toast.success(data.message, { id: "appointment" });
           }
         })
         .catch((err) => {
+          setIsAppointmentLoading(false);
           return toast.error(err.message || data.message, {
             id: "appointment",
           });
@@ -195,8 +199,12 @@ const MakeAppointment = () => {
               </div>
             </div>
 
-            <button type="submit" className="p-btn ">
-              Next
+            <button
+              disabled={isAppointmentLoading ? true : false}
+              type="submit"
+              className="p-btn "
+            >
+              {isAppointmentLoading ? "Processing..." : "Make Appointment"}
             </button>
           </Form>
         </div>

@@ -27,7 +27,7 @@ const DashboardAppointmentsListItem = ({ appointment }) => {
         {time} - {date}
       </td>
       <td>{reason}</td>
-      <td>Approved</td>
+      <td>{status}</td>
       <td className="flex items-center justify-start gap-2">
         <Link to={`/profile/eco-space/appointments/${_id}`}>
           <IoEye className="text-xl text-primary" />

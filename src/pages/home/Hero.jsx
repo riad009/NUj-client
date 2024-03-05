@@ -1,25 +1,18 @@
 import { Link } from "react-router-dom";
-import court from "../../assets/home/court.mp4";
 import stone from "../../assets/home/stone.png";
-import { FcGoogle } from "react-icons/fc";
-import { BsApple } from "react-icons/bs";
-import { Button } from "antd";
+import banner from "../../assets/home/banner.png";
 
 const Hero = () => {
   return (
     <section className="bg-primary text-white h-auto md:h-screen flex justify-center items-center overflow-hidden">
-      <div className="w-11/12  mx-auto grid grid-cols-1 md:grid-cols-2 mt-20 gap-5">
-        <div className="flex flex-col justify-center items-start gap-5">
+      <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-7 mt-20 gap-8">
+        <div className="flex flex-col justify-center items-start gap-5 md:col-span-2">
           <div className="">
-            <h1 className="text-6xl font-bold !title-font">VREMCAST</h1>
-            <h1 className="text-6xl font-bold text-secondary">
-              A Concept for Change.
-            </h1>
+            <h1 className="text-5xl font-bold !title-font">VREMCAST</h1>
+            <h1 className="text-5xl font-bold">A Concept for Change.</h1>
           </div>
-          <p className="tracking-wide ">
-            Nuj is virtual restorative justice mobile eco-space monitoring
-            system offering cognitive monitoring & rehabilitative training
-            solution offering a fresh approach to monitored movement.
+          <p className="tracking-wider font-medium">
+            With VREMCAST, your team is never more than a click away.
           </p>
           <div className="flex gap-2 w-full">
             {/* <Button
@@ -39,19 +32,20 @@ const Hero = () => {
             >
               Continue with Apple
             </Button> */}
-            <Link
-              to="/create-eco-space/banner"
-              className=" p-btn !px-2 w-full md:w-auto !text-sm md:!text-base"
-            >
+            <Link to="/create-eco-space/banner" className="hero-btn">
               Create Ecospace
             </Link>
-            <button className=" p-btn !text-primary !bg-white !px-2 w-full md:w-auto !text-sm md:!text-base ">
+            {/* <button className=" p-btn !text-primary !bg-white !px-2 w-full md:w-auto !text-sm md:!text-base ">
               Learn More
-            </button>
+            </button> */}
           </div>
           <p className="text-sm">VREMCAST is free to try</p>
         </div>
-        <img className="w-[85%]" src={stone} alt="" />
+        <img
+          className="w-[100%] md:col-span-5 rounded-md"
+          src={banner}
+          alt=""
+        />
       </div>
     </section>
   );
