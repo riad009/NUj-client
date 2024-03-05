@@ -37,6 +37,7 @@ import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 import config from "../config";
 import PricingBanner from "../pages/pricing/PricingBanner";
 import EcoSpaceHome from "../pages/ecoSpace/EcoSpaceHome";
+import AcceptInvitation from "../components/ecoSpace/AcceptInvitation";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/accept-invitation/:ecoSpaceId/:email",
+        element: <AcceptInvitation />,
       },
       {
         path: "/get-started",
