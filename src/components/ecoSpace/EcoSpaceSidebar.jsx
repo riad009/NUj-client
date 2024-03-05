@@ -1,12 +1,40 @@
-import { Form, Select } from "antd";
+import { Dropdown, Form, Select, Space } from "antd";
 import { Option } from "antd/es/mentions";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CoworkerListCard from "./CoworkerListCard";
 import { IoMdAdd } from "react-icons/io";
 import AddCoworkerModal from "./AddCoworkerModal";
+import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 
-const EcoSpaceSidebar = () => {
+const EcoSpaceSidebar = ({ _id, company }) => {
   const [open, setOpen] = useState(false);
+  const items = [
+    {
+      key: "1",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.antgroup.com"
+        >
+          2nd menu item
+        </a>
+      ),
+    },
+  ];
+  console.log(company);
   const coworkers = [
     {
       _id: "dssd",
@@ -36,13 +64,7 @@ const EcoSpaceSidebar = () => {
   return (
     <>
       <div className="ps-[15%] pe-[5%]">
-        <Form
-          className="my-4 "
-          name="basic"
-          initialValues={{ ecoSpace: "Smaple Company" }}
-          autoComplete="off"
-        >
-          {/* name */}
+        {/* <Form className="my-4 " name="basic" autoComplete="off">
           <div className="flex flex-col gap-1 mb-6">
             <Form.Item
               name="ecoSpace"
@@ -60,7 +82,20 @@ const EcoSpaceSidebar = () => {
               </Select>
             </Form.Item>
           </div>
-        </Form>
+        </Form> */}
+        <div className="my-4">
+          <Dropdown
+            className="my-4"
+            menu={{
+              items,
+            }}
+          >
+            <Space className="text-lg font-semibold">
+              {company}
+              <DownOutlined />
+            </Space>
+          </Dropdown>
+        </div>
         <div className="space-y-3">
           <h3 className="text-sm font-semibold">Cowroker</h3>
           <div className="flex flex-col gap-2">

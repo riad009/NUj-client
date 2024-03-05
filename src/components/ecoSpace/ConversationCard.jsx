@@ -13,7 +13,7 @@ const ConversationCard = ({ conversation }) => {
           <p className="font-bold">{email}</p>
           <p className="text-xs text-accent">{time}</p>
         </div>
-        {text ? <p>{text}</p> : ""}
+        {text ? <p className="">{text}</p> : ""}
         {/* video adding */}
         {voice ? (
           <audio className="" controls>
