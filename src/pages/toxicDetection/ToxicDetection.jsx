@@ -35,7 +35,7 @@ const ToxicDetection = () => {
     if (text) {
       setLoading(true);
       try {
-        const payload = "test";
+        const payload = text;
 
         const res = await axios.post(
           `${config.api_url}/eco-space-documents/toxicity-detection`,

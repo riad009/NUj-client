@@ -1,11 +1,35 @@
-import React, { useState } from "react";
-import { Button, Form, Input, Modal, Select } from "antd";
-import { Option } from "antd/es/mentions";
+import { useState } from "react";
+import { Form, Modal } from "antd";
+
 import TextArea from "antd/es/input/TextArea";
 import { toast } from "sonner";
 import config from "../../config";
-import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
 const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
+  const [email, setEmail] = useState("");
+
+  const handleInvite = async () => {
+    if (email) {
+      try {
+        const res = await axios.post(`${config.api_url}/eco-spaces/invite`, {
+          email,
+          ecoSpaceId: "65df009bb82ecbdbb650e4dd",
+          ecoSpaceName: "Sample Company",
+        });
+        const result = res.data.data;
+
+        setEmail("");
+        setOpen(!open);
+        toast.success("Invited!");
+
+        console.log({ result });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+  };
+
   return (
     <>
       <Modal
@@ -39,12 +63,16 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
                   },
                 ]}
               >
-                <TextArea rows={4} />
+                <TextArea
+                  rows={4}
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Form.Item>
             </div>
           </div>
           <div className="text-end">
-            <button className="p-btn" type="submit">
+            <button className="p-btn" type="submit" onClick={handleInvite}>
               Send
             </button>
           </div>
