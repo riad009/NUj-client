@@ -8,10 +8,10 @@ const ConversationCard = ({ conversation }) => {
   return (
     <div className="flex gap-2 items-start">
       <img src={image} className="size-10 rounded-md" alt="" />
-      <div>
+      <div className="space-y-1">
         <div className="flex gap-4 items-center">
           <p className="font-bold">{email}</p>
-          <p className="text-xs text-accent">{time}</p>
+          <p className="text-xs text-gray-500">{time}</p>
         </div>
         {text ? <p className="">{text}</p> : ""}
         {/* video adding */}
