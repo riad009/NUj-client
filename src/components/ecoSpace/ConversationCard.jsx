@@ -1,40 +1,58 @@
-import { Button } from "antd";
-import React from "react";
-import { MdOutlineCloudDownload } from "react-icons/md";
+import moment from "moment";
 
 const ConversationCard = ({ conversation }) => {
-  const { email, image, time, date, text, video, voice, generalDocument } =
-    conversation ?? {};
+  const email = conversation?.email;
+  const userImage = conversation?.userImage;
+  const message = conversation?.message;
+  const audio = conversation?.audio;
+  const video = conversation?.video;
+  const image = conversation?.image;
+  const time = conversation?.createdAt;
+
   return (
     <div className="flex gap-2 items-start">
-      <img src={image} className="size-10 rounded-md" alt="" />
+      <img src={userImage} className="size-10 rounded-md" alt="" />
       <div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center pb-2">
           <p className="font-bold">{email}</p>
-          <p className="text-xs text-accent">{time}</p>
+          <p className="text-xs text-accent">
+            {moment(time).format("MMM DD, YYYY hh:mm:ss A")}
+          </p>
         </div>
-        {text ? <p className="">{text}</p> : ""}
-        {/* video adding */}
-        {voice ? (
-          <audio className="" controls>
-            <source src={voice} type="audio/ogg" />
-            <source src={voice} type="audio/mpeg" />
-            Your browser does not support this audio.
-          </audio>
-        ) : (
-          ""
-        )}
-        {generalDocument ? (
-          <Button
-            size="large"
-            className="flex items-center"
-            icon={<MdOutlineCloudDownload className="text-blue-500 size-6" />}
-          >
-            Download Document
-          </Button>
-        ) : (
-          ""
-        )}
+
+        <div className="flex flex-col gap-4">
+          {message && (
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: message }}
+            ></div>
+          )}
+          {audio && (
+            <audio className="" controls>
+              <source src={audio} type="audio/ogg" />
+              <source src={audio} type="audio/mpeg" />
+              Your browser does not support this audio.
+            </audio>
+          )}
+
+          {image && (
+            <img
+              src={image}
+              alt="image"
+              className="w-[150px] h-[150px] object-cover rounded-sm"
+            />
+          )}
+
+          {video && (
+            <video
+              className="w-[150px] h-[150px] object-cover rounded-sm"
+              controls
+            >
+              <source src={video} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
       </div>
     </div>
   );

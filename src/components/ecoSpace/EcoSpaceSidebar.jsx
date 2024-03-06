@@ -44,7 +44,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             }}
           >
             <Space className="text-lg font-semibold">
-              {ecoSpace?.company}
+              {ecoSpace?.ecoSpace?.company}
               <DownOutlined />
             </Space>
           </Dropdown>
@@ -52,8 +52,8 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
         <div className="space-y-3">
           <h3 className="text-sm font-semibold">Cowroker</h3>
           <div className="flex flex-col gap-2">
-            {ecoSpace?.staffs?.length
-              ? ecoSpace?.staffs.map((coworker, i) => (
+            {ecoSpace?.ecoSpace?.staffs?.length
+              ? ecoSpace?.ecoSpace?.staffs.map((coworker, i) => (
                   <CoworkerListCard key={i} coworker={coworker} />
                 ))
               : ""}

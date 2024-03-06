@@ -15,8 +15,8 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
       try {
         const res = await axios.post(`${config.api_url}/eco-spaces/invite`, {
           email,
-          ecoSpaceId: ecoSpace?._id,
-          ecoSpaceName: ecoSpace?.company,
+          ecoSpaceId: ecoSpace?.ecoSpace?._id,
+          ecoSpaceName: ecoSpace?.ecoSpace?.company,
         });
         const result = res.data.data;
 
