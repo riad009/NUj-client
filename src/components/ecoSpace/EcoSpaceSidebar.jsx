@@ -1,97 +1,50 @@
-import { Dropdown, Form, Select, Space } from "antd";
-import { Option } from "antd/es/mentions";
-import React, { useEffect, useState } from "react";
+import { Dropdown, Space } from "antd";
+import { useContext, useState } from "react";
 import CoworkerListCard from "./CoworkerListCard";
 import { IoMdAdd } from "react-icons/io";
 import AddCoworkerModal from "./AddCoworkerModal";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import config from "../../config";
+import { Link } from "react-router-dom";
 
-const EcoSpaceSidebar = ({ _id, company }) => {
+const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
-  const items = [
-    {
-      key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      ),
+  const { user, userDB } = useContext(AuthContext);
+
+  const { data: ecoSpacesList, isLoading } = useQuery({
+    queryKey: [user, user?.email, userDB, userDB?._id, "email"],
+    queryFn: async () => {
+      const res = await fetch(
+        `${config.api_url}/eco-spaces/list/${userDB?._id}`
+      );
+      const data = await res.json();
+      return data?.data;
     },
-    {
-      key: "2",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          2nd menu item
-        </a>
-      ),
-    },
-  ];
-  console.log(company);
-  const coworkers = [
-    {
-      _id: "dssd",
-      email: "sa@dfd.com",
-      image:
-        "https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BpZGVybWFufGVufDB8fDB8fHww",
-    },
-    {
-      _id: "dssd",
-      email: "sa@dfd.com",
-      image:
-        "https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BpZGVybWFufGVufDB8fDB8fHww",
-    },
-    {
-      _id: "dssd",
-      email: "sa@dfd.com",
-      image:
-        "https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BpZGVybWFufGVufDB8fDB8fHww",
-    },
-    {
-      _id: "dssd",
-      email: "sa@dfd.com",
-      image:
-        "https://images.unsplash.com/photo-1635805737707-575885ab0820?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BpZGVybWFufGVufDB8fDB8fHww",
-    },
-  ];
+  });
+
+  const items = ecoSpacesList?.length
+    ? ecoSpacesList.map((item, i) => ({
+        key: i,
+        label: (
+          <Link to={`/profile/eco-space/${item?._id}`}>{item?.company}</Link>
+        ),
+      }))
+    : "";
+  console.log(ecoSpace);
   return (
     <>
       <div className="ps-[15%] pe-[5%]">
-        {/* <Form className="my-4 " name="basic" autoComplete="off">
-          <div className="flex flex-col gap-1 mb-6">
-            <Form.Item
-              name="ecoSpace"
-              className="mb-1 "
-              rules={[
-                {
-                  required: true,
-                  message: "Select an EcoSpace for filtering out",
-                },
-              ]}
-            >
-              <Select>
-                <Option>Smaple Company</Option>
-                <Option>Smaple Company</Option>
-              </Select>
-            </Form.Item>
-          </div>
-        </Form> */}
         <div className="my-4">
           <Dropdown
-            className="my-4"
+            className=""
             menu={{
               items,
             }}
           >
             <Space className="text-lg font-semibold">
-              {company}
+              {ecoSpace?.company}
               <DownOutlined />
             </Space>
           </Dropdown>
@@ -99,11 +52,19 @@ const EcoSpaceSidebar = ({ _id, company }) => {
         <div className="space-y-3">
           <h3 className="text-sm font-semibold">Cowroker</h3>
           <div className="flex flex-col gap-2">
-            {coworkers?.length
-              ? coworkers.map((coworker, i) => (
+            {ecoSpace?.staffs?.length
+              ? ecoSpace?.staffs.map((coworker, i) => (
                   <CoworkerListCard key={i} coworker={coworker} />
                 ))
               : ""}
+            <div className="flex gap-2 items-center">
+              <img
+                className="size-6 rounded-lg"
+                src={ecoSpace?.owner?.photo}
+                alt=""
+              />
+              <p className="text-sm">{ecoSpace?.owner?.email}</p>
+            </div>
           </div>
           <button
             onClick={() => setOpen(true)}
@@ -114,7 +75,7 @@ const EcoSpaceSidebar = ({ _id, company }) => {
           </button>
         </div>
       </div>
-      <AddCoworkerModal open={open} setOpen={setOpen} />
+      <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
     </>
   );
 };

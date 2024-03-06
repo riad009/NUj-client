@@ -16,7 +16,8 @@ import config from "../../config";
 
 const CompanyProfile = () => {
   const ecoSpaceData = useLoaderData();
-  const { ecoSpace } = ecoSpaceData.data;
+
+  const { data: ecoSpace } = ecoSpaceData ?? {};
   const {
     company,
     project,
@@ -86,7 +87,7 @@ const CompanyProfile = () => {
               <h2>Staffs: </h2>
               <div>
                 <p>
-                  {staffs.length &&
+                  {staffs?.length &&
                     staffs.map((staff, i) => <span key={i}>{staff}</span>)}
                 </p>
               </div>

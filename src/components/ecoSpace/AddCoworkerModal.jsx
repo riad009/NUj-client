@@ -7,6 +7,7 @@ import config from "../../config";
 
 import axios from "axios";
 const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
+  console.log(ecoSpace);
   const [email, setEmail] = useState("");
 
   const handleInvite = async () => {
@@ -14,8 +15,8 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
       try {
         const res = await axios.post(`${config.api_url}/eco-spaces/invite`, {
           email,
-          ecoSpaceId: "65df009bb82ecbdbb650e4dd",
-          ecoSpaceName: "Sample Company",
+          ecoSpaceId: ecoSpace?._id,
+          ecoSpaceName: ecoSpace?.company,
         });
         const result = res.data.data;
 
