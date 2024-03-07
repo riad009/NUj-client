@@ -2,9 +2,11 @@ import { Form, Input } from "antd";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import BackButton from "../../components/BackButton";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 const CreateEcoSpaceS2 = () => {
-  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleCreateEcoSpace2 = (data) => {
     setNewEcoSpaceData((prevValue) => ({
@@ -17,7 +19,10 @@ const CreateEcoSpaceS2 = () => {
   };
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
-      <h4 className="text-xs text-gray-500">Step 2 of 6</h4>
+      <div className="flex gap-2 items-center">
+        <BackButton target={"/create-eco-space/s1"} />
+        <h4 className="text-xs text-gray-500">Step 2 of 6</h4>
+      </div>
       <h1 className="text-2xl md:text-4xl font-semibold">
         What is the Email & Phone of your Company/ Organization?
       </h1>
@@ -30,7 +35,8 @@ const CreateEcoSpaceS2 = () => {
         className=""
         name="basic"
         initialValues={{
-          remember: true,
+          email: newEcoSpaceData?.email,
+          phone: newEcoSpaceData?.phone,
         }}
         autoComplete="off"
         onFinish={handleCreateEcoSpace2}

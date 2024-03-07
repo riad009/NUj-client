@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logos/main-logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import ws from "../../assets/home/ws.jpg";
 import LoginSVG from "../../assets/svg/LoginSVG";
+import circles from "../../assets/home/circles.png";
 
 const CreateEcoSpaceBanner = () => {
   const { user } = useContext(AuthContext);
@@ -41,8 +41,7 @@ const CreateEcoSpaceBanner = () => {
               User Terms of Service, Privacy Policy and Cookie Policy.
             </p>
           </div>
-          {/* <img src={ws} alt="" /> */}
-          <LoginSVG />
+          <img src={circles} alt="" className="w-full" />
         </div>
       </div>
     </div>

@@ -4,9 +4,10 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import config from "../../config";
+import BackButton from "../../components/BackButton";
 
 const CreateEcoSpaceS4 = () => {
-  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
   const [services, setServices] = useState(null);
   const navigate = useNavigate();
   const handleCreateEcoSpace4 = (data) => {
@@ -27,7 +28,10 @@ const CreateEcoSpaceS4 = () => {
 
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
-      <h4 className="text-xs text-gray-500">Step 4 of 6</h4>
+      <div className="flex gap-2 items-center">
+        <BackButton target={"/create-eco-space/s3"} />
+        <h4 className="text-xs text-gray-500">Step 4 of 6</h4>
+      </div>
       <h1 className="text-2xl md:text-4xl font-semibold">
         What is the Service your Company/ Organization provides?
       </h1>
@@ -39,7 +43,7 @@ const CreateEcoSpaceS4 = () => {
         className=""
         name="basic"
         initialValues={{
-          remember: true,
+          serviceDescription: newEcoSpaceData?.serviceDescription,
         }}
         autoComplete="off"
         onFinish={handleCreateEcoSpace4}

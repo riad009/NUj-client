@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const CreateEcoSpaceS1 = () => {
-  const { setNewEcoSpaceData, userDB } = useContext(AuthContext);
+  const { newEcoSpaceData, setNewEcoSpaceData, userDB } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const handleCreateEcoSpace1 = (data) => {
     setNewEcoSpaceData((prevValue) => ({
@@ -30,7 +31,7 @@ const CreateEcoSpaceS1 = () => {
         className=""
         name="basic"
         initialValues={{
-          remember: true,
+          company: newEcoSpaceData?.company,
         }}
         autoComplete="off"
         onFinish={handleCreateEcoSpace1}
