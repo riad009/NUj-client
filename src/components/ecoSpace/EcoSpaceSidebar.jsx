@@ -8,9 +8,12 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
 import { Link } from "react-router-dom";
+import EcoSpaceProfileEditMpdal from "../../pages/companyProfile/EcoSpaceProfileEditModal";
+import { FaRegEdit } from "react-icons/fa";
 
 const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const { user, userDB } = useContext(AuthContext);
 
   const { data: ecoSpacesList, isLoading } = useQuery({
@@ -32,50 +35,61 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
         ),
       }))
     : "";
-  console.log(ecoSpace);
+
   return (
     <>
-      <div className="ps-[15%] pe-[5%]">
-        <div className="my-4">
-          <Dropdown
-            className=""
-            menu={{
-              items,
-            }}
-          >
-            <Space className="text-lg font-semibold">
-              {ecoSpace?.ecoSpace?.company}
-              <DownOutlined />
-            </Space>
-          </Dropdown>
-        </div>
-        <div className="space-y-3">
-          <h3 className="text-sm font-semibold">Cowroker</h3>
-          <div className="flex flex-col gap-2">
-            {ecoSpace?.ecoSpace?.staffs?.length
-              ? ecoSpace?.ecoSpace?.staffs.map((coworker, i) => (
-                  <CoworkerListCard key={i} coworker={coworker} />
-                ))
-              : ""}
-            <div className="flex gap-2 items-center">
-              <img
-                className="size-6 rounded-lg"
-                src={ecoSpace?.owner?.photo}
-                alt=""
-              />
-              <p className="text-sm">{ecoSpace?.owner?.email}</p>
-            </div>
+      <div className="col-span-1 border-r-[.5px] border-gray-600">menu</div>
+      <div className="col-span-4 ">
+        <div className="col-span-5">
+          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600">
+            <Dropdown
+              className=""
+              menu={{
+                items,
+              }}
+            >
+              <Space className="text-lg font-semibold">
+                {ecoSpace?.company}
+                <DownOutlined />
+              </Space>
+            </Dropdown>
+            <button onClick={() => setOpenEditModal(true)}>
+              <FaRegEdit className="size-6" />
+            </button>
           </div>
-          <button
-            onClick={() => setOpen(true)}
-            className="flex gap-1 items-center font-semibold"
-          >
-            <IoMdAdd />
-            <p className="text-sm">Add Coworker</p>
-          </button>
+          <div className="space-y-3 p-4">
+            <h3 className="text-sm font-semibold">Cowroker</h3>
+            <div className="flex flex-col gap-2">
+              {ecoSpace?.staffs?.length
+                ? ecoSpace?.staffs.map((coworker, i) => (
+                    <CoworkerListCard key={i} coworker={coworker} />
+                  ))
+                : ""}
+              <div className="flex gap-2 items-center">
+                <img
+                  className="size-6 rounded-lg"
+                  src={ecoSpace?.owner?.photo}
+                  alt=""
+                />
+                <p className="text-sm">{ecoSpace?.owner?.email}</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setOpen(true)}
+              className="flex gap-1 items-center font-semibold"
+            >
+              <IoMdAdd />
+              <p className="text-sm">Add Coworker</p>
+            </button>
+          </div>
         </div>
       </div>
       <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
+      <EcoSpaceProfileEditMpdal
+        open={openEditModal}
+        setOpen={setOpenEditModal}
+        ecoSpace={ecoSpace}
+      />
     </>
   );
 };

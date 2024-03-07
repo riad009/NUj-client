@@ -7,7 +7,6 @@ import config from "../../config";
 
 import axios from "axios";
 const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
-  console.log(ecoSpace);
   const [email, setEmail] = useState("");
 
   const handleInvite = async () => {

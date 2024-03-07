@@ -22,7 +22,7 @@ const CreateEcoSpaceNotificationConsent = () => {
           toast.success(data.message, { id: "create-eco-space" });
           return navigate("/profile/eco-space/list");
         } else {
-          toast.error(data.message, { id: "create-eco-space" });
+          toast.error("Something went wrong", { id: "create-eco-space" });
           // return navigate("/profile/eco-space/list");
         }
       })

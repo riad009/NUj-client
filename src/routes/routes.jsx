@@ -38,6 +38,7 @@ import config from "../config";
 import PricingBanner from "../pages/pricing/PricingBanner";
 import EcoSpaceHome from "../pages/ecoSpace/EcoSpaceHome";
 import AcceptInvitation from "../components/ecoSpace/AcceptInvitation";
+import EcoSpaceLayout from "../components/layout/EcoSpaceLayout";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -106,12 +107,6 @@ export const router = createBrowserRouter([
         element: <EcoSpaceListForAppointment />,
       },
       {
-        path: "/eco-space/:ecoSpaceId",
-        loader: ({ params }) =>
-          fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
-        element: <EcoSpaceHome />,
-      },
-      {
         path: "/make-appointment/:ecoSpaceId",
         loader: ({ params }) => params.ecoSpaceId,
         element: <MakeAppointment />,
@@ -127,6 +122,20 @@ export const router = createBrowserRouter([
       {
         path: "/pricing",
         element: <PricingBanner />,
+      },
+    ],
+  },
+  {
+    path: "/eco-space/:ecoSpaceId",
+    loader: ({ params }) =>
+      fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
+    element: <EcoSpaceLayout />,
+    children: [
+      {
+        path: "/eco-space/:ecoSpaceId",
+        loader: ({ params }) =>
+          fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
+        element: <EcoSpaceHome />,
       },
     ],
   },

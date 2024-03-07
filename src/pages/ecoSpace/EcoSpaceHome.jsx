@@ -6,18 +6,16 @@ const EcoSpaceHome = () => {
   const data = useLoaderData();
 
   const ecoSpace = data.data;
-  console.log({ ecoSpace });
-
   return (
     <>
-      <div className="mt-16 min-h-[80vh] h-auto grid grid-cols-4">
+      {/* <div className="mt-16 min-h-[80vh] h-auto">
         <div className="bg-[#ecdeec] h-full col-span-1">
           <EcoSpaceSidebar ecoSpace={ecoSpace} />
         </div>
         <div className="bg-base-100 h-full col-span-3 ">
-          <EcoSpaceConversation ecoSpace={ecoSpace} />
         </div>
-      </div>
+      </div> */}
+      <EcoSpaceConversation ecoSpace={ecoSpace} />
     </>
   );
 };
