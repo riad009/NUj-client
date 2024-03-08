@@ -5,8 +5,9 @@ import { IoMdCall } from "react-icons/io";
 import { MdFindInPage } from "react-icons/md";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { Collapse } from "antd";
+import CoworkerListCard from "./CoworkerListCard";
 
-const EcoSpaceRightBar = () => {
+const EcoSpaceRightBar = ({ ecoSpace }) => {
   const aboutContent = (
     <div className="bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
       <div>
@@ -30,12 +31,43 @@ const EcoSpaceRightBar = () => {
     },
     {
       key: "2",
-      label: "This is panel header 2",
-      children: <p>Adding Soon</p>,
+      label: "Members",
+      children: (
+        <div className="flex flex-col bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
+          {ecoSpace?.staffs?.length
+            ? ecoSpace?.staffs.map((coworker, i) => (
+                <CoworkerListCard key={i} coworker={coworker} />
+              ))
+            : ""}
+          <div className="flex gap-2 items-center">
+            <img
+              className="size-6 rounded-lg"
+              src={ecoSpace?.owner?.photo}
+              alt=""
+            />
+            <p className="text-sm">{ecoSpace?.owner?.email}</p>
+          </div>
+        </div>
+      ),
     },
     {
       key: "3",
-      label: "This is panel header 3",
+      label: "Organizations",
+      children: <p>Adding Soon</p>,
+    },
+    {
+      key: "4",
+      label: "Pinned Items",
+      children: <p>Adding Soon</p>,
+    },
+    {
+      key: "5",
+      label: "Shortcuts",
+      children: <p>Adding Soon</p>,
+    },
+    {
+      key: "6",
+      label: "Shred Files",
       children: <p>Adding Soon</p>,
     },
   ];
@@ -50,7 +82,7 @@ const EcoSpaceRightBar = () => {
             </div>
             <RxCross2 className="size-6 text-gray-500 cursor-pointer" />
           </div>
-          <div className="border-b-[.5px] border-b-gray-300 flex justify-between items-center p-5">
+          <div className="border-b-[.5px] border-b-gray-300 flex justify-between items-center p-5 ">
             <div className="flex flex-col items-center justify-center">
               <IoPersonAddOutline className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
               <span className="text-sm ">Add</span>
@@ -68,12 +100,15 @@ const EcoSpaceRightBar = () => {
               <span className="text-sm ">More</span>
             </div>
           </div>
-          <Collapse
-            bordered={false}
-            accordion
-            className="!bg-base-100"
-            items={items}
-          />
+          <div className="">
+            <Collapse
+              bordered={false}
+              accordion
+              className="!bg-base-100"
+              items={items}
+              expandIconPosition="end"
+            />
+          </div>
         </div>
       </div>
     </>

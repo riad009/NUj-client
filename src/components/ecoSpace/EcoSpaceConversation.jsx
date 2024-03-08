@@ -32,7 +32,7 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
       const { data } = await axios.get(
         `${config.api_url}/message/${ecoSpaceId}`
       );
-      return data.data;
+      return data;
     },
   });
 
@@ -62,7 +62,7 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
       }
     }
   };
-  console.log(data);
+
   return (
     <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
       <div className="">

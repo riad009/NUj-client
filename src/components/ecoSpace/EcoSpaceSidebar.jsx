@@ -1,4 +1,4 @@
-import { Dropdown, Space } from "antd";
+import { Collapse, Dropdown, Space } from "antd";
 import { useContext, useState } from "react";
 import CoworkerListCard from "./CoworkerListCard";
 import { IoMdAdd } from "react-icons/io";
@@ -36,6 +36,26 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       }))
     : "";
 
+  const starredItems = [
+    {
+      key: "1",
+      label: (
+        <h2 className="font-semibold text-white tracking-wider">Starred</h2>
+      ),
+      children: <p>Adding Soon</p>,
+    },
+  ];
+
+  const channelsItems = [
+    {
+      key: "1",
+      label: (
+        <h2 className="font-semibold text-white tracking-wider">Channels</h2>
+      ),
+      children: <p>Adding Soon</p>,
+    },
+  ];
+
   return (
     <>
       <div className="col-span-1 border-r-[.5px] border-gray-600">menu</div>
@@ -56,6 +76,24 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             <button onClick={() => setOpenEditModal(true)}>
               <FaRegEdit className="size-6" />
             </button>
+          </div>
+          {/* starred */}
+          <div className="">
+            <Collapse
+              bordered={false}
+              accordion
+              className=""
+              items={starredItems}
+            />
+          </div>
+          {/* channels */}
+          <div className="">
+            <Collapse
+              bordered={false}
+              accordion
+              className=""
+              items={channelsItems}
+            />
           </div>
           <div className="space-y-3 p-4">
             <h3 className="text-sm font-semibold">Cowroker</h3>
