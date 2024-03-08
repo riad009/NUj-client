@@ -26,15 +26,15 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
     setSelectedFiles((prevFiles) => [...prevFiles, file]);
   };
 
-  const { isLoading, data, refetch } = useQuery({
-    queryKey: ["messages", ecoSpaceId],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        `${config.api_url}/message/${ecoSpaceId}`
-      );
-      return data;
-    },
-  });
+  // const { isLoading, data, refetch } = useQuery({
+  //   queryKey: ["messages", ecoSpaceId],
+  //   queryFn: async () => {
+  //     const { data } = await axios.get(
+  //       `${config.api_url}/message/${ecoSpaceId}`
+  //     );
+  //     return data;
+  //   },
+  // });
 
   const handleSend = async () => {
     if (message || selectedFiles?.length) {
@@ -63,6 +63,36 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
     }
   };
 
+  const data = [
+    {
+      email: "safwanridwan321@gmail.com",
+      userImage:
+        "https://blog.playstation.com/tachyon/2022/06/0c3c20a8d8514501524a0859461f391572ea6e61.jpg?resize=1088%2C612&crop_strategy=smart",
+      message: "Testing channel text",
+      time: "2024-03-01T06:15:36.881+00:00",
+      image:
+        "https://blog.playstation.com/tachyon/2022/06/0c3c20a8d8514501524a0859461f391572ea6e61.jpg?resize=1088%2C612&crop_strategy=smart",
+    },
+    {
+      email: "safwanridwan321@gmail.com",
+      userImage:
+        "https://blog.playstation.com/tachyon/2022/06/0c3c20a8d8514501524a0859461f391572ea6e61.jpg?resize=1088%2C612&crop_strategy=smart",
+      message: "Testing channel text",
+      time: "2024-03-01T06:15:36.881+00:00",
+      image:
+        "https://blog.playstation.com/tachyon/2022/06/0c3c20a8d8514501524a0859461f391572ea6e61.jpg?resize=1088%2C612&crop_strategy=smart",
+    },
+    {
+      email: "safwanridwan321@gmail.com",
+      userImage:
+        "https://blog.playstation.com/tachyon/2022/06/0c3c20a8d8514501524a0859461f391572ea6e61.jpg?resize=1088%2C612&crop_strategy=smart",
+      message: "Testing channel text",
+      time: "2024-03-01T06:15:36.881+00:00",
+      image:
+        "https://blog.playstation.com/tachyon/2022/06/0c3c20a8d8514501524a0859461f391572ea6e61.jpg?resize=1088%2C612&crop_strategy=smart",
+    },
+  ];
+
   return (
     <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
       <div className="">
@@ -85,7 +115,7 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
           </div>
           <IoMdInformationCircleOutline className="size-6 text-gray-500 cursor-pointer" />
         </div>
-        <div className="space-y-5 overflow-y-scroll min-h-[60vh] max-h-[60vh] p-5">
+        <div className="space-y-5 overflow-y-scroll min-h-[65vh] max-h-[60vh] p-5">
           {data?.length
             ? data?.map((conversation, i) => (
                 <ConversationCard key={i} conversation={conversation} />
@@ -93,7 +123,7 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
             : ""}
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 w-full p-5">
+      <div className="absolute bottom-0 left-0 w-full p-5 bg-white">
         <div className="">
           <div className="border-2 border-b-0 flex justify-between items-center py-3 px-4">
             <div className="flex items-center gap-5">
