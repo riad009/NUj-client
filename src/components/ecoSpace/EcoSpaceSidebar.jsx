@@ -100,6 +100,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
               <Link
                 key={i}
                 className="bg-secondary size-10 rounded-md flex justify-center items-center"
+                to={`/eco-space/${ecoSpace?._id}`}
               >
                 {ecoSpace?.company
                   ?.split(" ")
@@ -110,8 +111,8 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             ))
           : ""}
       </div>
-      <div className="col-span-4 ">
-        <div className="col-span-5">
+      <div className="col-span-4 h-[100vh] overflow-y-scroll overflow-x-clip">
+        <div className="">
           <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600">
             <Dropdown
               className=""
