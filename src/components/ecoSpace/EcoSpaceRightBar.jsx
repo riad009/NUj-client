@@ -74,7 +74,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
   return (
     <>
       <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
-        <div className="">
+        <div className="overflow-y-scroll">
           <div className="border-b-[.5px] border-b-gray-300 h-16 flex justify-between items-center px-5">
             <div>
               <h2 className="font-semibold">Details</h2>

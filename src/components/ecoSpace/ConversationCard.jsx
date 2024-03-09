@@ -11,7 +11,7 @@ const ConversationCard = ({ conversation }) => {
 
   return (
     <div className="flex gap-2 items-start">
-      <img src={userImage} className="size-10 rounded-md" alt="" />
+      <img src={userImage} className="size-8 rounded-md" alt="" />
       <div>
         <div className="flex gap-4 items-center pb-2">
           <p className="font-bold">{email}</p>

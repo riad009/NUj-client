@@ -19,7 +19,7 @@ const EcoSpaceLayout = () => {
         <Outlet />
       </div>
       <div className="col-span-3 border-l-[.5px] border-gray-300">
-        <EcoSpaceRightBar ecoSpace={ecoSpace} />
+        <EcoSpaceRightBar />
       </div>
     </div>
   );
