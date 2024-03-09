@@ -6,24 +6,22 @@ import { toast } from "sonner";
 import config from "../../config";
 
 import axios from "axios";
-const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
-  const [email, setEmail] = useState("");
+const AddChannelModal = ({ open, setOpen, ecoSpace, refetch }) => {
+  const [channelName, setChannelName] = useState("");
 
   const handleInvite = async () => {
-    if (email) {
+    if (channelName) {
       try {
-        const res = await axios.post(`${config.api_url}/eco-spaces/invite`, {
-          email,
-          ecoSpaceId: ecoSpace._id,
-          ecoSpaceName: ecoSpace.company,
+        await axios.post(`${config.api_url}/channel/create`, {
+          email: ecoSpace?.email,
+          ecoSpaceId: ecoSpace?._id,
+          channelName,
         });
-        const result = res.data.data;
 
-        setEmail("");
+        setChannelName("");
         setOpen(!open);
-        toast.success("Invited!");
-
-        console.log({ result });
+        refetch();
+        toast.success("Created!");
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -33,7 +31,7 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
   return (
     <>
       <Modal
-        title="Invite People to EcoSpace"
+        title="Create new channel"
         centered
         open={open}
         onOk={() => setOpen(false)}
@@ -52,7 +50,7 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
           {/* name */}
           <div className="w-full">
             <div className="flex flex-col gap-1 w-full">
-              <label>To: </label>
+              <label>Channel Name: </label>
               <Form.Item
                 className="mb-1"
                 name="coworker"
@@ -66,7 +64,7 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
                 <TextArea
                   rows={4}
                   required
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setChannelName(e.target.value)}
                 />
               </Form.Item>
             </div>
@@ -81,4 +79,4 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
     </>
   );
 };
-export default AddCoworkerModal;
+export default AddChannelModal;

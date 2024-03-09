@@ -1,11 +1,8 @@
-import React from "react";
-import port from "../../assets/home/port.jpg";
 import { IoEye } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
 
 const DashboardUsersListItem = ({ user }) => {
-  const { photo, name, address, phone, email, _id } = user;
+  const { photo, name, address, email, _id } = user;
   return (
     <tr>
       <td>
