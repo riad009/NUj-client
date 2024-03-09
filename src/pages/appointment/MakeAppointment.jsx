@@ -8,12 +8,21 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { toast } from "sonner";
 import config from "../../config";
 import axios from "axios";
+import LocationMap from "./LocationMap";
 
 const MakeAppointment = () => {
   const ecoSpaceId = useLoaderData();
   const [loading, setloading] = useState(false);
   const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  console.log({ selectedLocation });
+
+  const handleLocationChange = (location) => {
+    setSelectedLocation(location);
+  };
 
   const { userDB } = useContext(AuthContext);
   const normFile = (e) => {
@@ -208,14 +217,10 @@ const MakeAppointment = () => {
             </button>
           </Form>
         </div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.523960098061!2d91.82751457599431!3d22.333836441677587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8a842bd40ad%3A0xb5a685e4e6129d80!2sChittagong%20Railway%20Staion%2C%20Chittagong!5e0!3m2!1sen!2sbd!4v1709827076220!5m2!1sen!2sbd"
-          width={600}
-          height={450}
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
+
+        <LocationMap
+          apiKey="AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM"
+          onLocationChange={handleLocationChange}
         />
       </div>
     </div>
