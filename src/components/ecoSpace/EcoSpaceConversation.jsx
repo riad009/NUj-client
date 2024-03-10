@@ -10,6 +10,7 @@ import { FaImage } from "react-icons/fa";
 import { FaVideo } from "react-icons/fa";
 import { AiFillAudio } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
+import { IoMenuOutline } from "react-icons/io5";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
@@ -17,7 +18,8 @@ const EcoSpaceConversation = ({ channelData }) => {
   const [message, setMessage] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { userDB } = useContext(AuthContext);
+  const { userDB, setEcoSpaceRightBarOpen, setEcoSpaceLeftBarOpen } =
+    useContext(AuthContext);
 
   console.log({ selectedFiles });
 
@@ -93,7 +95,11 @@ const EcoSpaceConversation = ({ channelData }) => {
     <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
       <div className="">
         <div className="border-b-[.5px] border-b-gray-300 h-16 flex justify-between items-center px-5">
-          <div>
+          <div className="flex items-center gap-2">
+            <IoMenuOutline
+              onClick={() => setEcoSpaceLeftBarOpen((prevState) => !prevState)}
+              className="size-8 text-gray-500 cursor-pointer block md:hidden"
+            />
             <h2 className="font-semibold text-xl">
               #{channelData?.channelName}
             </h2>
@@ -111,10 +117,14 @@ const EcoSpaceConversation = ({ channelData }) => {
               </div>
             </div> */}
           </div>
-          <IoMdInformationCircleOutline className="size-6 text-gray-500 cursor-pointer" />
+
+          <IoMdInformationCircleOutline
+            onClick={() => setEcoSpaceRightBarOpen((prevState) => !prevState)}
+            className="size-6 text-gray-500 cursor-pointer"
+          />
         </div>
         <div
-          className="space-y-5 overflow-y-scroll min-h-[65vh] max-h-[60vh] p-5"
+          className="space-y-5 overflow-y-auto min-h-[65vh] max-h-[60vh] p-5"
           ref={messageContainerRef}
         >
           {data?.length ? (

@@ -17,7 +17,7 @@ const DashboardEcoSpacesListItem = ({ ecoSpace }) => {
       <td>{staffs?.length || "N/A"}</td>
       <td>{plan?.title || "free"}</td>
       <td className="flex items-center justify-start gap-2">
-        <Link to={`/profile/eco-space/${_id}`}>
+        <Link to={`/eco-space/${_id}`}>
           <IoEye className="text-xl text-primary" />
         </Link>
         {/* <button>

@@ -1,7 +1,7 @@
 import { Collapse, Dropdown, Space } from "antd";
 import { useContext, useState } from "react";
 import CoworkerListCard from "./CoworkerListCard";
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoIosClose } from "react-icons/io";
 import AddCoworkerModal from "./AddCoworkerModal";
 import { DownOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
@@ -17,7 +17,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
   const [openChannel, setOpenChannel] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const { user, userDB } = useContext(AuthContext);
+  const { user, userDB, setEcoSpaceLeftBarOpen } = useContext(AuthContext);
 
   const { data: ecoSpacesList } = useQuery({
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
@@ -51,9 +51,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
   const starredItems = [
     {
       key: "1",
-      label: (
-        <h2 className="font-semibold text-white tracking-wider">Starred</h2>
-      ),
+      label: <h2 className="font-semibold  tracking-wider">Starred</h2>,
       children: (
         <div className="space-y-3">
           {channels?.length
@@ -70,7 +68,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     {
       key: "1",
       label: (
-        <div className="flex items-center text-white justify-between">
+        <div className="flex items-center  justify-between">
           <p className="font-semibold  tracking-wider">Channels</p>
           <FaPlusCircle
             className="h-4 w-4"
@@ -92,7 +90,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
 
   return (
     <>
-      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full flex flex-col items-center justify-start py-5 gap-2">
+      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full flex flex-col items-center justify-start py-5 gap-2 bg-[#6a2b70]">
         {ecoSpacesList?.length
           ? ecoSpacesList.map((ecoSpace, i) => (
               <Link
@@ -109,9 +107,9 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             ))
           : ""}
       </div>
-      <div className="col-span-4 h-[100vh] overflow-y-scroll overflow-x-clip">
+      <div className="col-span-4 h-[100vh] overflow-y-auto overflow-x-clip bg-[#d8c0d6]">
         <div className="">
-          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600">
+          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-400 space-x-2">
             <Dropdown
               className=""
               menu={{
@@ -123,9 +121,14 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                 <DownOutlined />
               </Space>
             </Dropdown>
-            <button onClick={() => setOpenEditModal(true)}>
-              <FaRegEdit className="size-6" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setOpenEditModal(true)}>
+                <FaRegEdit className="size-6" />
+              </button>
+              <button onClick={() => setEcoSpaceLeftBarOpen(false)}>
+                <IoIosClose className="size-8 block md:hidden" />
+              </button>
+            </div>
           </div>
           {/* starred */}
           <div className="">
@@ -150,7 +153,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
           </div>
           <div className="space-y-3 p-4">
             <h3 className="text-sm font-semibold">Cowroker</h3>
-            <div className="flex flex-col gap-2 text-gray-300 text-sm">
+            <div className="flex flex-col gap-2 text-gray-700 text-sm">
               {ecoSpace?.staffs?.length
                 ? ecoSpace?.staffs.map((coworker, i) => (
                     <CoworkerListCard key={i} coworker={coworker} />
