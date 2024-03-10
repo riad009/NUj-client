@@ -20,6 +20,7 @@
 .p-btn {
   text-transform: uppercase;
   padding: 8px 20px;
+  /* margin: 20px 0 !important; */
   color: white;
   /* background-color: #4a154b; */
   background-color: #b76aab;
