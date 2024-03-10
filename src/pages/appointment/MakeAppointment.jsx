@@ -1,4 +1,4 @@
-import { Input, Form, DatePicker, TimePicker } from "antd";
+import { Input, Form, DatePicker, TimePicker, Select } from "antd";
 
 import { useLoaderData } from "react-router-dom";
 
@@ -10,6 +10,8 @@ import config from "../../config";
 
 import LocationMap from "./LocationMap";
 import SearchLocationInput from "./SearchLocationInput";
+import { neighbourhoods } from "./Neighbourhoods";
+import { Option } from "antd/es/mentions";
 
 const MakeAppointment = () => {
   const ecoSpaceId = useLoaderData();
@@ -102,7 +104,7 @@ const MakeAppointment = () => {
   console.log({ selectedLocation });
 
   return (
-    <div className="min-h-screen flex justify-center items-center overflow-hidden mt-10">
+    <div className="min-h-screen flex justify-center items-center overflow-hidden mt-10 mb-6">
       <div className="w-11/12 mx-auto space-y-5">
         <h4 className="text-xs text-gray-500">EcoSpace Appointment</h4>
         <h1 className="text-2xl md:text-4xl font-semibold">
@@ -180,6 +182,31 @@ const MakeAppointment = () => {
                       className=""
                       placeholder="Ex: Need mental Support"
                     />
+                  </Form.Item>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-5">
+                <div className="flex flex-col gap-1 ">
+                  <label>Neighbourhood: </label>
+                  <Form.Item
+                    name="neighbourhood"
+                    className="w-full"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Select a neighbourhood",
+                      },
+                    ]}
+                  >
+                    <Select allowClear>
+                      {neighbourhoods?.length
+                        ? neighbourhoods.map((item, i) => (
+                            <Option key={i} value={item}>
+                              {item}
+                            </Option>
+                          ))
+                        : ""}
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
