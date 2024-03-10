@@ -1,39 +1,63 @@
-import { Input, Form, DatePicker, TimePicker, Upload, Button } from "antd";
+import { Input, Form, DatePicker, TimePicker } from "antd";
 
-import { Link, useLoaderData } from "react-router-dom";
-import { UploadOutlined } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 import { toast } from "sonner";
 import config from "../../config";
-import axios from "axios";
+
 import LocationMap from "./LocationMap";
+import SearchLocationInput from "./SearchLocationInput";
 
 const MakeAppointment = () => {
   const ecoSpaceId = useLoaderData();
-  const [loading, setloading] = useState(false);
+
   const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [placeName, setPlaceName] = useState("");
 
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState({
+    lat: 44.5,
+    lng: -89.5,
+  });
 
-  console.log({ selectedLocation });
+  const [form] = Form.useForm();
 
-  const handleLocationChange = (location) => {
-    setSelectedLocation(location);
-  };
+  useEffect(() => {
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            if (latitude && longitude) {
+              setSelectedLocation({
+                lat: latitude,
+                lng: longitude,
+              });
+            } else {
+              setSelectedLocation({
+                lat: 44.5,
+                lng: -89.5,
+              });
+            }
+          },
+          (error) => {
+            console.error("Error getting geolocation:", error.message);
+          }
+        );
+      } else {
+        console.error("Geolocation is not supported by your browser.");
+      }
+    };
+
+    getLocation();
+  }, []);
 
   const { userDB } = useContext(AuthContext);
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
 
   const handleMakeAppointment = (data) => {
-    if (selectedImage) {
+    if (selectedLocation) {
       setIsAppointmentLoading(true);
       const newAppointment = {
         ...data,
@@ -41,7 +65,7 @@ const MakeAppointment = () => {
         time: data["time"].format("HH:mm:ss"),
         participantId: userDB?._id,
         ecoSpaceId,
-        locationImage: selectedImage,
+        location: selectedLocation,
       };
 
       toast.loading("Processing", { id: "appointment" });
@@ -69,25 +93,16 @@ const MakeAppointment = () => {
     }
   };
 
-  const handleImageChange = async (file) => {
-    if (file) {
-      setloading(true);
-      const formdata = new FormData();
-      formdata.append("image", file);
+  useEffect(() => {
+    form.setFieldsValue({
+      location: placeName,
+    });
+  }, [placeName, form]);
 
-      const response = await axios.patch(
-        `${config.api_url}/appointments/location-image`,
-        formdata
-      );
-
-      setSelectedImage(response.data.data);
-
-      setloading(false);
-    }
-  };
+  console.log({ selectedLocation });
 
   return (
-    <div className="min-h-screen flex justify-center items-center overflow-hidden">
+    <div className="min-h-screen flex justify-center items-center overflow-hidden mt-10">
       <div className="w-11/12 mx-auto space-y-5">
         <h4 className="text-xs text-gray-500">EcoSpace Appointment</h4>
         <h1 className="text-2xl md:text-4xl font-semibold">
@@ -100,6 +115,7 @@ const MakeAppointment = () => {
             initialValues={{
               remember: true,
             }}
+            form={form}
             autoComplete="off"
             onFinish={handleMakeAppointment}
           >
@@ -140,23 +156,11 @@ const MakeAppointment = () => {
               <div className="flex items-center gap-5">
                 <div className="flex flex-col gap-1 w-full">
                   <label>Location: </label>
-                  <Form.Item
-                    className="mb-1"
-                    name="location"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Provide an address",
-                      },
-                    ]}
-                  >
-                    <Input
-                      // defaultValue={user?.email}
-                      size="middle"
-                      className=""
-                      placeholder="Ex: 123, xyz"
-                    />
-                  </Form.Item>
+                  <SearchLocationInput
+                    setSelectedLocation={setSelectedLocation}
+                    placeName={placeName}
+                    setPlaceName={setPlaceName}
+                  />
                 </div>
 
                 <div className="flex flex-col gap-1 w-full">
@@ -180,48 +184,24 @@ const MakeAppointment = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1 w-full">
-                <label>Picture of location: </label>
-                <Form.Item
-                  className="mb-1"
-                  name="locationImage"
-                  valuePropName="fileList"
-                  getValueFromEvent={normFile}
-                  rules={[
-                    {
-                      required: true,
-                      message: "Upload a picture of the location",
-                    },
-                  ]}
-                >
-                  <Upload
-                    name="logo"
-                    listType="picture"
-                    onChange={(e) => handleImageChange(e.file)}
-                    beforeUpload={() => false}
-                  >
-                    <Button size="large" icon={<UploadOutlined />}>
-                      Location
-                    </Button>
-                  </Upload>
-                </Form.Item>
+              <div className="flex flex-col gap-1">
+                {selectedLocation.lat && selectedLocation.lng && (
+                  <LocationMap selectedLocation={selectedLocation} />
+                )}
               </div>
             </div>
 
-            <button
-              disabled={isAppointmentLoading ? true : false}
-              type="submit"
-              className="p-btn "
-            >
-              {isAppointmentLoading ? "Processing..." : "Make Appointment"}
-            </button>
+            <div className="flex justify-center">
+              <button
+                disabled={isAppointmentLoading}
+                type="submit"
+                className="p-btn "
+              >
+                {isAppointmentLoading ? "Processing..." : "Make Appointment"}
+              </button>
+            </div>
           </Form>
         </div>
-
-        <LocationMap
-          apiKey="AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM"
-          onLocationChange={handleLocationChange}
-        />
       </div>
     </div>
   );
