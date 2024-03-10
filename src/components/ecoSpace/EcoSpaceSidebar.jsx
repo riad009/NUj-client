@@ -107,9 +107,9 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             ))
           : ""}
       </div>
-      <div className="col-span-4 h-[100vh] overflow-y-scroll overflow-x-clip bg-[#d8c0d6]">
+      <div className="col-span-4 h-[100vh] overflow-y-auto overflow-x-clip bg-[#d8c0d6]">
         <div className="">
-          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600 space-x-2">
+          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-400 space-x-2">
             <Dropdown
               className=""
               menu={{

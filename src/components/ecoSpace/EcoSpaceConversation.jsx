@@ -124,7 +124,7 @@ const EcoSpaceConversation = ({ channelData }) => {
           />
         </div>
         <div
-          className="space-y-5 overflow-y-scroll min-h-[65vh] max-h-[60vh] p-5"
+          className="space-y-5 overflow-y-auto min-h-[65vh] max-h-[60vh] p-5"
           ref={messageContainerRef}
         >
           {data?.length ? (

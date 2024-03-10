@@ -3,7 +3,6 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import EcoSpaceSidebar from "../ecoSpace/EcoSpaceSidebar";
 import EcoSpaceRightBar from "../ecoSpace/EcoSpaceRightBar";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import styles from "./EcoSpaceLayout.module.css";
 
 const EcoSpaceLayout = () => {
   const data = useLoaderData();
