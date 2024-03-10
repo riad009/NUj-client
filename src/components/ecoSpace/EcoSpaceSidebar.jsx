@@ -11,11 +11,12 @@ import { Link } from "react-router-dom";
 import EcoSpaceProfileEditMpdal from "../../pages/companyProfile/EcoSpaceProfileEditModal";
 import { FaRegEdit } from "react-icons/fa";
 import ChannelListCard from "./ChannelListCard";
+import { IoClose } from "react-icons/io5";
 
 const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const { user, userDB } = useContext(AuthContext);
+  const { user, userDB, setEcoSpaceLeftBarOpen } = useContext(AuthContext);
 
   const { data: ecoSpacesList, isLoading } = useQuery({
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
@@ -113,7 +114,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       </div>
       <div className="col-span-4 h-[100vh] overflow-y-scroll overflow-x-clip">
         <div className="">
-          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600">
+          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600 space-x-2">
             <Dropdown
               className=""
               menu={{
@@ -125,9 +126,14 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                 <DownOutlined />
               </Space>
             </Dropdown>
-            <button onClick={() => setOpenEditModal(true)}>
-              <FaRegEdit className="size-6" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setOpenEditModal(true)}>
+                <FaRegEdit className="size-6" />
+              </button>
+              <button onClick={() => setEcoSpaceLeftBarOpen(false)}>
+                <IoClose className="size-8 block md:hidden" />
+              </button>
+            </div>
           </div>
           {/* starred */}
           <div className="">

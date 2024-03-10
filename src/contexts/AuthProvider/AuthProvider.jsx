@@ -23,6 +23,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userDB, setUserDB] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [ecoSpaceRightBarOpen, setEcoSpaceRightBarOpen] = useState(false);
+  const [ecoSpaceLeftBarOpen, setEcoSpaceLeftBarOpen] = useState(false);
 
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
@@ -138,6 +140,10 @@ const AuthProvider = ({ children }) => {
     open,
     showDrawer,
     onClose,
+    setEcoSpaceRightBarOpen,
+    ecoSpaceRightBarOpen,
+    setEcoSpaceLeftBarOpen,
+    ecoSpaceLeftBarOpen,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

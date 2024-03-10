@@ -1,7 +1,7 @@
 import QuillEditor from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import ConversationCard from "./ConversationCard";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import config from "../../config";
 import { useQuery } from "@tanstack/react-query";
@@ -10,11 +10,14 @@ import { FaImage } from "react-icons/fa";
 import { FaVideo } from "react-icons/fa";
 import { AiFillAudio } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
-import { IoPerson } from "react-icons/io5";
+import { IoMenuOutline, IoPerson } from "react-icons/io5";
 import { GoPin } from "react-icons/go";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const EcoSpaceConversation = ({ ecoSpace }) => {
+  const { setEcoSpaceRightBarOpen, setEcoSpaceLeftBarOpen } =
+    useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -97,23 +100,35 @@ const EcoSpaceConversation = ({ ecoSpace }) => {
     <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
       <div className="">
         <div className="border-b-[.5px] border-b-gray-300 h-16 flex justify-between items-center px-5">
-          <div>
-            <h2 className="font-semibold">#Social Media</h2>
-            <div className="flex items-center gap-4 text-gray-500 text-sm">
-              <div className="flex items-center gap-1">
-                <IoPerson />
-                <span>20</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <GoPin />
-                <span>1</span>
-              </div>
-              <div>
-                <span>Track & Coordinate Social Media</span>
+          <div className="flex items-center gap-2">
+            <IoMenuOutline
+              onClick={() => setEcoSpaceLeftBarOpen((prevState) => !prevState)}
+              className="size-8 text-gray-500 cursor-pointer block md:hidden"
+            />
+            <div>
+              <h2 className="text-sm md:text-base font-semibold">
+                #Social Media
+              </h2>
+              <div className="flex items-center gap-2 md:gap-4 text-gray-500 text-sm">
+                <div className="flex items-center gap-1">
+                  <IoPerson />
+                  <span>20</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <GoPin />
+                  <span>1</span>
+                </div>
+                <div className="text-xs md:text-sm">
+                  <span>Track & Coordinate Social Media</span>
+                </div>
               </div>
             </div>
           </div>
-          <IoMdInformationCircleOutline className="size-6 text-gray-500 cursor-pointer" />
+
+          <IoMdInformationCircleOutline
+            onClick={() => setEcoSpaceRightBarOpen((prevState) => !prevState)}
+            className="size-6 text-gray-500 cursor-pointer"
+          />
         </div>
         <div className="space-y-5 overflow-y-scroll min-h-[65vh] max-h-[60vh] p-5">
           {data?.length
