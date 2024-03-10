@@ -155,7 +155,7 @@ const MakeAppointment = () => {
                   </Form.Item>
                 </div>
               </div>
-              <div className="flex items-center gap-5">
+              <div className="flex flex-col md:flex-row items-center gap-1 md:gap-5">
                 <div className="flex flex-col gap-1 w-full">
                   <label>Neighbourhood: </label>
                   <Form.Item
