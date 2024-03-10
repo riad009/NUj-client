@@ -58,7 +58,7 @@ const DashboardLayout = () => {
         <Header>
           <DashboardNavbar />
         </Header>
-        <Content className="h-[90vh] overflow-y-scroll">
+        <Content className="h-[90vh] overflow-y-auto">
           <div className="p-5">
             <Outlet />
           </div>
