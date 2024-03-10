@@ -94,11 +94,11 @@ const EcoSpaceConversation = ({ channelData }) => {
   return (
     <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
       <div className="">
-        <div className="border-b-[.5px] border-b-gray-300 h-16 flex justify-between items-center px-5">
+        <div className="border-b-[.5px]  border-b-gray-300 h-16 flex justify-between items-center px-5 ">
           <div className="flex items-center gap-2">
             <IoMenuOutline
               onClick={() => setEcoSpaceLeftBarOpen((prevState) => !prevState)}
-              className="size-8 text-gray-500 cursor-pointer block md:hidden"
+              className="size-8  cursor-pointer block md:hidden"
             />
             <h2 className="font-semibold text-xl">
               #{channelData?.channelName}
@@ -120,7 +120,7 @@ const EcoSpaceConversation = ({ channelData }) => {
 
           <IoMdInformationCircleOutline
             onClick={() => setEcoSpaceRightBarOpen((prevState) => !prevState)}
-            className="size-6 text-gray-500 cursor-pointer"
+            className="size-6 cursor-pointer"
           />
         </div>
         <div

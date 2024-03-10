@@ -7,11 +7,13 @@ import { DownOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import EcoSpaceProfileEditMpdal from "../../pages/companyProfile/EcoSpaceProfileEditModal";
 import { FaPlusCircle, FaRegEdit } from "react-icons/fa";
 import ChannelListCard from "./ChannelListCard";
 import AddChannelModal from "./AddChannelModal";
+import { GoPlus } from "react-icons/go";
+import { IoHomeOutline } from "react-icons/io5";
 
 const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
@@ -90,26 +92,53 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
 
   return (
     <>
-      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full flex flex-col items-center justify-start py-5 gap-2 bg-[#6a2b70]">
-        {ecoSpacesList?.length
-          ? ecoSpacesList.map((ecoSpace, i) => (
-              <Link
-                key={i}
-                className="bg-secondary size-10 rounded-md flex justify-center items-center"
-                to={`/eco-space/${ecoSpace?._id}`}
-              >
-                {ecoSpace?.company
-                  ?.split(" ")
-                  .map((word) => word.charAt(0).toUpperCase())
-                  .join("")
-                  ?.slice(0, 2)}
-              </Link>
-            ))
-          : ""}
+      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6">
+        <div className="flex flex-col items-center justify-start gap-2">
+          <Link
+            className="text-white bg-gray-400 flex justify-center items-center size-12 rounded-md"
+            to={`/home`}
+          >
+            <IoHomeOutline className="size-6" />
+          </Link>
+          {ecoSpacesList?.length
+            ? ecoSpacesList.map((ecoSpace, i) => (
+                <NavLink
+                  key={i}
+                  className={({ isActive, pending }) =>
+                    `bg-secondary size-12 rounded-md flex justify-center items-center  text-white ${
+                      isActive ? "border-2 font-bold" : ""
+                    }`
+                  }
+                  to={`/eco-space/${ecoSpace?._id}`}
+                >
+                  {ecoSpace?.company
+                    ?.split(" ")
+                    .map((word) => word.charAt(0).toUpperCase())
+                    .join("")
+                    ?.slice(0, 2)}
+                </NavLink>
+              ))
+            : ""}
+        </div>
+        <div className="flex flex-col gap-2 items-center">
+          <Link
+            className="text-white bg-gray-400 rounded-[50%]"
+            to={`/create-eco-space/banner`}
+          >
+            <GoPlus className="size-12" />
+          </Link>
+          <Link className="" to={`/profile/user`}>
+            <img
+              className="size-12 rounded-md"
+              src={user?.photoURL ? user?.photoURL : userDB?.photo}
+              alt=""
+            />
+          </Link>
+        </div>
       </div>
-      <div className="col-span-4 h-[100vh] overflow-y-auto overflow-x-clip bg-[#d8c0d6]">
+      <div className="col-span-4 h-[100vh] overflow-y-auto overflow-x-clip bg-[#d8c0d6] ">
         <div className="">
-          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-400 space-x-2">
+          <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] bg-[#6a2b70] border-gray-400 space-x-2 text-white">
             <Dropdown
               className=""
               menu={{

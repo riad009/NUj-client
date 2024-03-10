@@ -14,11 +14,11 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     <div className="bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
       <div>
         <h2 className="font-semibold">Topic</h2>
-        <p className="text-sm">Track and Coordinate social media</p>
+        <p className="text-sm">{ecoSpace?.project}</p>
       </div>
       <div>
         <h2 className="font-semibold">Description</h2>
-        <p className="text-sm">Home of the social media team</p>
+        <p className="text-sm">{ecoSpace?.serviceDescription}</p>
       </div>
       <div>
         <p className="text-sm">Created on 18th October 2019</p>
@@ -77,14 +77,14 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     <>
       <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
         <div className="overflow-y-auto">
-          <div className="border-b-[.5px] border-b-gray-300 h-16 flex justify-between items-center px-5">
+          <div className="border-b-[.5px]  border-b-gray-300 h-16 flex justify-between items-center px-5">
             <div>
               <h2 className="font-semibold">Details</h2>
-              <p className="text-sm text-gray-500">#Social Media</p>
+              <p className="text-sm ">#Social Media</p>
             </div>
             <RxCross2
               onClick={() => setEcoSpaceRightBarOpen(false)}
-              className="size-6 text-gray-500 cursor-pointer"
+              className="size-6 cursor-pointer"
             />
           </div>
           <div className="border-b-[.5px] border-b-gray-300 flex justify-between items-center p-5 ">
