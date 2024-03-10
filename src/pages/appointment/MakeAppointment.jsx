@@ -157,14 +157,28 @@ const MakeAppointment = () => {
               </div>
               <div className="flex items-center gap-5">
                 <div className="flex flex-col gap-1 w-full">
-                  <label>Location: </label>
-                  <SearchLocationInput
-                    setSelectedLocation={setSelectedLocation}
-                    placeName={placeName}
-                    setPlaceName={setPlaceName}
-                  />
+                  <label>Neighbourhood: </label>
+                  <Form.Item
+                    name="neighbourhood"
+                    className="mb-1"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Select a neighbourhood",
+                      },
+                    ]}
+                  >
+                    <Select allowClear>
+                      {neighbourhoods?.length
+                        ? neighbourhoods.map((item, i) => (
+                            <Option key={i} value={item}>
+                              {item}
+                            </Option>
+                          ))
+                        : ""}
+                    </Select>
+                  </Form.Item>
                 </div>
-
                 <div className="flex flex-col gap-1 w-full">
                   <label>Reason for Appointment: </label>
                   <Form.Item
@@ -185,29 +199,14 @@ const MakeAppointment = () => {
                   </Form.Item>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1 ">
-                  <label>Neighbourhood: </label>
-                  <Form.Item
-                    name="neighbourhood"
-                    className="w-full"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Select a neighbourhood",
-                      },
-                    ]}
-                  >
-                    <Select allowClear>
-                      {neighbourhoods?.length
-                        ? neighbourhoods.map((item, i) => (
-                            <Option key={i} value={item}>
-                              {item}
-                            </Option>
-                          ))
-                        : ""}
-                    </Select>
-                  </Form.Item>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div className="flex flex-col gap-1 w-full">
+                  <label>Location: </label>
+                  <SearchLocationInput
+                    setSelectedLocation={setSelectedLocation}
+                    placeName={placeName}
+                    setPlaceName={setPlaceName}
+                  />
                 </div>
               </div>
 
