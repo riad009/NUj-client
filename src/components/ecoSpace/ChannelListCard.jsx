@@ -1,14 +1,22 @@
-import React from "react";
 import { FaHashtag } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-const ChannelListCard = ({ title, _id }) => {
+const ChannelListCard = ({ ecoSpaceId, channelName, _id }) => {
   return (
-    <Link className="flex gap-2 items-center text-gray-300">
-      {/* <img className="size-6 rounded-lg" src={unknown} alt="" /> */}
-      <FaHashtag className="size-4" />
-      <p className="text-sm">{title}</p>
-    </Link>
+    <>
+      <NavLink
+        to={`/eco-space/${ecoSpaceId}/${_id}`}
+        // className="flex gap-2 items-center"
+        className={({ isActive, isPending }) =>
+          `flex items-center gap-2 rounded-lg p-2 ${
+            isActive ? "bg-[#83388b] text-white" : ""
+          }`
+        }
+      >
+        <FaHashtag className="size-4" />
+        <p className="text-sm">{channelName}</p>
+      </NavLink>
+    </>
   );
 };
 

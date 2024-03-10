@@ -1,6 +1,6 @@
 import moment from "moment";
 
-const ConversationCard = ({ conversation }) => {
+const ConversationCard = ({ conversation, chatRef }) => {
   const email = conversation?.email;
   const userImage = conversation?.userImage;
   const message = conversation?.message;
@@ -10,12 +10,12 @@ const ConversationCard = ({ conversation }) => {
   const time = conversation?.createdAt;
 
   return (
-    <div className="flex gap-2 items-start">
+    <div className="flex gap-2 items-start" ref={chatRef}>
       <img src={userImage} className="size-8 rounded-md" alt="" />
       <div>
-        <div className="flex gap-4 items-center pb-2">
+        <div className="flex flex-col md:flex-row md:gap-4 items-start md:items-center pb-2">
           <p className="font-bold">{email}</p>
-          <p className="text-xs text-accent">
+          <p className="text-xs text-gray-400">
             {moment(time).format("MMM DD, YYYY hh:mm:ss A")}
           </p>
         </div>

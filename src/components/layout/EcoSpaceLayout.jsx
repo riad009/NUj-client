@@ -16,7 +16,7 @@ const EcoSpaceLayout = () => {
       <div
         className={`${
           ecoSpaceRightBarOpen ? "hidden md:grid" : ""
-        } col-span-3 bg-[#4a154b] text-white grid grid-cols-5 w-[100vw] md:w-auto z-20 ${
+        } col-span-3  grid grid-cols-5 w-[100vw] md:w-auto z-20 ${
           ecoSpaceLeftBarOpen ? "" : "hidden md:grid"
         }`}
       >

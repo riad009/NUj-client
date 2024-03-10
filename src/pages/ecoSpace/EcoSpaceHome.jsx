@@ -1,13 +1,9 @@
-import { useLoaderData } from "react-router-dom";
-import EcoSpaceConversation from "../../components/ecoSpace/EcoSpaceConversation";
-
 const EcoSpaceHome = () => {
-  const data = useLoaderData();
-
-  const ecoSpace = data.data;
   return (
     <>
-      <EcoSpaceConversation ecoSpace={ecoSpace} />
+      <div className="text-3xl flex items-center justify-center mt-20">
+        <h1>Welcome to ecospace</h1>
+      </div>
     </>
   );
 };

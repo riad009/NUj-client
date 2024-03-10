@@ -8,12 +8,21 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { toast } from "sonner";
 import config from "../../config";
 import axios from "axios";
+import LocationMap from "./LocationMap";
 
 const MakeAppointment = () => {
   const ecoSpaceId = useLoaderData();
   const [loading, setloading] = useState(false);
   const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  console.log({ selectedLocation });
+
+  const handleLocationChange = (location) => {
+    setSelectedLocation(location);
+  };
 
   const { userDB } = useContext(AuthContext);
   const normFile = (e) => {
@@ -208,6 +217,11 @@ const MakeAppointment = () => {
             </button>
           </Form>
         </div>
+
+        <LocationMap
+          apiKey="AIzaSyBSK3Pnsh-wvplEf7bac88yxhwL7EEPORM"
+          onLocationChange={handleLocationChange}
+        />
       </div>
     </div>
   );

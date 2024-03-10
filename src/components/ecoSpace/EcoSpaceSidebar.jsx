@@ -1,7 +1,7 @@
 import { Collapse, Dropdown, Space } from "antd";
 import { useContext, useState } from "react";
 import CoworkerListCard from "./CoworkerListCard";
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAdd, IoIosClose } from "react-icons/io";
 import AddCoworkerModal from "./AddCoworkerModal";
 import { DownOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
@@ -9,21 +9,31 @@ import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
 import { Link } from "react-router-dom";
 import EcoSpaceProfileEditMpdal from "../../pages/companyProfile/EcoSpaceProfileEditModal";
-import { FaRegEdit } from "react-icons/fa";
+import { FaPlusCircle, FaRegEdit } from "react-icons/fa";
 import ChannelListCard from "./ChannelListCard";
-import { IoClose } from "react-icons/io5";
+import AddChannelModal from "./AddChannelModal";
 
 const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
+  const [openChannel, setOpenChannel] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user, userDB, setEcoSpaceLeftBarOpen } = useContext(AuthContext);
 
-  const { data: ecoSpacesList, isLoading } = useQuery({
+  const { data: ecoSpacesList } = useQuery({
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
       const res = await fetch(
         `${config.api_url}/eco-spaces/list/${userDB?._id}`
       );
+      const data = await res.json();
+      return data?.data;
+    },
+  });
+
+  const { data: channels, refetch } = useQuery({
+    queryKey: ["channels", ecoSpace?._id],
+    queryFn: async () => {
+      const res = await fetch(`${config.api_url}/channel/${ecoSpace?._id}`);
       const data = await res.json();
       return data?.data;
     },
@@ -38,31 +48,10 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       }))
     : "";
 
-  const channels = [
-    {
-      title: "eat bunny",
-      _id: "232",
-    },
-    {
-      title: "test bunny",
-      _id: "234",
-    },
-    {
-      title: "check bunny",
-      _id: "235",
-    },
-    {
-      title: "check runny",
-      _id: "236",
-    },
-  ];
-
   const starredItems = [
     {
       key: "1",
-      label: (
-        <h2 className="font-semibold text-white tracking-wider">Starred</h2>
-      ),
+      label: <h2 className="font-semibold  tracking-wider">Starred</h2>,
       children: (
         <div className="space-y-3">
           {channels?.length
@@ -79,7 +68,13 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     {
       key: "1",
       label: (
-        <h2 className="font-semibold text-white tracking-wider">Channels</h2>
+        <div className="flex items-center  justify-between">
+          <p className="font-semibold  tracking-wider">Channels</p>
+          <FaPlusCircle
+            className="h-4 w-4"
+            onClick={() => setOpenChannel(true)}
+          />
+        </div>
       ),
       children: (
         <div className="space-y-3">
@@ -95,7 +90,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
 
   return (
     <>
-      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full flex flex-col items-center justify-start py-5 gap-2">
+      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full flex flex-col items-center justify-start py-5 gap-2 bg-[#6a2b70]">
         {ecoSpacesList?.length
           ? ecoSpacesList.map((ecoSpace, i) => (
               <Link
@@ -112,7 +107,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             ))
           : ""}
       </div>
-      <div className="col-span-4 h-[100vh] overflow-y-scroll overflow-x-clip">
+      <div className="col-span-4 h-[100vh] overflow-y-scroll overflow-x-clip bg-[#d8c0d6]">
         <div className="">
           <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] border-gray-600 space-x-2">
             <Dropdown
@@ -131,7 +126,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                 <FaRegEdit className="size-6" />
               </button>
               <button onClick={() => setEcoSpaceLeftBarOpen(false)}>
-                <IoClose className="size-8 block md:hidden" />
+                <IoIosClose className="size-8 block md:hidden" />
               </button>
             </div>
           </div>
@@ -153,11 +148,12 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
               className=""
               items={channelsItems}
               expandIconPosition="end"
+              defaultActiveKey={["1"]}
             />
           </div>
           <div className="space-y-3 p-4">
             <h3 className="text-sm font-semibold">Cowroker</h3>
-            <div className="flex flex-col gap-2 text-gray-300 text-sm">
+            <div className="flex flex-col gap-2 text-gray-700 text-sm">
               {ecoSpace?.staffs?.length
                 ? ecoSpace?.staffs.map((coworker, i) => (
                     <CoworkerListCard key={i} coworker={coworker} />
@@ -183,6 +179,12 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
         </div>
       </div>
       <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
+      <AddChannelModal
+        ecoSpace={ecoSpace}
+        open={openChannel}
+        setOpen={setOpenChannel}
+        refetch={refetch}
+      />
       <EcoSpaceProfileEditMpdal
         open={openEditModal}
         setOpen={setOpenEditModal}

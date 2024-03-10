@@ -39,6 +39,7 @@ import PricingBanner from "../pages/pricing/PricingBanner";
 import EcoSpaceHome from "../pages/ecoSpace/EcoSpaceHome";
 import AcceptInvitation from "../components/ecoSpace/AcceptInvitation";
 import EcoSpaceLayout from "../components/layout/EcoSpaceLayout";
+import EcoSpaceConversations from "../pages/ecoSpace/EcoSpaceConversations";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -136,6 +137,12 @@ export const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
         element: <EcoSpaceHome />,
+      },
+      {
+        path: "/eco-space/:ecoSpaceId/:channelId",
+        loader: ({ params }) =>
+          fetch(`${config.api_url}/channel/single/${params.channelId}`),
+        element: <EcoSpaceConversations />,
       },
     ],
   },
