@@ -21,7 +21,7 @@ const DashboardAppointmentsListItem = ({ appointment }) => {
           <div className="font-bold">{participantId?.name}</div>
         </div>
       </td>
-      <td>{location}</td>
+      {/* <td>{location}</td> */}
 
       <td>
         {time} - {date}

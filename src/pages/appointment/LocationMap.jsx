@@ -28,7 +28,16 @@ const LocationMap = ({ selectedLocation }) => {
       >
         <MarkerF
           position={selectedLocation}
-          icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
+          options={{
+            icon: {
+              url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+
+              scaledSize: {
+                width: 40,
+                height: 40,
+              },
+            },
+          }}
         />
       </GoogleMap>
     </div>

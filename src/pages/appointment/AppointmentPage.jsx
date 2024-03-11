@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
 import { toast } from "sonner";
+import AppointmentMapView from "./AppointmentMapView";
 
 const AppointmentPage = () => {
   const appointmentId = useLoaderData();
@@ -33,7 +34,7 @@ const AppointmentPage = () => {
     date,
     time,
     location,
-    locationImage,
+
     reason,
     _id,
   } = appointment ?? {};
@@ -64,6 +65,10 @@ const AppointmentPage = () => {
         refetch();
       });
   };
+
+  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${
+    import.meta.env.VITE_map_key
+  }&center=${location?.lat},${location?.lng}&zoom=15`;
 
   return (
     <>
@@ -108,19 +113,21 @@ const AppointmentPage = () => {
                 <CiCalendarDate className="text-2xl" />
                 <span>{date}</span>
               </div>
-              <div className="flex items-center justify-center gap-1">
-                <IoLocationOutline className="text-2xl" />
-                <span>{location}</span>
-              </div>
             </div>
             <div className=" my-5">
               <div className="space-y-2">
-                <h2 className="text-xl">Location Photo:</h2>
-                {/* <img
-                  src="https://miro.medium.com/v2/resize:fit:1400/0*6lX9i2AVnurxCQgx"
-                  alt=""
+                <h2 className="text-xl">Location:</h2>
+                {/* <iframe
+                  src={mapUrl}
+                  width={600}
+                  height={450}
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 /> */}
-                <Image className="w-full" src={locationImage} />
+
+                <AppointmentMapView lat={location?.lat} lng={location?.lng} />
               </div>
               {/* <div className="space-y-2">
                 <h2 className="text-xl">Documents Uploaded: </h2>
