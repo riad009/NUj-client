@@ -199,18 +199,16 @@ const MakeAppointment = () => {
                   </Form.Item>
                 </div>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="flex flex-col gap-1 w-full">
-                  <label>Location: </label>
-                  <SearchLocationInput
-                    setSelectedLocation={setSelectedLocation}
-                    placeName={placeName}
-                    setPlaceName={setPlaceName}
-                  />
-                </div>
+
+              <div className="">
+                <SearchLocationInput
+                  setSelectedLocation={setSelectedLocation}
+                  placeName={placeName}
+                  setPlaceName={setPlaceName}
+                />
               </div>
 
-              <div className="flex flex-col gap-1">
+              <div>
                 {selectedLocation.lat && selectedLocation.lng && (
                   <LocationMap selectedLocation={selectedLocation} />
                 )}

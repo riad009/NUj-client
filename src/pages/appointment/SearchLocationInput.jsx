@@ -130,32 +130,35 @@ function SearchLocationInput({ placeName, setPlaceName, setSelectedLocation }) {
   }
 
   return (
-    <div className="SearchLocationInput">
-      <div id="searchColumn">
-        <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
-          <Form.Item
-            className="mb-1"
+    <Autocomplete onPlaceChanged={onPlaceChanged} onLoad={onLoad}>
+      <Form.Item
+        className="text-center"
+        name="location"
+        initialValue={{
+          location: placeName,
+        }}
+        rules={[
+          {
+            required: true,
+            message: "Provide a location",
+          },
+        ]}
+      >
+        <label
+          className="w-full mx-auto md:w-[500px] mt-20 relative bg-white  flex flex-row items-center justify-center border py-2 px-2 rounded-2xl gap-2 shadow-md focus-within:border-gray-300 mb-2"
+          htmlFor="search-bar"
+        >
+          <img src="/google-maps.png" alt="" className="w-8 h-8" />
+
+          <input
             name="location"
-            initialValue={{
-              location: placeName,
-            }}
-            rules={[
-              {
-                required: true,
-                message: "Provide a location",
-              },
-            ]}
-          >
-            <Input
-              size="middle"
-              className=""
-              placeholder="Search..."
-              name="location"
-            />
-          </Form.Item>
-        </Autocomplete>
-      </div>
-    </div>
+            id="search-bar"
+            placeholder="Select your location"
+            className=" py-2 w-full rounded-md flex-1 outline-none bg-white"
+          />
+        </label>
+      </Form.Item>
+    </Autocomplete>
   );
 }
 
