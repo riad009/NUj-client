@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardAppointmentsListItem from "./DashboardAppointmentsListItem";
 
 const DashboardAppointmentsList = ({ appointments }) => {
@@ -8,7 +7,7 @@ const DashboardAppointmentsList = ({ appointments }) => {
       <thead>
         <tr>
           <th>Participant Name</th>
-          <th>Location</th>
+
           <th>Date</th>
           <th>Reason</th>
           <th>Status</th>

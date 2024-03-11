@@ -16,11 +16,12 @@ const DashboardAppointments = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${config.api_url}/eco-spaces/list/${userDB?._id}`)
+    fetch(`${config.api_url}/eco-spaces/all/`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data.data);
         setEcoSpaceList(data.data);
-        setEcoSpaceId(data.data[0]._id);
+        setEcoSpaceId(data?.data?.[0]?._id);
         setIsLoading(false);
       });
   }, [userDB, userDB?._id]);
@@ -45,7 +46,7 @@ const DashboardAppointments = () => {
         className="w-full md:w-3/12"
         name="basic"
         initialValues={{
-          ecoSpaceId: ecoSpaceList[0].company,
+          ecoSpaceId: ecoSpaceList?.[0].company,
         }}
         autoComplete="off"
         onValuesChange={handleFilterAppointments}
