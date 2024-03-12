@@ -24,8 +24,8 @@ const CreateEcoSpaceS1 = () => {
         What is the Name of your Company/ Organization?
       </h1>
       <p className="text-sm">
-        This will be the name of your VREMCAST Ecospace — choose something that
-        your team will recognize.
+        This will be the name of your NUj Ecospace — choose something that your
+        team will recognize.
       </p>
       <Form
         className=""

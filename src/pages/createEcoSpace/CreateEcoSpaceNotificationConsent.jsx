@@ -59,7 +59,7 @@ const CreateEcoSpaceNotificationConsent = () => {
           }
         />
         <label className="cursor-pointer" htmlFor="notifcation-consent">
-          I agree to receive notifications from VREMCAST
+          I agree to receive notifications from NUj
         </label>
       </div>
       <button onClick={handleCreateEcoSpaceFinal} className="p-btn" to="/">

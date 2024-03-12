@@ -101,8 +101,6 @@ const MakeAppointment = () => {
     });
   }, [placeName, form]);
 
-  console.log({ selectedLocation });
-
   return (
     <div className="min-h-screen flex justify-center items-center overflow-hidden mt-10 mb-6">
       <div className="w-11/12 mx-auto space-y-5">
