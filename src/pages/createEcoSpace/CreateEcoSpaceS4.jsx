@@ -14,7 +14,6 @@ const CreateEcoSpaceS4 = () => {
     setNewEcoSpaceData((prevValue) => ({
       ...prevValue,
       serviceId: data.serviceId,
-      serviceDescription: data.serviceDescription,
     }));
 
     navigate("/create-eco-space/s5");
@@ -60,7 +59,11 @@ const CreateEcoSpaceS4 = () => {
               },
             ]}
           >
-            <Select allowClear>
+            <Select
+              onChange={() => console.log(newEcoSpaceData)}
+              mode="multiple"
+              allowClear
+            >
               {services?.length
                 ? services.map((service, i) => (
                     <Option key={i} value={service._id}>
@@ -69,25 +72,6 @@ const CreateEcoSpaceS4 = () => {
                   ))
                 : ""}
             </Select>
-          </Form.Item>
-        </div>
-        <div className="flex flex-col gap-1 ">
-          <label>Description: </label>
-          <Form.Item
-            className=""
-            name="serviceDescription"
-            rules={[
-              {
-                required: true,
-                message: "Please enter a Description!",
-              },
-            ]}
-          >
-            <Input
-              className="h-20 bg-transparent focus:bg-transparent placeholder:text-gray-500"
-              size="large"
-              placeholder="Details of company provided services"
-            />
           </Form.Item>
         </div>
 

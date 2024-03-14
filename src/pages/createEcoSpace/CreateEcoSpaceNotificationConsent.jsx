@@ -41,8 +41,8 @@ const CreateEcoSpaceNotificationConsent = () => {
       </h1>
       <div className="flex flex-col gap-1 ">
         <label>Example: </label>
-        <p className="text-gray-500">A participant sent you request.</p>
-        <p className="text-gray-500">A team member sent you request.</p>
+        <p className="text-gray-500 text-xs">A participant sent you request.</p>
+        <p className="text-gray-500 text-xs">A team member sent you request.</p>
       </div>
       <div className="space-x-1  text-xl">
         <input
