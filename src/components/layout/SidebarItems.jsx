@@ -117,7 +117,7 @@ const SidebarItems = () => {
         }
       >
         <RiQrScan2Line className="text-xl text-primary" />
-        <span>Toxicity Detection</span>
+        <span>Text-Toxicity</span>
       </NavLink>
 
       {/* <Dropdown

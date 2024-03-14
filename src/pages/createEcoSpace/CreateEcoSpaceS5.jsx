@@ -65,7 +65,12 @@ const CreateEcoSpaceS5 = () => {
           <div>
             {staffs?.length
               ? staffs.map((item, i) => (
-                  <Tag key={i} closeIcon onClose={() => removeItem(item)}>
+                  <Tag
+                    className="px-2 py-1"
+                    key={i}
+                    closeIcon
+                    onClose={() => removeItem(item)}
+                  >
                     {item}
                   </Tag>
                 ))

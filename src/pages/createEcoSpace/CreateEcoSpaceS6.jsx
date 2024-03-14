@@ -64,7 +64,12 @@ const CreateEcoSpaceS6 = () => {
           <div>
             {projects?.length
               ? projects.map((item, i) => (
-                  <Tag key={i} closeIcon onClose={() => removeItem(item)}>
+                  <Tag
+                    className="px-2 py-1"
+                    key={i}
+                    closeIcon
+                    onClose={() => removeItem(item)}
+                  >
                     {item}
                   </Tag>
                 ))

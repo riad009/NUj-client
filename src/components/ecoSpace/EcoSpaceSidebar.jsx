@@ -119,7 +119,7 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
 
   return (
     <>
-      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6">
+      <div className="col-span-1 border-r-[.5px] border-gray-600 h-[100vh] w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6 overflow-y-auto overflow-x-clip">
         <div className="flex flex-col items-center justify-start gap-2">
           <Link
             className="text-white bg-gray-400 flex justify-center items-center size-12 rounded-md"
