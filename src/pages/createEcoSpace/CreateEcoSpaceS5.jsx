@@ -1,20 +1,38 @@
-import { Form, Input } from "antd";
-import { useContext } from "react";
+import { Form, Input, Tag } from "antd";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import BackButton from "../../components/BackButton";
+import { toast } from "sonner";
 
 const CreateEcoSpaceS5 = () => {
   const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [staffs, setStaffs] = useState([]);
   const navigate = useNavigate();
   const handleCreateEcoSpace5 = (data) => {
+    if (!staffs?.length) {
+      return toast.error("Add atleast one project name");
+    }
     setNewEcoSpaceData((prevValue) => ({
       ...prevValue,
-      staffs: [data.staffs],
+      staffs,
     }));
 
     navigate("/create-eco-space/s6");
   };
+
+  const handleAddStaff = async () => {
+    if (email && !staffs.includes(email)) {
+      setStaffs((prevValues) => [...prevValues, email]);
+    }
+  };
+
+  const removeItem = (itemToRemove) => {
+    const updatedItems = staffs.filter((item) => item !== itemToRemove);
+    setStaffs(updatedItems);
+  };
+
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <div className="flex gap-2 items-center">
@@ -37,7 +55,15 @@ const CreateEcoSpaceS5 = () => {
         {/* name */}
 
         <div className="flex flex-col gap-1 ">
-          <label>Add Coworker by email </label>
+          <div>
+            {staffs?.length
+              ? staffs.map((item, i) => (
+                  <Tag key={i} closeIcon onClose={() => removeItem(item)}>
+                    {item}
+                  </Tag>
+                ))
+              : ""}
+          </div>
           <Form.Item
             className=""
             name="staffs"
@@ -52,10 +78,14 @@ const CreateEcoSpaceS5 = () => {
               size="large"
               placeholder="Details of company provided services"
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Item>
         </div>
         <div className="space-x-2">
+          <button type="button" onClick={handleAddStaff} className="p-btn">
+            Add
+          </button>
           <button type="submit" className="p-btn ">
             Next
           </button>

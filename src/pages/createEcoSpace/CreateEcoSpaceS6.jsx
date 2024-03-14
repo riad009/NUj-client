@@ -48,9 +48,11 @@ const CreateEcoSpaceS6 = () => {
       <Form
         className=""
         name="basic"
-        initialValues={{
-          projects: newEcoSpaceData?.projects,
-        }}
+        initialValues={
+          {
+            // projects: newEcoSpaceData?.projects,
+          }
+        }
         autoComplete="off"
         onFinish={handleCreateEcoSpace6}
       >
