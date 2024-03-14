@@ -42,7 +42,7 @@ const CreateEcoSpaceS4 = () => {
         className=""
         name="basic"
         initialValues={{
-          serviceDescription: newEcoSpaceData?.serviceDescription,
+          serviceId: newEcoSpaceData?.serviceId,
         }}
         autoComplete="off"
         onFinish={handleCreateEcoSpace4}

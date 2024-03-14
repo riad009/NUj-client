@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
     // project: "",
     // plan: "",
   });
-
+  console.log(newEcoSpaceData);
   const logInWithEmail = (email) => {
     setIsLoading(true);
     return sendSignInLinkToEmail(auth, email, {
