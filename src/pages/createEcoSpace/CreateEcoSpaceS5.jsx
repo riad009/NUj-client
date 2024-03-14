@@ -23,8 +23,15 @@ const CreateEcoSpaceS5 = () => {
   };
 
   const handleAddStaff = async () => {
-    if (email && !staffs.includes(email)) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && emailPattern.test(email) && !staffs.includes(email)) {
       setStaffs((prevValues) => [...prevValues, email]);
+    } else if (!email) {
+      toast.error("Please enter an email", { id: email });
+    } else if (staffs.includes(email)) {
+      toast.error("Email already added", { id: email });
+    } else {
+      toast.error("Add valid email", { id: email });
     }
   };
 
@@ -40,7 +47,7 @@ const CreateEcoSpaceS5 = () => {
         <h4 className="text-xs text-gray-500">Step 5 of 6</h4>
       </div>
       <h1 className="text-2xl md:text-4xl font-semibold">
-        Who else is in your xyz Ecospace?
+        Who else is in your Ecospace?
       </h1>
       {/* <p className="text-sm">Add Coworker.</p> */}
       <Form
@@ -69,7 +76,7 @@ const CreateEcoSpaceS5 = () => {
             name="staffs"
             rules={[
               {
-                required: true,
+                // required: true,
               },
             ]}
           >
@@ -77,7 +84,6 @@ const CreateEcoSpaceS5 = () => {
               className="h-20 bg-transparent  focus:bg-transparent placeholder:text-gray-500"
               size="large"
               placeholder="Details of company provided services"
-              type="email"
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Item>

@@ -24,6 +24,10 @@ const CreateEcoSpaceS6 = () => {
   const handleAddProject = async () => {
     if (projectName && !projects.includes(projectName)) {
       setProjects((prevValues) => [...prevValues, projectName]);
+    } else if (projects.includes(projectName)) {
+      toast.error("Project already added", { id: "project" });
+    } else {
+      toast.error("Project is invalid", { id: "project" });
     }
   };
 
@@ -77,6 +81,7 @@ const CreateEcoSpaceS6 = () => {
             ]}
           >
             <Input
+              allowClear
               onChange={(e) => setProjectName(e.target.value)}
               style={{ input: { color: "red" } }}
               size="large"
