@@ -17,7 +17,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import ProjectListCard from "./ProjectListCard";
 import AddNewProject from "./AddNewProject";
 
-const EcoSpaceSidebar = ({ ecoSpace }) => {
+const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
   const [open, setOpen] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [openChannel, setOpenChannel] = useState(false);
@@ -247,7 +247,12 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
           </div>
         </div>
       </div>
-      <AddNewProject open={openProjectModal} setOpen={setOpenProjectModal} />
+      <AddNewProject
+        ecoSpace={ecoSpace}
+        open={openProjectModal}
+        setOpen={setOpenProjectModal}
+        refetchEcoSpace
+      />
       <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
       <AddChannelModal
         ecoSpace={ecoSpace}

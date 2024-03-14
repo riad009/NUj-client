@@ -14,7 +14,9 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     <div className="bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
       <div>
         <h2 className="font-semibold">Topic</h2>
-        <p className="text-sm">{ecoSpace?.projects[0]}</p>
+        <p className="text-sm">
+          {ecoSpace?.projects?.length ? ecoSpace?.projects[0] : ""}
+        </p>
       </div>
       <div>
         <h2 className="font-semibold">Description</h2>

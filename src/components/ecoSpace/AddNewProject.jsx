@@ -1,8 +1,36 @@
 import { Form, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "sonner";
+import config from "../../config";
 
-const AddNewProject = ({ open, setOpen }) => {
+const AddNewProject = ({ open, setOpen, ecoSpace, refetchEcoSpace }) => {
+  const [projectName, setProjectName] = useState("");
+
+  const handleInvite = async () => {
+    if (projectName) {
+      try {
+        const res = await fetch(
+          `${config.api_url}/eco-spaces/add-project/eco-space/${ecoSpace?._id}`,
+          {
+            method: "PATCH",
+            headers: { "content-type": "Application/json" },
+            body: JSON.stringify({ project: projectName }),
+          }
+        );
+        const data = await res.json();
+        if (!data.success) {
+          return toast.error("Something went wrong");
+        }
+        setProjectName("");
+        setOpen(!open);
+        refetchEcoSpace();
+        toast.success("Created!");
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+  };
   return (
     <>
       <Modal
@@ -36,16 +64,16 @@ const AddNewProject = ({ open, setOpen }) => {
                   },
                 ]}
               >
-                <TextArea rows={4} required />
+                <TextArea
+                  rows={4}
+                  required
+                  onChange={(e) => setProjectName(e.target.value)}
+                />
               </Form.Item>
             </div>
           </div>
           <div className="text-end">
-            <button
-              className="p-btn"
-              type="submit"
-              onClick={() => setOpen(false)}
-            >
+            <button className="p-btn" type="submit" onClick={handleInvite}>
               Add
             </button>
           </div>

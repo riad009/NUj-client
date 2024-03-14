@@ -59,7 +59,7 @@ const ToxicDetection = () => {
         <div className="w-11/12 mx-auto my-20 space-y-5">
           <div className="flex justify-between items-start md:items-center">
             <h1 className="text-2xl md:text-4xl font-semibold">
-              Toxicity Detection
+              Text-Toxicity
             </h1>
             <button
               onClick={showDrawer}

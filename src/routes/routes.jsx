@@ -128,14 +128,14 @@ export const router = createBrowserRouter([
   },
   {
     path: "/eco-space/:ecoSpaceId",
-    loader: ({ params }) =>
-      fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
+    loader: ({ params }) => params.ecoSpaceId,
+    // fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
     element: <EcoSpaceLayout />,
     children: [
       {
         path: "/eco-space/:ecoSpaceId",
-        loader: ({ params }) =>
-          fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
+        loader: ({ params }) => params.ecoSpaceId,
+        // fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
         element: <EcoSpaceHome />,
       },
       {
