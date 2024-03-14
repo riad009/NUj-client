@@ -7,18 +7,8 @@ import config from "../../config";
 import { useNavigate } from "react-router-dom";
 const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
   const navigate = useNavigate();
-  const {
-    company,
-    project,
-    serviceId,
-    serviceDescription,
-    staffs,
-    website,
-    email,
-    phone,
-    address,
-    _id,
-  } = ecoSpace ?? {};
+  const { company, description, website, email, phone, address, _id } =
+    ecoSpace ?? {};
 
   const handleUpdateEcoSpace = (data) => {
     fetch(`${config.api_url}/eco-spaces/update/eco-space/${_id}`, {
@@ -55,8 +45,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
           name="basic"
           initialValues={{
             company,
-            project,
-            serviceDescription,
+            description,
             website,
             email,
             phone,
@@ -89,7 +78,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
                 </Form.Item>
               </div>
 
-              <div className="flex flex-col gap-1 w-full">
+              {/* <div className="flex flex-col gap-1 w-full">
                 <label>Project Name: </label>
                 <Form.Item
                   className="mb-1"
@@ -107,7 +96,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
                     placeholder="Ex: Camp fire"
                   />
                 </Form.Item>
-              </div>
+              </div> */}
             </div>
             <div className="flex items-center gap-5">
               <div className="flex flex-col gap-1 w-full">
@@ -194,10 +183,10 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
               </div>
             </div>
             <div className="flex flex-col gap-1 w-full">
-              <label>Service Description: </label>
+              <label>Description: </label>
               <Form.Item
                 className="mb-1"
-                name="serviceDescription"
+                name="description"
                 rules={[
                   {
                     required: false,

@@ -93,7 +93,6 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   ];
 
-  const projects = ["Camp fire", "Reentry Program"];
   const projectsItems = [
     {
       key: "1",
@@ -108,8 +107,8 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       ),
       children: (
         <div className="space-y-2">
-          {projects?.length
-            ? projects.map((project, i) => (
+          {ecoSpace?.projects?.length
+            ? ecoSpace?.projects.map((project, i) => (
                 <ProjectListCard project={project} key={i} />
               ))
             : ""}
