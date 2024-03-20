@@ -109,7 +109,7 @@ const SidebarItems = () => {
       </NavLink>
       <NavLink
         onClick={onClose}
-        to="/toxic-detection"
+        to="/toxic-detection/assessment"
         className={({ isActive, isPending }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""

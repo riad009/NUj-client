@@ -31,7 +31,6 @@ import DashboardEcospaces from "../pages/dashboard/DashboardEcospaces";
 import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
 import DashboardUserProfile from "../pages/dashboard/DashboardUserProfile";
 import AppointmentPage from "../pages/appointment/AppointmentPage";
-import ToxicDetection from "../pages/toxicDetection/ToxicDetection";
 import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppointment";
 import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 import config from "../config";
@@ -40,6 +39,7 @@ import EcoSpaceHome from "../pages/ecoSpace/EcoSpaceHome";
 import AcceptInvitation from "../components/ecoSpace/AcceptInvitation";
 import EcoSpaceLayout from "../components/layout/EcoSpaceLayout";
 import EcoSpaceConversations from "../pages/ecoSpace/EcoSpaceConversations";
+import ToxicDetectionAssessment from "../pages/toxicDetection/ToxicDetectionAssessment";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -113,8 +113,8 @@ export const router = createBrowserRouter([
         element: <MakeAppointment />,
       },
       {
-        path: "/toxic-detection",
-        element: <ToxicDetection />,
+        path: "/toxic-detection/assessment",
+        element: <ToxicDetectionAssessment />,
       },
       {
         path: "/upload-documents",

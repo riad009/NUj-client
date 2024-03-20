@@ -1,12 +1,12 @@
 import { Drawer } from "antd";
 import { useState } from "react";
 // import ToxicDetectionHistorySidebarItems from "./ToxicDetectionHistorySidebarItems";
-import ToxicDetectionResponseDisplay from "./ToxicDetectionResponseDisplay";
+import ToxicDetectionResponseDisplay from "./ToxicDetectionResponseDisplayDemo";
 import { MdHistory } from "react-icons/md";
 import axios from "axios";
 import config from "../../config";
 
-const ToxicDetection = () => {
+const ToxicDetectionDemo = () => {
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -117,4 +117,4 @@ const ToxicDetection = () => {
   );
 };
 
-export default ToxicDetection;
+export default ToxicDetectionDemo;
