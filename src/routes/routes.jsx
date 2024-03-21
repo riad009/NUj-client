@@ -42,6 +42,7 @@ import EcoSpaceConversations from "../pages/ecoSpace/EcoSpaceConversations";
 import ToxicDetectionAssessment from "../pages/toxicDetection/ToxicDetectionAssessment";
 import ToxicDetectionScoreResult from "../pages/toxicDetection/ToxicDetectionScoreResult";
 import ToxicDetectionPlanScoreResult from "../pages/toxicDetection/ToxicDetectionPlanScoreResult";
+import ToxicDetectionActionPlan from "../pages/toxicDetection/ToxicDetectionActionPlan";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -125,6 +126,10 @@ export const router = createBrowserRouter([
       {
         path: "/toxic-detection/plan-result",
         element: <ToxicDetectionPlanScoreResult />,
+      },
+      {
+        path: "/toxic-detection/action-plan",
+        element: <ToxicDetectionActionPlan />,
       },
       {
         path: "/upload-documents",

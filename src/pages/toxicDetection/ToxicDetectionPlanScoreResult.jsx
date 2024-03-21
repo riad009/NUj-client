@@ -1,5 +1,6 @@
 import React from "react";
 import UserProfileInformation from "../../components/toxicDetection/UserProfileInformation";
+import { Link } from "react-router-dom";
 
 const ToxicDetectionPlanScoreResult = () => {
   return (
@@ -60,7 +61,9 @@ const ToxicDetectionPlanScoreResult = () => {
               </div>
             </div>
             <div className="text-center space-y-2">
-              <button className="p-btn">Download</button>
+              <Link to="/toxic-detection/action-plan" className="p-btn">
+                Download
+              </Link>
               <p className="text-xs text-gray-500">
                 Download your Success Plan!
               </p>
