@@ -12,8 +12,8 @@ const ToxicDetectionPlanScoreResult = () => {
         <div className="space-y-12">
           <UserProfileInformation />
           <div className="space-y-8">
-            <div className="grid grid-cols-6 gap-5">
-              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+            <div className="flex flex-col md:grid grid-cols-6 gap-2 md:gap-5">
+              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                 <h2 className="text-2xl text-gray-500">Low</h2>
               </div>
               <div className="text-xl col-span-4 border border-gray-500 p-5 rounded-sm">
@@ -24,8 +24,8 @@ const ToxicDetectionPlanScoreResult = () => {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-6 gap-5">
-              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+            <div className="flex flex-col md:grid grid-cols-6 gap-2 md:gap-5">
+              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                 <h2 className="text-2xl text-gray-500">Moderate</h2>
               </div>
               <div className="text-xl col-span-4 border border-gray-500 p-5 rounded-sm">
@@ -36,8 +36,8 @@ const ToxicDetectionPlanScoreResult = () => {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-6 gap-5">
-              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+            <div className="flex flex-col md:grid grid-cols-6 gap-2 md:gap-5">
+              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                 <h2 className="text-2xl text-gray-500">High</h2>
               </div>
               <div className="text-xl col-span-4 border border-gray-500 p-5 rounded-sm">
@@ -48,8 +48,8 @@ const ToxicDetectionPlanScoreResult = () => {
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-6 gap-5">
-              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+            <div className="flex flex-col md:grid grid-cols-6 gap-2 md:gap-5">
+              <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                 <h2 className="text-2xl text-gray-500">Extreme</h2>
               </div>
               <div className="text-xl col-span-4 border border-gray-500 p-5 rounded-sm">

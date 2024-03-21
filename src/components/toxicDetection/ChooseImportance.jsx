@@ -37,8 +37,8 @@ const ChooseImportance = () => {
       <h1 className="text-base md:text-xl mb-4">
         Please rate the following words based on their importance to you (1-10):
       </h1>
-      <div className="space-y-8">
-        <div className="flex items-center gap-5">
+      <div className="space-y-5 md:space-y-8">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <div className="flex flex-col gap-1 w-full">
             <h2 className=" tracking-wide">Education: </h2>
             <Radio.Group
@@ -74,7 +74,7 @@ const ChooseImportance = () => {
             </Radio.Group>
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <div className="flex flex-col gap-1 w-full">
             <h2 className=" tracking-wide">Relationships: </h2>
             <Radio.Group
@@ -110,7 +110,7 @@ const ChooseImportance = () => {
             </Radio.Group>
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <div className="flex flex-col gap-1 w-full">
             <h2 className=" tracking-wide">Faith: </h2>
             <Radio.Group
@@ -146,7 +146,7 @@ const ChooseImportance = () => {
             </Radio.Group>
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <div className="flex flex-col gap-1 w-full">
             <h2 className=" tracking-wide">Safety: </h2>
             <Radio.Group
@@ -182,7 +182,7 @@ const ChooseImportance = () => {
             </Radio.Group>
           </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col md:flex-row items-center gap-5">
           <div className="flex flex-col gap-1 w-full">
             <h2 className=" tracking-wide">Food: </h2>
             <Radio.Group

@@ -17,24 +17,24 @@ const ToxicDetectionActionPlan = () => {
               Congratulations Below are your Action Plans
             </h1>
             <div className="space-y-8">
-              <div className="grid grid-cols-8 gap-5">
-                <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+              <div className="flex flex-col md:grid grid-cols-8 gap-2 md:gap-5">
+                <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                   <img className="h-full w-full" src={planImage} alt="" />
                 </div>
                 <div className="text-xl col-span-6 border border-gray-500 p-5 rounded-sm flex items-center justify-center">
                   <span className="font-bold">Program Recomendation 1</span>
                 </div>
               </div>
-              <div className="grid grid-cols-8 gap-5">
-                <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+              <div className="flex flex-col md:grid grid-cols-8 gap-2 md:gap-5">
+                <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                   <img className="h-full w-full" src={planImage} alt="" />
                 </div>
                 <div className="text-xl col-span-6 border border-gray-500 p-5 rounded-sm flex items-center justify-center">
                   <span className="font-bold">Program Recomendation 2</span>
                 </div>
               </div>
-              <div className="grid grid-cols-8 gap-5">
-                <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-3xl">
+              <div className="flex flex-col md:grid grid-cols-8 gap-2 md:gap-5">
+                <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                   <img className="h-full w-full" src={planImage} alt="" />
                 </div>
                 <div className="text-xl col-span-6 border border-gray-500 p-5 rounded-sm flex items-center justify-center">
