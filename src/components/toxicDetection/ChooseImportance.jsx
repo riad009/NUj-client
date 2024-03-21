@@ -48,6 +48,7 @@ const ChooseImportance = () => {
                   education: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.education}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -65,6 +66,7 @@ const ChooseImportance = () => {
                   employment: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.employment}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -84,6 +86,7 @@ const ChooseImportance = () => {
                   relationships: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.relationships}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -101,6 +104,7 @@ const ChooseImportance = () => {
                   children: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.children}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -120,6 +124,7 @@ const ChooseImportance = () => {
                   faith: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.faith}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -137,6 +142,7 @@ const ChooseImportance = () => {
                   success: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.success}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -156,6 +162,7 @@ const ChooseImportance = () => {
                   safety: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.safety}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -173,6 +180,7 @@ const ChooseImportance = () => {
                   survival: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.survival}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -192,6 +200,7 @@ const ChooseImportance = () => {
                   food: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.food}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
@@ -209,6 +218,7 @@ const ChooseImportance = () => {
                   shelter: e.target.value,
                 }))
               }
+              defaultValue={assessmentObject?.shelter}
             >
               {[...Array(10).keys()].map((index) => (
                 <Radio key={index} value={index + 1}>
