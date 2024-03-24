@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import LoadingScreen from "../../components/LoadingScreen";
 import { toast } from "sonner";
+import config from "../../config";
 
 const ToxicDetectionScoreResult = () => {
   const { assessmentObject } = useContext(AuthContext);
@@ -14,8 +15,9 @@ const ToxicDetectionScoreResult = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const apiKey = "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"; // Replace with your OpenAI API key
-  const apiUrl = "https://api.openai.com/v1/chat/completions";
+  const apiKey = config.openai_key;
+  const apiUrl = config.openai_api_url;
+
   let prompt1 = `
   Analyze the importance ratings provided by the user for each option and generate a score based on their ratings:
   Education:${assessmentObject?.education}

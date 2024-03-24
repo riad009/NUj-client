@@ -5,6 +5,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { toast } from "sonner";
 import LoadingScreen from "../../components/LoadingScreen";
 import axios from "axios";
+import config from "../../config";
 
 const ToxicDetectionPlanScoreResult = () => {
   const rating = useLoaderData();
@@ -13,8 +14,9 @@ const ToxicDetectionPlanScoreResult = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const apiKey = "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"; // Replace with your OpenAI API key
-  const apiUrl = "https://api.openai.com/v1/chat/completions";
+  const apiKey = config.openai_key;
+  const apiUrl = config.openai_api_url;
+
   let prompt2 = `
   Analyze the importance ratings provided by ${userDB?.name} for each option and generate a success plan based on their ratings:
   Education:${assessmentObject?.education}
