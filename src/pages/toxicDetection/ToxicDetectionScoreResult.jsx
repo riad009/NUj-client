@@ -71,7 +71,7 @@ const ToxicDetectionScoreResult = () => {
   if (error) {
     return toast.error(error, { duration: 8000, id: "response1" });
   }
-  console.log(response1);
+
   return (
     <div className="min-h-screen flex justify-center items-center overflow-hidden mt-20 mb-6">
       <div className="w-11/12 mx-auto space-y-5">

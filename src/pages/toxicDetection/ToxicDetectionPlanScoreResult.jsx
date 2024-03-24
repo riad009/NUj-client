@@ -6,6 +6,8 @@ import { toast } from "sonner";
 import LoadingScreen from "../../components/LoadingScreen";
 import axios from "axios";
 import config from "../../config";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const ToxicDetectionPlanScoreResult = () => {
   const rating = useLoaderData();
@@ -61,13 +63,24 @@ Provide a success plan based on the user's ratings.`;
     handleSubmit();
   }, [apiKey, apiUrl, prompt2]);
 
+  const doc = new jsPDF();
+  const printPdf = () => {
+    doc.text(`Comprehensive Success Plan Results - ${userDB?.name}`, 15, 10);
+    autoTable(doc, {
+      head: [["Plans"]],
+      body: [[response2]],
+    });
+
+    doc.save(`plans_${userDB?.name}.pdf`);
+  };
+
   if (loading) {
     return <LoadingScreen />;
   }
   if (error) {
     return toast.error(error, { duration: 8000, id: "response1" });
   }
-  console.log(response2);
+
   return (
     <div className="min-h-screen flex justify-center items-center overflow-hidden mt-20 mb-6">
       <div className="w-11/12 mx-auto space-y-5">
@@ -137,7 +150,14 @@ Provide a success plan based on the user's ratings.`;
               {/* <Link to="/toxic-detection/action-plan" className="p-btn">
                 Download
               </Link> */}
-              <button className="p-btn">Download</button>
+              {response2 ? (
+                <button onClick={printPdf} className="p-btn">
+                  Download
+                </button>
+              ) : (
+                ""
+              )}
+
               <p className="text-xs text-gray-500">
                 Download your Success Plan!
               </p>
