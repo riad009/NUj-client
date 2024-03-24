@@ -1,9 +1,12 @@
 import { Radio } from "antd";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import axios from "axios";
 
+const apiKey = "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"; // Replace with your OpenAI API key
+const apiUrl = "https://api.openai.com/v1/chat/completions";
 const ChooseImportance = () => {
   const { assessmentObject, setAssessmentObject } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -32,8 +35,112 @@ const ChooseImportance = () => {
     navigate("/toxic-detection/score-result");
   };
 
+  // open AI
+  //response 1- score
+  const [prompt1, setPrompt1] = useState(`
+
+
+  Analyze the importance ratings provided by the user for each option and generate a score based on their ratings:
+  Education:5
+  Employment:2
+  Relationships:3
+  Children:3
+  Faith:6
+  Success:
+  Safety:8
+  Survival:3
+  Food:2
+  Shelter:6
+  Provide a score from 1 to 10 based on the user's ratings, considering the importance of each option.
+
+  Provide only the numerical score from 1 to 10 based on the user's ratings.
+  Please return only numbers. Don't give anything else. I want only numbers
+
+
+  `);
+
+  //response 2- details
+  const [prompt2, setPrompt2] = useState(`
+  
+  Analyze the importance ratings provided by riad for each option and generate a success plan based on their ratings:
+  Education:1
+  Employment:2
+  Relationships:10
+  Children:3
+  Faith:6
+  Success:
+  Safety:8
+  Survival:3
+  Food:2
+  Shelter:6
+
+Provide a success plan based on the user's ratings.
+
+
+  
+  `);
+  const [response1, setResponse1] = useState("");
+  const [response2, setResponse2] = useState("");
+  const [error, setError] = useState("");
+
+  const handlePrompt1Change = (event) => {
+    setPrompt1(event.target.value);
+  };
+
+  const handlePrompt2Change = (event) => {
+    setPrompt2(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      };
+
+      const data1 = {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: prompt1 }],
+      };
+
+      const data2 = {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: prompt2 }],
+      };
+
+      const [response1, response2] = await Promise.all([
+        axios.post(apiUrl, data1, { headers }),
+        axios.post(apiUrl, data2, { headers }),
+      ]);
+
+      setResponse1(response1.data.choices[0].message.content);
+      setResponse2(response2.data.choices[0].message.content);
+    } catch (error) {
+      console.error("Error:", error);
+      setError("An error occurred. Please try again.");
+    }
+  };
+  // open AI
   return (
     <div>
+      <div>
+        <button className="btn" onClick={handleSubmit}>
+          Submit
+        </button>
+        {error && <p>{error}</p>}
+        {response1 && (
+          <div>
+            <h2>Response 1:</h2>
+            <p>{response1}</p>
+          </div>
+        )}
+        {response2 && (
+          <div>
+            <h2>Response 2:</h2>
+            <p>{response2}</p>
+          </div>
+        )}
+      </div>
       <h1 className="text-base md:text-xl mb-4">
         Please rate the following words based on their importance to you (1-10):
       </h1>

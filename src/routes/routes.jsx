@@ -124,7 +124,8 @@ export const router = createBrowserRouter([
         element: <ToxicDetectionScoreResult />,
       },
       {
-        path: "/toxic-detection/plan-result",
+        path: "/toxic-detection/plan-result/:response1",
+        loader: ({ params }) => params.response1,
         element: <ToxicDetectionPlanScoreResult />,
       },
       {
