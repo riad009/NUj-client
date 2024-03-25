@@ -118,7 +118,7 @@ Provide a success plan based on the user's ratings.`;
                 </div>
               </div>
             )}
-            {rating > 7 && rating <= 9 && (
+            {rating >= 7 && rating <= 9 && (
               <div className="flex flex-col md:grid grid-cols-6 gap-2 md:gap-5">
                 <div className="col-span-2 border border-gray-500 flex justify-center items-center p-5 rounded-sm md:rounded-3xl">
                   <h2 className="text-2xl text-gray-500">High</h2>
