@@ -30,9 +30,9 @@ const ToxicDetectionScoreResult = () => {
   Survival:${assessmentObject?.survival}
   Food:${assessmentObject?.food}
   Shelter:${assessmentObject?.shelter}
-  Provide a score from 1 to 10 based on the user's ratings, considering the importance of each option.
+  Provide a score from 1 to 15 based on the user's ratings (here user will provide rating 1 to 10, but please, calculate these ratings by extending those from 1 to 15), considering the importance of each option.
 
-  Provide only the numerical score from 1 to 10 based on the user's ratings.
+  Provide only the numerical score from 1 to 15 based on the user's ratings.
   Please return only number. Don't give anything else. I want only number
   `;
 
@@ -40,21 +40,29 @@ const ToxicDetectionScoreResult = () => {
     const handleSubmit = async () => {
       try {
         setLoading(true);
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
-        };
+        // const headers = {
+        //   "Content-Type": "application/json",
+        //   Authorization: `Bearer ${apiKey}`,
+        // };
 
-        const data1 = {
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt1 }],
-        };
+        // const data1 = {
+        //   model: "gpt-3.5-turbo",
+        //   messages: [{ role: "user", content: prompt1 }],
+        // };
 
-        const [response1] = await Promise.all([
-          axios.post(apiUrl, data1, { headers }),
-        ]);
+        // const [response1] = await Promise.all([
+        //   axios.post(apiUrl, data1, { headers }),
+        // ]);
 
-        setResponse1(response1.data.choices[0].message.content);
+        // setResponse1(response1.data.choices[0].message.content);
+        const values = Object.values(assessmentObject);
+
+        // Calculate the sum of all values
+        const sum = values.reduce((acc, currentValue) => acc + currentValue, 0);
+
+        // Calculate the average
+        const average = parseFloat(((sum / values.length) * 1.5).toFixed(1));
+        setResponse1(average);
         setLoading(false);
       } catch (error) {
         console.error("Error:", error);
@@ -63,7 +71,7 @@ const ToxicDetectionScoreResult = () => {
       }
     };
     handleSubmit();
-  }, [apiKey, apiUrl, prompt1]);
+  }, [assessmentObject]);
 
   if (loading) {
     return <LoadingScreen />;
