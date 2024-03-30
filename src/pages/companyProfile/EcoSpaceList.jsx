@@ -13,7 +13,8 @@ const EcoSpaceList = () => {
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
       const res = await fetch(
-        `${config.api_url}/eco-spaces/list/${userDB?._id}`
+        // `${config.api_url}/eco-spaces/list/${userDB?._id}`
+        `${config.api_url}/eco-spaces/list?ownerId=${userDB?._id}&email=${user?.email}`
       );
       const data = await res.json();
       return data;
