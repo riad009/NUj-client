@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import axios from "axios";
 
 const UserProfile = () => {
-  const { user, userDB } = useContext(AuthContext);
+  const { user, userDB, logOut } = useContext(AuthContext);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setloading] = useState(false);
@@ -234,6 +234,11 @@ const UserProfile = () => {
                   />
                 </Form.Item>
               </div>
+              <div className="text-center mt-6">
+                <button type="submit" className="p-btn">
+                  Save Changes
+                </button>
+              </div>
             </div>
           </div>
           <div className="flex flex-col gap-10">
@@ -258,9 +263,16 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-        <button type="submit" className="p-btn">
-          Save Changes
-        </button>
+        <div>
+          <button
+            className={`px-4 py-2 border uppercase  font-semibold rounded-md
+          bg-error text-base-100
+        }`}
+            onClick={() => logOut().then(toast.success("Logged out"))}
+          >
+            Sign out
+          </button>
+        </div>
       </Form>
     </div>
   );
