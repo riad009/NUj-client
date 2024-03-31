@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logos/main-logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import LoginSVG from "../../assets/svg/LoginSVG";
 import circles from "../../assets/home/circles.png";
 
 const CreateEcoSpaceBanner = () => {
@@ -14,9 +13,8 @@ const CreateEcoSpaceBanner = () => {
           <img className="size-12" src={logo} alt="" />
           <div className="flex gap-1 text-xs bg-[#f4ede4] p-1 rounded-2xl">
             <p>Confirmed as</p>
-            {/* <span className="font-semibold">{user?.email}</span> */}
-            <span className="font-semibold">example@gmail.com</span>
-            <Link className="link" to="/login-options">
+            <span className="font-semibold">{user?.email}</span>
+            <Link className="link" to="/login">
               Change
             </Link>
           </div>

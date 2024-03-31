@@ -1,12 +1,12 @@
 import { Drawer } from "antd";
 import { useState } from "react";
 // import ToxicDetectionHistorySidebarItems from "./ToxicDetectionHistorySidebarItems";
-import ToxicDetectionResponseDisplay from "./ToxicDetectionResponseDisplay";
+import ToxicDetectionResponseDisplay from "./ToxicDetectionResponseDisplayDemo";
 import { MdHistory } from "react-icons/md";
 import axios from "axios";
 import config from "../../config";
 
-const ToxicDetection = () => {
+const ToxicDetectionDemo = () => {
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ const ToxicDetection = () => {
         <div className="w-11/12 mx-auto my-20 space-y-5">
           <div className="flex justify-between items-start md:items-center">
             <h1 className="text-2xl md:text-4xl font-semibold">
-              Toxicity Detection
+              Text-Toxicity
             </h1>
             <button
               onClick={showDrawer}
@@ -117,4 +117,4 @@ const ToxicDetection = () => {
   );
 };
 
-export default ToxicDetection;
+export default ToxicDetectionDemo;

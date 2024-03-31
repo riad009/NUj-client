@@ -13,7 +13,8 @@ const EcoSpaceList = () => {
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
       const res = await fetch(
-        `${config.api_url}/eco-spaces/list/${userDB?._id}`
+        // `${config.api_url}/eco-spaces/list/${userDB?._id}`
+        `${config.api_url}/eco-spaces/list?ownerId=${userDB?._id}&email=${user?.email}`
       );
       const data = await res.json();
       return data;
@@ -29,7 +30,7 @@ const EcoSpaceList = () => {
         </h1>
         <p className="text-sm text-white">
           Not seeing your EcoSpaces?
-          <Link to="/login-options" className="link">
+          <Link to="/login" className="link">
             Try using a different email
           </Link>
         </p>

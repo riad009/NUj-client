@@ -109,7 +109,7 @@ const SidebarItems = () => {
       </NavLink>
       <NavLink
         onClick={onClose}
-        to="/toxic-detection"
+        to="/toxic-detection/assessment"
         className={({ isActive, isPending }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
@@ -117,7 +117,7 @@ const SidebarItems = () => {
         }
       >
         <RiQrScan2Line className="text-xl text-primary" />
-        <span>Toxicity Detection</span>
+        <span>Text-Toxicity</span>
       </NavLink>
 
       {/* <Dropdown

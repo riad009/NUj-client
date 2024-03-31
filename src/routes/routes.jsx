@@ -31,7 +31,6 @@ import DashboardEcospaces from "../pages/dashboard/DashboardEcospaces";
 import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
 import DashboardUserProfile from "../pages/dashboard/DashboardUserProfile";
 import AppointmentPage from "../pages/appointment/AppointmentPage";
-import ToxicDetection from "../pages/toxicDetection/ToxicDetection";
 import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppointment";
 import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 import config from "../config";
@@ -40,6 +39,11 @@ import EcoSpaceHome from "../pages/ecoSpace/EcoSpaceHome";
 import AcceptInvitation from "../components/ecoSpace/AcceptInvitation";
 import EcoSpaceLayout from "../components/layout/EcoSpaceLayout";
 import EcoSpaceConversations from "../pages/ecoSpace/EcoSpaceConversations";
+import ToxicDetectionAssessment from "../pages/toxicDetection/ToxicDetectionAssessment";
+import ToxicDetectionScoreResult from "../pages/toxicDetection/ToxicDetectionScoreResult";
+import ToxicDetectionPlanScoreResult from "../pages/toxicDetection/ToxicDetectionPlanScoreResult";
+import ToxicDetectionActionPlan from "../pages/toxicDetection/ToxicDetectionActionPlan";
+import Signup from "../pages/login/Signup";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -113,8 +117,21 @@ export const router = createBrowserRouter([
         element: <MakeAppointment />,
       },
       {
-        path: "/toxic-detection",
-        element: <ToxicDetection />,
+        path: "/toxic-detection/assessment",
+        element: <ToxicDetectionAssessment />,
+      },
+      {
+        path: "/toxic-detection/score-result",
+        element: <ToxicDetectionScoreResult />,
+      },
+      {
+        path: "/toxic-detection/plan-result/:response1",
+        loader: ({ params }) => params.response1,
+        element: <ToxicDetectionPlanScoreResult />,
+      },
+      {
+        path: "/toxic-detection/action-plan",
+        element: <ToxicDetectionActionPlan />,
       },
       {
         path: "/upload-documents",
@@ -128,14 +145,14 @@ export const router = createBrowserRouter([
   },
   {
     path: "/eco-space/:ecoSpaceId",
-    loader: ({ params }) =>
-      fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
+    loader: ({ params }) => params.ecoSpaceId,
+    // fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
     element: <EcoSpaceLayout />,
     children: [
       {
         path: "/eco-space/:ecoSpaceId",
-        loader: ({ params }) =>
-          fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
+        loader: ({ params }) => params.ecoSpaceId,
+        // fetch(`${config.api_url}/eco-spaces/${params.ecoSpaceId}`),
         element: <EcoSpaceHome />,
       },
       {
@@ -147,8 +164,12 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/login-options",
+    path: "/login",
     element: <LoginOptions />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 
   {

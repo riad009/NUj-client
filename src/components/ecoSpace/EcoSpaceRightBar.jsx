@@ -14,11 +14,13 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     <div className="bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
       <div>
         <h2 className="font-semibold">Topic</h2>
-        <p className="text-sm">{ecoSpace?.project}</p>
+        <p className="text-sm">
+          {ecoSpace?.projects?.length ? ecoSpace?.projects[0] : ""}
+        </p>
       </div>
       <div>
         <h2 className="font-semibold">Description</h2>
-        <p className="text-sm">{ecoSpace?.serviceDescription}</p>
+        <p className="text-sm">{ecoSpace?.description}</p>
       </div>
       <div>
         <p className="text-sm">Created on 18th October 2019</p>

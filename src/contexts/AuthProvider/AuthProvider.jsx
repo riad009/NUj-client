@@ -48,6 +48,8 @@ const AuthProvider = ({ children }) => {
     // project: "",
     // plan: "",
   });
+  // values for assessment (Toxicity)
+  const [assessmentObject, setAssessmentObject] = useState({});
 
   const logInWithEmail = (email) => {
     setIsLoading(true);
@@ -144,6 +146,8 @@ const AuthProvider = ({ children }) => {
     ecoSpaceRightBarOpen,
     setEcoSpaceLeftBarOpen,
     ecoSpaceLeftBarOpen,
+    assessmentObject,
+    setAssessmentObject,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

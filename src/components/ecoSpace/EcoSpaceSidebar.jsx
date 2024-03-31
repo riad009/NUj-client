@@ -14,9 +14,12 @@ import ChannelListCard from "./ChannelListCard";
 import AddChannelModal from "./AddChannelModal";
 import { GoPlus } from "react-icons/go";
 import { IoHomeOutline } from "react-icons/io5";
+import ProjectListCard from "./ProjectListCard";
+import AddNewProject from "./AddNewProject";
 
-const EcoSpaceSidebar = ({ ecoSpace }) => {
+const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
   const [open, setOpen] = useState(false);
+  const [openProjectModal, setOpenProjectModal] = useState(false);
   const [openChannel, setOpenChannel] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user, userDB, setEcoSpaceLeftBarOpen } = useContext(AuthContext);
@@ -55,7 +58,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       key: "1",
       label: <h2 className="font-semibold  tracking-wider">Starred</h2>,
       children: (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {channels?.length
             ? channels.map((channel, i) => (
                 <ChannelListCard {...channel} key={i} />
@@ -79,7 +82,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
         </div>
       ),
       children: (
-        <div className="space-y-3">
+        <div className="space-y-2">
           {channels?.length
             ? channels.map((channel, i) => (
                 <ChannelListCard {...channel} key={i} />
@@ -90,9 +93,33 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   ];
 
+  const projectsItems = [
+    {
+      key: "1",
+      label: (
+        <div className="flex items-center  justify-between">
+          <p className="font-semibold  tracking-wider">Projects</p>
+          <FaPlusCircle
+            className="h-4 w-4"
+            onClick={() => setOpenProjectModal(true)}
+          />
+        </div>
+      ),
+      children: (
+        <div className="space-y-2">
+          {ecoSpace?.projects?.length
+            ? ecoSpace?.projects.map((project, i) => (
+                <ProjectListCard project={project} key={i} />
+              ))
+            : ""}
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
-      <div className="col-span-1 border-r-[.5px] border-gray-600 min-h-screen w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6">
+      <div className="col-span-1 border-r-[.5px] border-gray-600 h-[100vh] w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6 overflow-y-auto overflow-x-clip">
         <div className="flex flex-col items-center justify-start gap-2">
           <Link
             className="text-white bg-gray-400 flex justify-center items-center size-12 rounded-md"
@@ -136,7 +163,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
           </Link>
         </div>
       </div>
-      <div className="col-span-4 h-[100vh] overflow-y-auto overflow-x-clip bg-[#d8c0d6] ">
+      <div className="col-span-4 h-[100vh]  bg-[#d8c0d6] ">
         <div className="">
           <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] bg-[#6a2b70] border-gray-400 space-x-2 text-white">
             <Dropdown
@@ -158,6 +185,19 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                 <IoIosClose className="size-8 block md:hidden" />
               </button>
             </div>
+          </div>
+        </div>
+        <div className="overflow-y-auto overflow-x-clip h-[90vh]">
+          {/* projects */}
+          <div className="">
+            <Collapse
+              bordered={false}
+              accordion
+              className=""
+              items={projectsItems}
+              expandIconPosition="end"
+              defaultActiveKey={["1"]}
+            />
           </div>
           {/* starred */}
           <div className="">
@@ -207,6 +247,12 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
           </div>
         </div>
       </div>
+      <AddNewProject
+        ecoSpace={ecoSpace}
+        open={openProjectModal}
+        setOpen={setOpenProjectModal}
+        refetchEcoSpace
+      />
       <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
       <AddChannelModal
         ecoSpace={ecoSpace}

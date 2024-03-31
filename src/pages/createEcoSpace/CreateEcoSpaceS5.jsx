@@ -1,20 +1,45 @@
-import { Form, Input } from "antd";
-import { useContext } from "react";
+import { Form, Input, Tag } from "antd";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import BackButton from "../../components/BackButton";
+import { toast } from "sonner";
 
 const CreateEcoSpaceS5 = () => {
   const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [staffs, setStaffs] = useState([]);
   const navigate = useNavigate();
   const handleCreateEcoSpace5 = (data) => {
+    if (!staffs?.length) {
+      return toast.error("Add atleast one project name");
+    }
     setNewEcoSpaceData((prevValue) => ({
       ...prevValue,
-      staffs: [data.staffs],
+      staffs,
     }));
 
     navigate("/create-eco-space/s6");
   };
+
+  const handleAddStaff = async () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && emailPattern.test(email) && !staffs.includes(email)) {
+      setStaffs((prevValues) => [...prevValues, email]);
+    } else if (!email) {
+      toast.error("Please enter an email", { id: email });
+    } else if (staffs.includes(email)) {
+      toast.error("Email already added", { id: email });
+    } else {
+      toast.error("Add valid email", { id: email });
+    }
+  };
+
+  const removeItem = (itemToRemove) => {
+    const updatedItems = staffs.filter((item) => item !== itemToRemove);
+    setStaffs(updatedItems);
+  };
+
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <div className="flex gap-2 items-center">
@@ -22,7 +47,7 @@ const CreateEcoSpaceS5 = () => {
         <h4 className="text-xs text-gray-500">Step 5 of 6</h4>
       </div>
       <h1 className="text-2xl md:text-4xl font-semibold">
-        Who else is in your xyz Ecospace?
+        Who else is in your Ecospace?
       </h1>
       {/* <p className="text-sm">Add Coworker.</p> */}
       <Form
@@ -37,13 +62,26 @@ const CreateEcoSpaceS5 = () => {
         {/* name */}
 
         <div className="flex flex-col gap-1 ">
-          <label>Add Coworker by email </label>
+          <div>
+            {staffs?.length
+              ? staffs.map((item, i) => (
+                  <Tag
+                    className="px-2 py-1"
+                    key={i}
+                    closeIcon
+                    onClose={() => removeItem(item)}
+                  >
+                    {item}
+                  </Tag>
+                ))
+              : ""}
+          </div>
           <Form.Item
             className=""
             name="staffs"
             rules={[
               {
-                required: true,
+                // required: true,
               },
             ]}
           >
@@ -51,11 +89,14 @@ const CreateEcoSpaceS5 = () => {
               className="h-20 bg-transparent  focus:bg-transparent placeholder:text-gray-500"
               size="large"
               placeholder="Details of company provided services"
-              type="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Item>
         </div>
         <div className="space-x-2">
+          <button type="button" onClick={handleAddStaff} className="p-btn">
+            Add
+          </button>
           <button type="submit" className="p-btn ">
             Next
           </button>

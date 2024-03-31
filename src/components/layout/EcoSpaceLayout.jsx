@@ -3,13 +3,32 @@ import { Outlet, useLoaderData } from "react-router-dom";
 import EcoSpaceSidebar from "../ecoSpace/EcoSpaceSidebar";
 import EcoSpaceRightBar from "../ecoSpace/EcoSpaceRightBar";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
+import LoadingScreen from "../LoadingScreen";
+import config from "../../config";
 
 const EcoSpaceLayout = () => {
-  const data = useLoaderData();
+  // const data = useLoaderData();
+  const ecoSpaceId = useLoaderData();
+  const {
+    data: ecoSpace,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: [],
+    queryFn: async () => {
+      const res = await fetch(`${config.api_url}/eco-spaces/${ecoSpaceId}`);
+      const data = await res.json();
+      return data.data;
+    },
+  });
   const { ecoSpaceRightBarOpen, ecoSpaceLeftBarOpen } = useContext(AuthContext);
 
-  const ecoSpace = data.data;
-
+  // const ecoSpace = data.data;
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+  console.log(ecoSpace);
   return (
     <div className="grid grid-cols-12 h-screen ecospace-scroll-bar">
       <div
@@ -19,7 +38,7 @@ const EcoSpaceLayout = () => {
           ecoSpaceLeftBarOpen ? "" : "hidden md:grid"
         }`}
       >
-        <EcoSpaceSidebar ecoSpace={ecoSpace} />
+        <EcoSpaceSidebar ecoSpace={ecoSpace} refetchEcoSpace={refetch} />
       </div>
       <div
         className={`${

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ToxicDetectionHistorySidebarItems = ({ onClose, setResult }) => {
+const ToxicDetectionHistorySidebarItemsDemo = ({ onClose, setResult }) => {
   const history = {
     rating: 3,
     plan: "Education",
@@ -26,4 +26,4 @@ const ToxicDetectionHistorySidebarItems = ({ onClose, setResult }) => {
   );
 };
 
-export default ToxicDetectionHistorySidebarItems;
+export default ToxicDetectionHistorySidebarItemsDemo;

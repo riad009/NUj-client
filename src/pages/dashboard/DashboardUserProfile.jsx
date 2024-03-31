@@ -11,26 +11,6 @@ import { useLoaderData } from "react-router-dom";
 import config from "../../config";
 import LoadingScreen from "../../components/LoadingScreen";
 
-const ecoSpaces = [
-  {
-    company: "XYZ ltd.",
-    service: "Mental Service",
-    project: "Camp fire",
-    id: "mongodb_id",
-  },
-];
-
-const appointments = [
-  {
-    company: "XYZ ltd.",
-    location: "address, address",
-    date: "18:06:00 - 2024-02-13",
-    reason: "Requires court verification",
-    status: "completed",
-    id: "mongodb_id",
-  },
-];
-
 const DashboardUserProfile = () => {
   const userId = useLoaderData();
   // setting the states
@@ -68,8 +48,6 @@ const DashboardUserProfile = () => {
   if (isUserLoading) {
     return <LoadingScreen />;
   }
-
-  console.log({ ecoSpaces, appointments });
 
   const doc = new jsPDF();
   const printPdf = () => {
