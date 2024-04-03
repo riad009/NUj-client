@@ -43,6 +43,7 @@ import ToxicDetectionAssessment from "../pages/toxicDetection/ToxicDetectionAsse
 import ToxicDetectionScoreResult from "../pages/toxicDetection/ToxicDetectionScoreResult";
 import ToxicDetectionPlanScoreResult from "../pages/toxicDetection/ToxicDetectionPlanScoreResult";
 import ToxicDetectionActionPlan from "../pages/toxicDetection/ToxicDetectionActionPlan";
+import Signup from "../pages/login/Signup";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -163,8 +164,12 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/login-options",
+    path: "/login",
     element: <LoginOptions />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
   },
 
   {

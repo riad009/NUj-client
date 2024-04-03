@@ -30,7 +30,7 @@ const EcoSpaceList = () => {
         </h1>
         <p className="text-sm text-white">
           Not seeing your EcoSpaces?
-          <Link to="/login-options" className="link">
+          <Link to="/login" className="link">
             Try using a different email
           </Link>
         </p>

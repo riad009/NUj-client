@@ -14,7 +14,7 @@ const CreateEcoSpaceBanner = () => {
           <div className="flex gap-1 text-xs bg-[#f4ede4] p-1 rounded-2xl">
             <p>Confirmed as</p>
             <span className="font-semibold">{user?.email}</span>
-            <Link className="link" to="/login-options">
+            <Link className="link" to="/login">
               Change
             </Link>
           </div>
