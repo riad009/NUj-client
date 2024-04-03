@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateEcoSpacePlanCard = ({ plan }) => {
   const { title, description, price, _id } = plan;
-  const { setNewEcoSpaceData } = useContext(AuthContext);
+  const { setNewEcoSpaceData, userDB } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handlePurchasePlan = (planId) => {
@@ -12,6 +12,7 @@ const CreateEcoSpacePlanCard = ({ plan }) => {
       ...prevValues,
       plan: planId,
       planPrice: Number(price),
+      owner: userDB?._id,
     }));
     navigate("/create-eco-space/notification/consent");
   };

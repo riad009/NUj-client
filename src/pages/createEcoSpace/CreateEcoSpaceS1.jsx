@@ -12,7 +12,6 @@ const CreateEcoSpaceS1 = () => {
     setNewEcoSpaceData((prevValue) => ({
       ...prevValue,
       company: data.company,
-      owner: userDB?._id,
       description: data.description,
     }));
 

@@ -17,6 +17,7 @@ const CreateEcoSpaceS2 = () => {
 
     navigate("/create-eco-space/s3");
   };
+
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
       <div className="flex gap-2 items-center">

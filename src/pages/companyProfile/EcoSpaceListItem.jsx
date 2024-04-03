@@ -19,7 +19,7 @@ const EcoSpaceListItem = ({ ecoSpace }) => {
           <p>{staffs.length} members</p>
         </div>
       </div>
-      <h2>Working on - {projects ? projects[0] : projects}</h2>
+      {/* <h2>Working on - {projects ? projects[0] : projects}</h2> */}
       <Link to={`/eco-space/${_id}`} className="p-btn w-full md:w-auto">
         Visit EcoSpace
       </Link>
