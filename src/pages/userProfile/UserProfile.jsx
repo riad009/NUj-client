@@ -259,7 +259,7 @@ const UserProfile = () => {
               <h2>Notifications: </h2>
             </div>
             <div className="rounded-xl shadow-lg h-full p-5 md:p-10">
-              Coming soon
+              Plan: {userDB?.plan || "N/A"}
             </div>
           </div>
         </div>

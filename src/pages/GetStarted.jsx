@@ -15,7 +15,7 @@ const GetStarted = () => {
         <div>
           <img src={circles} alt="" />
           <div className="text-center">
-            <Link to="/login-options" className="p-btn">
+            <Link to="/login" className="p-btn">
               get started
             </Link>
           </div>

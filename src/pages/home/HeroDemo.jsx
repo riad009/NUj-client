@@ -33,7 +33,7 @@ const Hero = () => {
               pellentesque sit amet porttitor eget dolor.
             </p>
             <div>
-              <Link to="/login-options" className="p-btn">
+              <Link to="/login" className="p-btn">
                 Get Started
               </Link>
             </div>

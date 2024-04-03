@@ -154,3 +154,31 @@
 .ant-picker-ok > button {
   background: purple !important;
 }
+.or {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  padding-block: 10px;
+  /* margin-block: 24px; */
+  display: flex;
+  align-items: center;
+}
+.or::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  flex-grow: 1;
+  background: lightgray;
+  height: 1px;
+}
+.or::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  flex-grow: 1;
+  background: lightgray;
+  height: 1px;
+}
+.or > span {
+  margin-inline: 15px;
+}
