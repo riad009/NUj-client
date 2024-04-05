@@ -12,9 +12,17 @@ import { AiOutlineDollar } from "react-icons/ai";
 import { DownOutlined } from "@ant-design/icons";
 import { RiQrScan2Line } from "react-icons/ri";
 import { RiFolderUploadLine } from "react-icons/ri";
-
+import { useNavigate } from "react-router-dom";
 const SidebarItems = () => {
   const { logOut, onClose } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logOut();
+    navigate("/login");
+    toast.success("Logged out");
+  };
+
   const items = [
     {
       key: "Diversion Program",
@@ -223,7 +231,7 @@ const SidebarItems = () => {
         className={`px-4 py-2 border uppercase  font-semibold rounded-md
           bg-error text-base-100
         }`}
-        onClick={() => logOut().then(toast.success("Logged out"))}
+        onClick={handleLogout}
       >
         Sign out
       </button>
