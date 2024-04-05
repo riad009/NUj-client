@@ -2,41 +2,89 @@
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logos/main-logo.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { toast } from "sonner";
+import config from "../../config";
+import axios from "axios";
 
 export default function LoginOptions() {
-  const { logInWithGoogle, logInWithEmail } = useContext(AuthContext);
+  const { logInWithGoogle, setUserRefetch, userRefetch } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleGoogleLogin = async () => {
-    const { user } = await logInWithGoogle();
-    if (!user?.uid) {
-      return toast.error(`Log in failed`, {
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    const res = await logInWithGoogle();
+
+    if (res._tokenResponse.email) {
+      const payload = {
+        name: res._tokenResponse.fullName,
+        email: res._tokenResponse.email,
+        image: res._tokenResponse.photoUrl,
+        role: "user",
+      };
+
+      try {
+        const promise = await axios.post(
+          `${config.api_url}/users/create-google-user`,
+          payload
+        );
+        if (promise.status === 200) {
+          localStorage.setItem("accessToken", promise.data.data);
+          setUserRefetch(!userRefetch);
+          setTimeout(() => {
+            toast.success(`Logged in`, {
+              id: "login",
+              duration: 2000,
+              position: "top-right",
+            });
+            navigate("/");
+            setLoading(false);
+          }, 2000);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        return toast.error(`Log in failed`, {
+          id: "login",
+          duration: 2000,
+          position: "top-right",
+        });
+      }
+    }
+  };
+
+  const onFinish = async (values) => {
+    // console.log(values);
+    try {
+      const promise = await axios.post(
+        `${config.api_url}/users/signin`,
+        values
+      );
+      if (promise.status === 200) {
+        localStorage.setItem("accessToken", promise.data.data);
+        setUserRefetch(!userRefetch);
+        setTimeout(() => {
+          toast.success(`Logged in`, {
+            id: "login",
+            duration: 2000,
+            position: "top-right",
+          });
+          navigate("/");
+          setLoading(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return toast.error(error.response.data.message || `Log in failed`, {
         id: "login",
         duration: 2000,
         position: "top-right",
       });
     }
-    toast.success(`Logged in`, {
-      id: "login",
-      duration: 2000,
-      position: "top-right",
-    });
-    navigate("/");
-  };
-
-  const onFinish = async (values) => {
-    console.log("onFinish");
-
-    const data = await logInWithEmail(values.email);
-    console.log(data);
-    toast.success(`Please Check your mail to verify`, {
-      id: "login",
-      duration: 5000,
-      position: "top-right",
-    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -66,7 +114,7 @@ export default function LoginOptions() {
         <div className="flex flex-col gap-6">
           <button
             type="button"
-            onClick={handleGoogleLogin}
+            onClick={handleGoogleSignIn}
             className="w-full items-center justify-center  px-4 py-2 border flex gap-2 border-slate-200  rounded-lg text-slate-900  hover:border-slate-400  hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150"
           >
             <img
@@ -75,8 +123,7 @@ export default function LoginOptions() {
               loading="lazy"
               alt="google logo"
             />
-            {/* <span>{ ? "Signing in.." : "Continue with Google"}</span> */}
-            <span>{"Continue with Google"}</span>
+            <span>{loading ? "Signing in.." : "Continue with Google"}</span>
           </button>
 
           <div className="or">
@@ -124,7 +171,7 @@ export default function LoginOptions() {
           // disabled={loading}
           className="mt-10 h-[40px] bg-blue-500 text-white"
         >
-          Sign In
+          {loading ? "Processing.." : "Signin"}
         </Button>
 
         <p className="text-muted-foreground text-center mt-10">

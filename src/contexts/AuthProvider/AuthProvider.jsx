@@ -2,7 +2,6 @@
 import { createContext, useEffect, useState } from "react";
 import {
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   sendSignInLinkToEmail,
@@ -11,17 +10,18 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../../firebase/firebase.init";
-
+import axios from "axios";
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 import config from "../../config";
-
+import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   // states for holding user info
   const [user, setUser] = useState(null);
   const [userDB, setUserDB] = useState(null);
+  const [userRefetch, setUserRefetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [ecoSpaceRightBarOpen, setEcoSpaceRightBarOpen] = useState(false);
   const [ecoSpaceLeftBarOpen, setEcoSpaceLeftBarOpen] = useState(false);
@@ -77,6 +77,8 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setIsLoading(true);
+    localStorage.removeItem("accessToken");
+    // navigate("/login");
     return signOut(auth);
   };
 
@@ -84,7 +86,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setIsLoading(false);
+      // setIsLoading(false);
     });
     return () => {
       return () => unsubscribe();
@@ -92,41 +94,55 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   // saving the user info if the user is logging in for the first time
-  useEffect(() => {
-    if (user?.email) {
-      setIsLoading(true);
-      let newUser = {
-        email: user?.email,
-        name: user?.displayName,
-      };
-      if (user?.photoURL) newUser.photo = user?.photoURL;
+  // useEffect(() => {
+  //   if (user?.email) {
+  //     setIsLoading(true);
+  //     let newUser = {
+  //       email: user?.email,
+  //       name: user?.displayName,
+  //     };
+  //     if (user?.photoURL) newUser.photo = user?.photoURL;
 
-      fetch(`${config.api_url}/users/create-user`, {
-        method: "POST",
-        headers: {
-          "content-type": "Application/json",
-        },
-        body: JSON.stringify(newUser),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setIsLoading(false);
-        });
-    }
-  }, [user, user?.email]);
+  //     fetch(`${config.api_url}/users/create-user`, {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "Application/json",
+  //       },
+  //       body: JSON.stringify(newUser),
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setIsLoading(false);
+  //       });
+  //   }
+  // }, [user, user?.email]);
 
   // Getting the user from mongodb database
+  const token = localStorage.getItem("accessToken");
   useEffect(() => {
-    if (user?.email) {
+    const getProfile = async () => {
       setIsLoading(true);
-      fetch(`${config.api_url}/general/my-profile/${user?.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setUserDB(data.data);
-          setIsLoading(false);
+
+      try {
+        const promise = await axios.get(`${config.api_url}/users/profile`, {
+          headers: {
+            authorization: `${token}`,
+          },
         });
-    }
-  }, [user, user?.email]);
+
+        setUserDB(promise.data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+        if (error.response.data.message === "Invalid Token!") {
+          localStorage.removeItem("accessToken");
+        }
+      }
+    };
+
+    getProfile();
+  }, [user, user?.email, token, userRefetch]);
 
   const authInfo = {
     user,
@@ -148,6 +164,8 @@ const AuthProvider = ({ children }) => {
     ecoSpaceLeftBarOpen,
     assessmentObject,
     setAssessmentObject,
+    userRefetch,
+    setUserRefetch,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

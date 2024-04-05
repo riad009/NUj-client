@@ -1,8 +1,56 @@
 import { Button, Form, Input } from "antd";
 import logo from "../../assets/logos/main-logo.png";
 import { Link } from "react-router-dom";
-
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import config from "../../config";
+import { toast } from "sonner";
 export default function Signup() {
+  const { setUserRefetch, userRefetch } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const onFinish = async (values) => {
+    // console.log(values);
+
+    const payload = {
+      ...values,
+      name: values.firstName + " " + values.lastName,
+    };
+
+    try {
+      const promise = await axios.post(
+        `${config.api_url}/users/create-user`,
+        payload
+      );
+      if (promise.status === 200) {
+        localStorage.setItem("accessToken", promise.data.data);
+        setUserRefetch(!userRefetch);
+        setTimeout(() => {
+          toast.success(`Sign up Successfull`, {
+            id: "Signup",
+            duration: 2000,
+            position: "top-right",
+          });
+          navigate("/");
+          setLoading(false);
+        }, 2000);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      return toast.error(error.response.data.message || `Signup failed`, {
+        id: "Signup",
+        duration: 2000,
+        position: "top-right",
+      });
+    }
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   return (
     <div className="w-full">
       <div className="g-0 lg:flex min-h-screen">
@@ -50,8 +98,8 @@ export default function Signup() {
               initialValues={{
                 remember: true,
               }}
-              // onFinish={onFinish}
-              // onFinishFailed={onFinishFailed}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
               autoComplete="off"
               className="max-w-[500px] mx-auto flex w-full flex-col justify-center "
             >
@@ -110,6 +158,23 @@ export default function Signup() {
                     <Input type="email" className="h-[38px]" />
                   </Form.Item>
                 </div>
+                <div>
+                  <p className="text-sm text-muted-foreground text-start pb-1">
+                    Enter your number
+                  </p>
+                  <Form.Item
+                    className="w-full mb-0"
+                    name="number"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Enter your number!",
+                      },
+                    ]}
+                  >
+                    <Input type="number" className="h-[38px]" />
+                  </Form.Item>
+                </div>
 
                 <div>
                   <p className="text-sm text-muted-foreground text-start pb-1">
@@ -135,7 +200,7 @@ export default function Signup() {
                 // disabled={loading}
                 className="mt-10 h-[40px] bg-blue-500 text-white"
               >
-                Sign Up
+                {loading ? "Processing.." : "Signup"}
               </Button>
 
               <p className="text-muted-foreground text-center mt-10">
