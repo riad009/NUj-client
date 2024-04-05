@@ -7,7 +7,7 @@ import { DownOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import EcoSpaceProfileEditMpdal from "../../pages/companyProfile/EcoSpaceProfileEditModal";
 import { FaPlusCircle, FaRegEdit } from "react-icons/fa";
 import ChannelListCard from "./ChannelListCard";
@@ -23,6 +23,7 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
   const [openChannel, setOpenChannel] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const { user, userDB, setEcoSpaceLeftBarOpen } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { data: ecoSpacesList } = useQuery({
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
@@ -52,6 +53,8 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
         ),
       }))
     : "";
+
+  console.log({ ecoSpace });
 
   const starredItems = [
     {
@@ -117,6 +120,14 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
     },
   ];
 
+  const handlePricing = (planId) => {
+    navigate("/pricing", {
+      state: {
+        planId,
+      },
+    });
+  };
+
   return (
     <>
       <div className="col-span-1 border-r-[.5px] border-gray-600 h-[100vh] w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6 overflow-y-auto overflow-x-clip">
@@ -154,6 +165,13 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
           >
             <GoPlus className="size-12" />
           </Link>
+          <div onClick={() => handlePricing(ecoSpace?.plan?.uid)}>
+            <img
+              className="size-12 rounded-md"
+              src="/subscription.png"
+              alt=""
+            />
+          </div>
           <Link className="" to={`/profile/user`}>
             <img
               className="size-12 rounded-md"
@@ -166,17 +184,22 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
       <div className="col-span-4 h-[100vh]  bg-[#d8c0d6] ">
         <div className="">
           <div className="p-4 h-16 flex items-center justify-between border-b-[.5px] bg-[#6a2b70] border-gray-400 space-x-2 text-white">
-            <Dropdown
-              className=""
-              menu={{
-                items,
-              }}
-            >
-              <Space className="text-lg font-semibold">
-                {ecoSpace?.company}
-                <DownOutlined />
-              </Space>
-            </Dropdown>
+            <div className="flex items-center gap-2">
+              <Dropdown
+                className=""
+                menu={{
+                  items,
+                }}
+              >
+                <Space className="text-lg font-semibold">
+                  {ecoSpace?.company}
+                  <DownOutlined />
+                </Space>
+              </Dropdown>
+
+              <p className="text-sm">{ecoSpace.plan.title} Plan</p>
+            </div>
+
             <div className="flex items-center gap-2">
               <button onClick={() => setOpenEditModal(true)}>
                 <FaRegEdit className="size-6" />
