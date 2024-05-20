@@ -14,8 +14,10 @@ import { RiQrScan2Line } from "react-icons/ri";
 import { RiFolderUploadLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 const SidebarItems = () => {
-  const { logOut, onClose } = useContext(AuthContext);
+  const { logOut, onClose, userDB } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  console.log({ userDB });
 
   const handleLogout = () => {
     logOut();
@@ -23,68 +25,6 @@ const SidebarItems = () => {
     toast.success("Logged out");
   };
 
-  const items = [
-    {
-      key: "Diversion Program",
-      label: <NavLink to="/">Diversion Program</NavLink>,
-    },
-    {
-      key: "Behavioral Health",
-      label: "Behavioral Health",
-      children: [
-        {
-          key: "Mental Health",
-          label: <NavLink to="/">Mental Health</NavLink>,
-        },
-        {
-          key: "Counseling",
-          label: <NavLink to="/">Counseling</NavLink>,
-        },
-        {
-          key: "Group Support",
-          label: <NavLink to="/">Group Support</NavLink>,
-        },
-      ],
-    },
-    {
-      key: "Supporttive Services",
-      label: "Supporttive Services",
-      children: [
-        {
-          key: "Food Programs",
-          label: <NavLink to="/">Food Programs</NavLink>,
-        },
-        {
-          key: "Financial Programs",
-          label: <NavLink to="/">Financial Programs</NavLink>,
-        },
-        {
-          key: "Job Readiness",
-          label: <NavLink to="/">Job Readiness</NavLink>,
-        },
-        {
-          key: "Outpatient Services",
-          label: <NavLink to="/">Outpatient Services</NavLink>,
-        },
-      ],
-    },
-    {
-      key: "Mental Health",
-      label: <NavLink to="/">Mental Health</NavLink>,
-    },
-    {
-      key: "Reentry",
-      label: <NavLink to="/">Reentry</NavLink>,
-    },
-    {
-      key: "Child, Youth & Family",
-      label: <NavLink to="/">Child, Youth & Family</NavLink>,
-    },
-    {
-      key: "Other",
-      label: <NavLink to="/">Other </NavLink>,
-    },
-  ];
   return (
     <div className="flex flex-col text-base tracking-wider space-y-2">
       <NavLink
@@ -167,18 +107,20 @@ const SidebarItems = () => {
         <AiOutlineDollar className="text-xl text-primary" />
         <span>Pricing</span>
       </NavLink>
-      <NavLink
-        onClick={onClose}
-        to="/dashboard"
-        className={({ isActive, isPending }) =>
-          `flex items-center gap-2 rounded-lg p-2 ${
-            isActive ? "bg-gray-200" : ""
-          }`
-        }
-      >
-        <MdOutlineDashboard className="text-xl text-primary" />
-        <span>Dashboard</span>
-      </NavLink>
+      {userDB?.role === "superAdmin" && (
+        <NavLink
+          onClick={onClose}
+          to="/dashboard"
+          className={({ isActive, isPending }) =>
+            `flex items-center gap-2 rounded-lg p-2 ${
+              isActive ? "bg-gray-200" : ""
+            }`
+          }
+        >
+          <MdOutlineDashboard className="text-xl text-primary" />
+          <span>Dashboard</span>
+        </NavLink>
+      )}
       <NavLink
         onClick={onClose}
         to="/profile/eco-space/list"
@@ -191,18 +133,20 @@ const SidebarItems = () => {
         <PiOfficeChair className="text-xl text-primary" />
         <span>My EcoSpaces</span>
       </NavLink>
-      <NavLink
-        onClick={onClose}
-        to="/create-eco-space/banner"
-        className={({ isActive, isPending }) =>
-          `flex items-center gap-2 rounded-lg p-2 ${
-            isActive ? "bg-gray-200" : ""
-          }`
-        }
-      >
-        <MdAddBusiness className="text-xl text-primary" />
-        <span>Add new EcoSpace</span>
-      </NavLink>
+      {(userDB?.role === "superAdmin" || userDB?.role === "admin") && (
+        <NavLink
+          onClick={onClose}
+          to="/create-eco-space/banner"
+          className={({ isActive, isPending }) =>
+            `flex items-center gap-2 rounded-lg p-2 ${
+              isActive ? "bg-gray-200" : ""
+            }`
+          }
+        >
+          <MdAddBusiness className="text-xl text-primary" />
+          <span>Add new EcoSpace</span>
+        </NavLink>
+      )}
       <NavLink
         onClick={onClose}
         to="/eco-space-list"
@@ -215,7 +159,7 @@ const SidebarItems = () => {
         <LiaHandshakeSolid className="text-xl text-primary" />
         <span>Make an Appointment</span>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         onClick={onClose}
         to="/upload-documents"
         className={({ isActive, isPending }) =>
@@ -226,7 +170,7 @@ const SidebarItems = () => {
       >
         <RiFolderUploadLine className="text-xl text-primary" />
         <span>Upload Documents</span>
-      </NavLink>
+      </NavLink> */}
       <button
         className={`px-4 py-2 border uppercase  font-semibold rounded-md
           bg-error text-base-100

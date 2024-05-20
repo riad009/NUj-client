@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import EcoSpaceSidebar from "../ecoSpace/EcoSpaceSidebar";
 import EcoSpaceRightBar from "../ecoSpace/EcoSpaceRightBar";
@@ -15,7 +15,7 @@ const EcoSpaceLayout = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: [],
+    queryKey: ["eco-space", ecoSpaceId],
     queryFn: async () => {
       const res = await fetch(`${config.api_url}/eco-spaces/${ecoSpaceId}`);
       const data = await res.json();
@@ -23,6 +23,10 @@ const EcoSpaceLayout = () => {
     },
   });
   const { ecoSpaceRightBarOpen, ecoSpaceLeftBarOpen } = useContext(AuthContext);
+
+  useEffect(() => {
+    refetch();
+  }, [ecoSpaceId]);
 
   // const ecoSpace = data.data;
   if (isLoading) {

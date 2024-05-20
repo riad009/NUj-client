@@ -1,7 +1,7 @@
 import { FaHashtag } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 
-const ChannelListCard = ({ ecoSpaceId, channelName, _id }) => {
+const ChannelListCard = ({ ecoSpaceId, projectName, _id }) => {
   return (
     <>
       <NavLink
@@ -14,7 +14,7 @@ const ChannelListCard = ({ ecoSpaceId, channelName, _id }) => {
         }
       >
         <FaHashtag className="size-4" />
-        <p className="text-sm">{channelName}</p>
+        <p className="text-sm">{projectName}</p>
       </NavLink>
     </>
   );

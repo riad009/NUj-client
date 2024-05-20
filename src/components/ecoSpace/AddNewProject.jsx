@@ -3,34 +3,31 @@ import TextArea from "antd/es/input/TextArea";
 import React, { useState } from "react";
 import { toast } from "sonner";
 import config from "../../config";
+import axios from "axios";
 
-const AddNewProject = ({ open, setOpen, ecoSpace, refetchEcoSpace }) => {
+const AddNewProject = ({ open, setOpen, ecoSpace, refetch }) => {
   const [projectName, setProjectName] = useState("");
 
-  const handleInvite = async () => {
+  const handleAdd = async () => {
     if (projectName) {
       try {
-        const res = await fetch(
-          `${config.api_url}/eco-spaces/add-project/eco-space/${ecoSpace?._id}`,
-          {
-            method: "PATCH",
-            headers: { "content-type": "Application/json" },
-            body: JSON.stringify({ project: projectName }),
-          }
-        );
-        const data = await res.json();
-        if (!data.success) {
-          return toast.error("Something went wrong");
-        }
+        await axios.post(`${config.api_url}/project/create`, {
+          email: ecoSpace?.email,
+          ecoSpaceId: ecoSpace?._id,
+          projectName,
+        });
+
         setProjectName("");
         setOpen(!open);
-        refetchEcoSpace();
-        toast.success("Created!");
+        refetch();
+        toast.success("Project Created!");
       } catch (error) {
+        toast.success("Something went wrong while creating project!");
         console.error("Error fetching data:", error);
       }
     }
   };
+
   return (
     <>
       <Modal
@@ -73,7 +70,7 @@ const AddNewProject = ({ open, setOpen, ecoSpace, refetchEcoSpace }) => {
             </div>
           </div>
           <div className="text-end">
-            <button className="p-btn" type="submit" onClick={handleInvite}>
+            <button className="p-btn" type="submit" onClick={handleAdd}>
               Add
             </button>
           </div>

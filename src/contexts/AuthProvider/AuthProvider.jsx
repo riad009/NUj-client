@@ -19,6 +19,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   // states for holding user info
+  const [openAddClient, setOpenAddClient] = useState(false);
   const [user, setUser] = useState(null);
   const [userDB, setUserDB] = useState(null);
   const [userRefetch, setUserRefetch] = useState(false);
@@ -32,6 +33,13 @@ const AuthProvider = ({ children }) => {
   };
   const onClose = () => {
     setOpen(false);
+  };
+
+  const openAddClientModal = () => {
+    setOpenAddClient(true);
+  };
+  const closeAddClientModal = () => {
+    setOpenAddClient(false);
   };
 
   // values for creating new Ecospace
@@ -166,6 +174,9 @@ const AuthProvider = ({ children }) => {
     setAssessmentObject,
     userRefetch,
     setUserRefetch,
+    closeAddClientModal,
+    openAddClient,
+    openAddClientModal,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

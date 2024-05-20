@@ -1,29 +1,31 @@
-import { useState } from "react";
 import { Form, Modal } from "antd";
-
 import TextArea from "antd/es/input/TextArea";
+import { useContext, useState } from "react";
 import { toast } from "sonner";
 import config from "../../config";
-
 import axios from "axios";
-const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+
+const AddClientModal = ({ projectData }) => {
+  const { closeAddClientModal, openAddClient } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [loading, setloading] = useState(false);
+
   const handleInvite = async () => {
     if (email) {
+      setloading(true);
       try {
-        setloading(true);
-        const res = await axios.post(`${config.api_url}/eco-spaces/invite`, {
+        const res = await axios.post(`${config.api_url}/project/invite`, {
           email,
-          ecoSpaceId: ecoSpace._id,
-          ecoSpaceName: ecoSpace.company,
-          type: "eco-space",
+          projectId: projectData._id,
+          projectName: projectData?.projectName,
+          type: "project",
         });
 
         if (res?.status === 200) {
           setEmail("");
           setloading(false);
-          setOpen(!open);
+          closeAddClientModal();
           toast.success("Invited!");
         }
       } catch (error) {
@@ -44,11 +46,11 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
   return (
     <>
       <Modal
-        title="Invite People to EcoSpace"
+        title={`Invite Client to project`}
         centered
-        open={open}
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
+        open={openAddClient}
+        onOk={closeAddClientModal}
+        onCancel={closeAddClientModal}
         width={800}
         // okText="Update"
         // okType="default"
@@ -97,4 +99,5 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
     </>
   );
 };
-export default AddCoworkerModal;
+
+export default AddClientModal;

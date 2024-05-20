@@ -44,6 +44,9 @@ import ToxicDetectionScoreResult from "../pages/toxicDetection/ToxicDetectionSco
 import ToxicDetectionPlanScoreResult from "../pages/toxicDetection/ToxicDetectionPlanScoreResult";
 import ToxicDetectionActionPlan from "../pages/toxicDetection/ToxicDetectionActionPlan";
 import Signup from "../pages/login/Signup";
+import SuperAdminRoute from "./SuperAdminRoute";
+
+import BothAdminRoute from "./BothAdminRoute";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -65,7 +68,7 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/accept-invitation/:ecoSpaceId/:email",
+        path: "/accept-invitation/:type/:id/:email",
         element: <AcceptInvitation />,
       },
       {
@@ -156,9 +159,9 @@ export const router = createBrowserRouter([
         element: <EcoSpaceHome />,
       },
       {
-        path: "/eco-space/:ecoSpaceId/:channelId",
+        path: "/eco-space/:ecoSpaceId/:projectId",
         loader: ({ params }) =>
-          fetch(`${config.api_url}/channel/single/${params.channelId}`),
+          fetch(`${config.api_url}/project/single/${params.projectId}`),
         element: <EcoSpaceConversations />,
       },
     ],
@@ -176,7 +179,9 @@ export const router = createBrowserRouter([
     path: "/create-eco-space/banner",
     element: (
       <PrivateRoute>
-        <CreateEcoSpaceBanner />
+        <BothAdminRoute>
+          <CreateEcoSpaceBanner />
+        </BothAdminRoute>
       </PrivateRoute>
     ),
   },
@@ -184,7 +189,9 @@ export const router = createBrowserRouter([
     path: "/create-eco-space",
     element: (
       <PrivateRoute>
-        <CreateEcoSpaceLayout />
+        <BothAdminRoute>
+          <CreateEcoSpaceLayout />
+        </BothAdminRoute>
       </PrivateRoute>
     ),
     children: [
@@ -230,7 +237,9 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRoute>
-        <DashboardLayout />
+        <SuperAdminRoute>
+          <DashboardLayout />
+        </SuperAdminRoute>
       </PrivateRoute>
     ),
     children: [

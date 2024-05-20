@@ -23,7 +23,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
         toast.success(data.message);
         console.log(data);
         setOpen(false);
-        navigate("/profile/eco-space/list");
+        // navigate("/profile/eco-space/list");
       });
   };
 
@@ -133,6 +133,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
                   ]}
                 >
                   <Input
+                    type="number"
                     size="middle"
                     className=""
                     placeholder="Ex: 0123456789"

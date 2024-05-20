@@ -84,7 +84,7 @@ const DashboardEcospaces = () => {
           <tr>
             <th>Company</th>
             {/* <th>Service</th> */}
-            <th>Staffs</th>
+            <th>Co Workers</th>
             <th>Plan</th>
             <th>Actions</th>
           </tr>

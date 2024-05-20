@@ -1,10 +1,9 @@
-import React from "react";
 import { IoEye } from "react-icons/io5";
-import { MdDelete } from "react-icons/md";
+
 import { Link } from "react-router-dom";
 
 const DashboardEcoSpacesListItem = ({ ecoSpace }) => {
-  const { company, serviceId, staffs, plan, _id } = ecoSpace;
+  const { company, coWorkers, plan, _id } = ecoSpace;
   return (
     <tr>
       <td>
@@ -14,7 +13,7 @@ const DashboardEcoSpacesListItem = ({ ecoSpace }) => {
       </td>
       {/* <td>{serviceId?.title}</td> */}
 
-      <td>{staffs?.length || "N/A"}</td>
+      <td>{coWorkers?.length || "N/A"}</td>
       <td>{plan?.title || "free"}</td>
       <td className="flex items-center justify-start gap-2">
         <Link to={`/eco-space/${_id}`}>

@@ -8,7 +8,9 @@ import BackButton from "../../components/BackButton";
 const CreateEcoSpaceS6 = () => {
   const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
   const [projectName, setProjectName] = useState("");
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState(
+    newEcoSpaceData?.projects?.length ? newEcoSpaceData?.projects : []
+  );
   const navigate = useNavigate();
   const handleCreateEcoSpace6 = (data) => {
     if (!projects?.length) {
@@ -43,7 +45,7 @@ const CreateEcoSpaceS6 = () => {
         <h4 className="text-xs text-gray-500">Step 6 of 6</h4>
       </div>
       <h1 className="text-2xl md:text-4xl font-semibold">
-        What is your EcoSpace Team Working on?
+        What is projects of your EcoSpace?
       </h1>
       <p className="text-sm">
         This could be anything: a project, campaign, event, or the deal you’re

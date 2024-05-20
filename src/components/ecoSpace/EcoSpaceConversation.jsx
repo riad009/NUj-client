@@ -13,6 +13,7 @@ import { IoMdSend } from "react-icons/io";
 import { IoMenuOutline } from "react-icons/io5";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import AddClientModal from "./AddClientModal";
 
 const EcoSpaceConversation = ({ channelData }) => {
   const [message, setMessage] = useState("");
@@ -92,18 +93,21 @@ const EcoSpaceConversation = ({ channelData }) => {
   };
 
   return (
-    <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
-      <div className="">
-        <div className="border-b-[.5px]  border-b-gray-300 h-16 flex justify-between items-center px-5 ">
-          <div className="flex items-center gap-2">
-            <IoMenuOutline
-              onClick={() => setEcoSpaceLeftBarOpen((prevState) => !prevState)}
-              className="size-8  cursor-pointer block md:hidden"
-            />
-            <h2 className="font-semibold text-xl">
-              #{channelData?.channelName}
-            </h2>
-            {/* <div className="flex items-center gap-4 text-gray-500 text-sm">
+    <>
+      <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
+        <div className="">
+          <div className="border-b-[.5px]  border-b-gray-300 h-16 flex justify-between items-center px-5 ">
+            <div className="flex items-center gap-2">
+              <IoMenuOutline
+                onClick={() =>
+                  setEcoSpaceLeftBarOpen((prevState) => !prevState)
+                }
+                className="size-8  cursor-pointer block md:hidden"
+              />
+              <h2 className="font-semibold text-xl">
+                #{channelData?.projectName}
+              </h2>
+              {/* <div className="flex items-center gap-4 text-gray-500 text-sm">
               <div className="flex items-center gap-1">
                 <IoPerson />
                 <span>20</span>
@@ -116,89 +120,91 @@ const EcoSpaceConversation = ({ channelData }) => {
                 <span>Track & Coordinate Social Media</span>
               </div>
             </div> */}
-          </div>
-
-          <IoMdInformationCircleOutline
-            onClick={() => setEcoSpaceRightBarOpen((prevState) => !prevState)}
-            className="size-6 cursor-pointer"
-          />
-        </div>
-        <div
-          className="space-y-5 overflow-y-auto min-h-[65vh] max-h-[60vh] p-5"
-          ref={messageContainerRef}
-        >
-          {data?.length ? (
-            data?.map((conversation, i) => (
-              <ConversationCard
-                key={i}
-                conversation={conversation}
-                chatRef={i === data.length - 1 ? messageContainerRef : null}
-              />
-            ))
-          ) : (
-            <div className="text-xl flex items-center justify-center mt-20">
-              No conversation to show
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="absolute bottom-0 left-0 w-full p-5 bg-white">
-        <div className="">
-          <div className="border-2 border-b-0 flex justify-between items-center py-3 px-4">
-            <div className="flex items-center gap-5">
-              <label htmlFor="image">
-                <FaImage />
-              </label>
-              <input
-                name="image"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                id="image"
-                className="hidden"
-              />
-              <label htmlFor="video">
-                <FaVideo />
-              </label>
-              <input
-                name="video"
-                type="file"
-                accept="video/*"
-                onChange={handleFileChange}
-                id="video"
-                className="hidden"
-              />
-              <label htmlFor="audio">
-                <AiFillAudio />
-              </label>
-              <input
-                name="audio"
-                type="file"
-                accept="audio/*"
-                onChange={handleFileChange}
-                id="audio"
-                className="hidden"
-              />
             </div>
 
-            <button onClick={handleSend} className="" disabled={loading}>
-              {loading ? (
-                <span className="text-xs">Sending..</span>
-              ) : (
-                <IoMdSend />
-              )}
-            </button>
+            <IoMdInformationCircleOutline
+              onClick={() => setEcoSpaceRightBarOpen((prevState) => !prevState)}
+              className="size-6 cursor-pointer"
+            />
           </div>
-          {/* <Editor /> */}
-          <QuillEditor
-            className="editor"
-            theme="snow"
-            value={message}
-            onChange={(value) => setMessage(value)}
-          />
+          <div
+            className="space-y-5 overflow-y-auto min-h-[65vh] max-h-[60vh] p-5"
+            ref={messageContainerRef}
+          >
+            {data?.length ? (
+              data?.map((conversation, i) => (
+                <ConversationCard
+                  key={i}
+                  conversation={conversation}
+                  chatRef={i === data.length - 1 ? messageContainerRef : null}
+                />
+              ))
+            ) : (
+              <div className="text-xl flex items-center justify-center mt-20">
+                No conversation to show
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 w-full p-5 bg-white">
+          <div className="">
+            <div className="border-2 border-b-0 flex justify-between items-center py-3 px-4">
+              <div className="flex items-center gap-5">
+                <label htmlFor="image">
+                  <FaImage />
+                </label>
+                <input
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  id="image"
+                  className="hidden"
+                />
+                <label htmlFor="video">
+                  <FaVideo />
+                </label>
+                <input
+                  name="video"
+                  type="file"
+                  accept="video/*"
+                  onChange={handleFileChange}
+                  id="video"
+                  className="hidden"
+                />
+                <label htmlFor="audio">
+                  <AiFillAudio />
+                </label>
+                <input
+                  name="audio"
+                  type="file"
+                  accept="audio/*"
+                  onChange={handleFileChange}
+                  id="audio"
+                  className="hidden"
+                />
+              </div>
+
+              <button onClick={handleSend} className="" disabled={loading}>
+                {loading ? (
+                  <span className="text-xs">Sending..</span>
+                ) : (
+                  <IoMdSend />
+                )}
+              </button>
+            </div>
+            {/* <Editor /> */}
+            <QuillEditor
+              className="editor"
+              theme="snow"
+              value={message}
+              onChange={(value) => setMessage(value)}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <AddClientModal projectData={channelData} />
+    </>
   );
 };
 

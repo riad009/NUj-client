@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosMore } from "react-icons/io";
 import { IoMdCall } from "react-icons/io";
@@ -8,25 +8,59 @@ import { Collapse } from "antd";
 import CoworkerListCard from "./CoworkerListCard";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
+import moment from "moment";
+import { useQuery } from "@tanstack/react-query";
+import config from "../../config";
+import { useParams } from "react-router-dom";
+
 const EcoSpaceRightBar = ({ ecoSpace }) => {
-  const { setEcoSpaceRightBarOpen } = useContext(AuthContext);
+  const { projectId } = useParams();
+
+  console.log({ projectId });
+  const {
+    setEcoSpaceRightBarOpen,
+
+    openAddClientModal,
+  } = useContext(AuthContext);
+
+  const {
+    data: project,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["project", projectId],
+    queryFn: async () => {
+      const res = await fetch(`${config.api_url}/project/single/${projectId}`);
+      const data = await res.json();
+      return data.data;
+    },
+  });
+  useEffect(() => {
+    refetch();
+  }, [projectId, refetch]);
+
   const aboutContent = (
     <div className="bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
-      <div>
+      {/* <div>
         <h2 className="font-semibold">Topic</h2>
         <p className="text-sm">
           {ecoSpace?.projects?.length ? ecoSpace?.projects[0] : ""}
         </p>
-      </div>
+      </div> */}
       <div>
         <h2 className="font-semibold">Description</h2>
         <p className="text-sm">{ecoSpace?.description}</p>
       </div>
       <div>
-        <p className="text-sm">Created on 18th October 2019</p>
+        <p className="text-sm">
+          Created on{" "}
+          {moment(project?.createdAt).format("MMM DD, YYYY hh:mm:ss A")}
+        </p>
       </div>
     </div>
   );
+
+  console.log({ project });
   const items = [
     {
       key: "1",
@@ -38,42 +72,42 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
       label: "Members",
       children: (
         <div className="flex flex-col bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
-          {ecoSpace?.staffs?.length
-            ? ecoSpace?.staffs.map((coworker, i) => (
+          {project?.clients?.length
+            ? project?.clients.map((coworker, i) => (
                 <CoworkerListCard key={i} coworker={coworker} />
               ))
             : ""}
-          <div className="flex gap-2 items-center">
+          {/* <div className="flex gap-2 items-center">
             <img
               className="size-6 rounded-lg"
               src={ecoSpace?.owner?.photo}
               alt=""
             />
             <p className="text-sm">{ecoSpace?.owner?.email}</p>
-          </div>
+          </div> */}
         </div>
       ),
     },
-    {
-      key: "3",
-      label: "Organizations",
-      children: <p>Adding Soon</p>,
-    },
-    {
-      key: "4",
-      label: "Pinned Items",
-      children: <p>Adding Soon</p>,
-    },
-    {
-      key: "5",
-      label: "Shortcuts",
-      children: <p>Adding Soon</p>,
-    },
-    {
-      key: "6",
-      label: "Shred Files",
-      children: <p>Adding Soon</p>,
-    },
+    // {
+    //   key: "3",
+    //   label: "Organizations",
+    //   children: <p>Adding Soon</p>,
+    // },
+    // {
+    //   key: "4",
+    //   label: "Pinned Items",
+    //   children: <p>Adding Soon</p>,
+    // },
+    // {
+    //   key: "5",
+    //   label: "Shortcuts",
+    //   children: <p>Adding Soon</p>,
+    // },
+    // {
+    //   key: "6",
+    //   label: "Shred Files",
+    //   children: <p>Adding Soon</p>,
+    // },
   ];
   return (
     <>
@@ -82,7 +116,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
           <div className="border-b-[.5px]  border-b-gray-300 h-16 flex justify-between items-center px-5">
             <div>
               <h2 className="font-semibold">Details</h2>
-              <p className="text-sm ">#Social Media</p>
+              {/* <p className="text-sm ">#Social Media</p> */}
             </div>
             <RxCross2
               onClick={() => setEcoSpaceRightBarOpen(false)}
@@ -90,7 +124,10 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
             />
           </div>
           <div className="border-b-[.5px] border-b-gray-300 flex justify-between items-center p-5 ">
-            <div className="flex flex-col items-center justify-center">
+            <div
+              className="flex flex-col items-center justify-center"
+              onClick={openAddClientModal}
+            >
               <IoPersonAddOutline className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
               <span className="text-sm ">Add</span>
             </div>

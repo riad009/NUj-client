@@ -3,6 +3,8 @@ import unknown from "../../assets/home/unknown.jpg";
 
 const CoworkerListCard = ({ coworker }) => {
   // const { email, image } = coworker ?? {};
+
+  console.log({ coworker });
   return (
     <div className="flex gap-2 items-center">
       <img className="size-6 rounded-lg" src={unknown} alt="" />

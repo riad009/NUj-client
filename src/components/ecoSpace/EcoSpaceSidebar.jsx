@@ -14,10 +14,10 @@ import ChannelListCard from "./ChannelListCard";
 import AddChannelModal from "./AddChannelModal";
 import { GoPlus } from "react-icons/go";
 import { IoHomeOutline } from "react-icons/io5";
-import ProjectListCard from "./ProjectListCard";
+
 import AddNewProject from "./AddNewProject";
 
-const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
+const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [openChannel, setOpenChannel] = useState(false);
@@ -25,21 +25,25 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
   const { user, userDB, setEcoSpaceLeftBarOpen } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const isCoWorker = ecoSpace?.coWorkers?.includes(userDB?.email);
+
   const { data: ecoSpacesList } = useQuery({
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
       const res = await fetch(
-        `${config.api_url}/eco-spaces/list/${userDB?._id}`
+        `${config.api_url}/eco-spaces/list?ownerId=${userDB?._id}&email=${userDB?.email}`
       );
       const data = await res.json();
       return data?.data;
     },
   });
 
-  const { data: channels, refetch } = useQuery({
-    queryKey: ["channels", ecoSpace?._id],
+  const { data: projects, refetch } = useQuery({
+    queryKey: ["projects", ecoSpace?._id, "email", userDB?.email],
     queryFn: async () => {
-      const res = await fetch(`${config.api_url}/channel/${ecoSpace?._id}`);
+      const res = await fetch(
+        `${config.api_url}/project/${ecoSpace?._id}?email=${userDB?.email}&role=${userDB?.role}`
+      );
       const data = await res.json();
       return data?.data;
     },
@@ -52,73 +56,75 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
           <Link to={`/profile/eco-space/${item?._id}`}>{item?.company}</Link>
         ),
       }))
-    : "";
+    : [];
 
-  console.log({ ecoSpace });
+  // const starredItems = [
+  //   {
+  //     key: "1",
+  //     label: <h2 className="font-semibold  tracking-wider">Starred</h2>,
+  //     children: (
+  //       <div className="space-y-2">
+  //         {projects?.length
+  //           ? projects.map((channel, i) => (
+  //               <ChannelListCard {...channel} key={i} />
+  //             ))
+  //           : ""}
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
-  const starredItems = [
-    {
-      key: "1",
-      label: <h2 className="font-semibold  tracking-wider">Starred</h2>,
-      children: (
-        <div className="space-y-2">
-          {channels?.length
-            ? channels.map((channel, i) => (
-                <ChannelListCard {...channel} key={i} />
-              ))
-            : ""}
-        </div>
-      ),
-    },
-  ];
-
-  const channelsItems = [
-    {
-      key: "1",
-      label: (
-        <div className="flex items-center  justify-between">
-          <p className="font-semibold  tracking-wider">Channels</p>
-          <FaPlusCircle
-            className="h-4 w-4"
-            onClick={() => setOpenChannel(true)}
-          />
-        </div>
-      ),
-      children: (
-        <div className="space-y-2">
-          {channels?.length
-            ? channels.map((channel, i) => (
-                <ChannelListCard {...channel} key={i} />
-              ))
-            : ""}
-        </div>
-      ),
-    },
-  ];
-
-  const projectsItems = [
+  const projectItems = [
     {
       key: "1",
       label: (
         <div className="flex items-center  justify-between">
           <p className="font-semibold  tracking-wider">Projects</p>
-          <FaPlusCircle
-            className="h-4 w-4"
-            onClick={() => setOpenProjectModal(true)}
-          />
+          {(isCoWorker ||
+            userDB?.role === "admin" ||
+            userDB?.role === "superAdmin") && (
+            <FaPlusCircle
+              className="h-4 w-4"
+              onClick={() => setOpenProjectModal(true)}
+            />
+          )}
         </div>
       ),
       children: (
         <div className="space-y-2">
-          {ecoSpace?.projects?.length
-            ? ecoSpace?.projects.map((project, i) => (
-                <ProjectListCard project={project} key={i} />
+          {projects?.length
+            ? projects.map((channel, i) => (
+                <ChannelListCard {...channel} key={i} />
               ))
             : ""}
         </div>
       ),
     },
   ];
+
+  // const projectsItems = [
+  //   {
+  //     key: "1",
+  //     label: (
+  //       <div className="flex items-center  justify-between">
+  //         <p className="font-semibold  tracking-wider">Projects</p>
+  //         <FaPlusCircle
+  //           className="h-4 w-4"
+  //           onClick={() => setOpenProjectModal(true)}
+  //         />
+  //       </div>
+  //     ),
+  //     children: (
+  //       <div className="space-y-2">
+  //         {ecoSpace?.projects?.length
+  //           ? ecoSpace?.projects.map((project, i) => (
+  //               <ProjectListCard project={project} key={i} />
+  //             ))
+  //           : ""}
+  //       </div>
+  //     ),
+  //   },
+  // ];
 
   const handlePricing = (planId) => {
     navigate("/pricing", {
@@ -188,8 +194,9 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
               <Dropdown
                 className=""
                 menu={{
-                  items,
+                  items: items,
                 }}
+                trigger={["click"]}
               >
                 <Space className="text-lg font-semibold">
                   {ecoSpace?.company}
@@ -197,7 +204,7 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
                 </Space>
               </Dropdown>
 
-              <p className="text-sm">{ecoSpace.plan.title} Plan</p>
+              <p className="text-sm">{ecoSpace?.plan?.title} Plan</p>
             </div>
 
             <div className="flex items-center gap-2">
@@ -212,7 +219,7 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
         </div>
         <div className="overflow-y-auto overflow-x-clip h-[90vh]">
           {/* projects */}
-          <div className="">
+          {/* <div className="">
             <Collapse
               bordered={false}
               accordion
@@ -221,9 +228,9 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
               expandIconPosition="end"
               defaultActiveKey={["1"]}
             />
-          </div>
+          </div> */}
           {/* starred */}
-          <div className="">
+          {/* <div className="">
             <Collapse
               bordered={false}
               accordion
@@ -231,42 +238,44 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
               items={starredItems}
               expandIconPosition="end"
             />
-          </div>
+          </div> */}
           {/* channels */}
           <div className="">
             <Collapse
               bordered={false}
               accordion
               className=""
-              items={channelsItems}
+              items={projectItems}
               expandIconPosition="end"
               defaultActiveKey={["1"]}
             />
           </div>
-          <div className="space-y-3 p-4">
-            <h3 className="text-sm font-semibold">Cowroker</h3>
-            <div className="flex flex-col gap-2 text-gray-700 text-sm">
-              {ecoSpace?.staffs?.length
-                ? ecoSpace?.staffs.map((coworker, i) => (
+          <div className="space-y- p-4">
+            <h3 className="text-sm font-semibold">Co-worker</h3>
+            <div className="flex flex-col gap-2 text-gray-700 text-sm mt-3 mb-6">
+              {ecoSpace?.coWorkers?.length
+                ? ecoSpace?.coWorkers.map((coworker, i) => (
                     <CoworkerListCard key={i} coworker={coworker} />
                   ))
                 : ""}
-              <div className="flex gap-2 items-center">
+              {/* <div className="flex gap-2 items-center">
                 <img
                   className="size-6 rounded-lg"
                   src={ecoSpace?.owner?.photo}
                   alt=""
                 />
                 <p className="text-sm">{ecoSpace?.owner?.email}</p>
-              </div>
+              </div> */}
             </div>
-            <button
-              onClick={() => setOpen(true)}
-              className="flex gap-1 items-center font-semibold"
-            >
-              <IoMdAdd />
-              <p className="text-sm">Add Coworker</p>
-            </button>
+            {(userDB?.role === "admin" || userDB?.role === "superAdmin") && (
+              <button
+                onClick={() => setOpen(true)}
+                className="flex gap-1 items-center font-semibold "
+              >
+                <IoMdAdd />
+                <p className="text-sm">Add Coworker</p>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -274,7 +283,7 @@ const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
         ecoSpace={ecoSpace}
         open={openProjectModal}
         setOpen={setOpenProjectModal}
-        refetchEcoSpace
+        refetch={refetch}
       />
       <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
       <AddChannelModal

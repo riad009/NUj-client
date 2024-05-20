@@ -172,6 +172,7 @@ const DashboardUserProfile = () => {
                       ]}
                     >
                       <Input
+                        type="number"
                         disabled
                         defaultValue={user?.phone}
                         size="middle"
