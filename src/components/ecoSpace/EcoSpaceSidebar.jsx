@@ -148,7 +148,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             ? ecoSpacesList.map((ecoSpace, i) => (
                 <NavLink
                   key={i}
-                  className={({ isActive, pending }) =>
+                  className={({ isActive }) =>
                     `bg-secondary size-12 rounded-md flex justify-center items-center  text-white ${
                       isActive ? "border-2 font-bold" : ""
                     }`
@@ -179,11 +179,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             />
           </div>
           <Link className="" to={`/profile/user`}>
-            <img
-              className="size-12 rounded-md"
-              src={user?.photoURL ? user?.photoURL : userDB?.photo}
-              alt=""
-            />
+            <img className="size-12 rounded-md" src={userDB?.photo} alt="" />
           </Link>
         </div>
       </div>
@@ -258,14 +254,6 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                     <CoworkerListCard key={i} coworker={coworker} />
                   ))
                 : ""}
-              {/* <div className="flex gap-2 items-center">
-                <img
-                  className="size-6 rounded-lg"
-                  src={ecoSpace?.owner?.photo}
-                  alt=""
-                />
-                <p className="text-sm">{ecoSpace?.owner?.email}</p>
-              </div> */}
             </div>
             {(userDB?.role === "admin" || userDB?.role === "superAdmin") && (
               <button

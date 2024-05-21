@@ -1,22 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosMore } from "react-icons/io";
 import { IoMdCall } from "react-icons/io";
-import { MdFindInPage } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { IoPersonAddOutline } from "react-icons/io5";
-import { Collapse } from "antd";
+import { Collapse, Popconfirm } from "antd";
 import CoworkerListCard from "./CoworkerListCard";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 import moment from "moment";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { toast } from "sonner";
+import { queryClient } from "../../main";
 
 const EcoSpaceRightBar = ({ ecoSpace }) => {
-  const { projectId } = useParams();
+  const { projectId, ecoSpaceId } = useParams();
+  const navigate = useNavigate();
 
-  console.log({ projectId });
   const {
     setEcoSpaceRightBarOpen,
 
@@ -25,7 +28,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
 
   const {
     data: project,
-    isLoading,
+
     refetch,
   } = useQuery({
     queryKey: ["project", projectId],
@@ -60,7 +63,6 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     </div>
   );
 
-  console.log({ project });
   const items = [
     {
       key: "1",
@@ -109,6 +111,41 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     //   children: <p>Adding Soon</p>,
     // },
   ];
+
+  const refetchProjects = async () => {
+    await queryClient.refetchQueries({
+      queryKey: ["projects"],
+      type: "active",
+    });
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const res = await axios.delete(`${config.api_url}/project/${projectId}`);
+
+      if (res?.status === 200) {
+        refetchProjects();
+        toast.success("Project deleted!", {
+          position: "top-center",
+        });
+        setEcoSpaceRightBarOpen(false);
+        navigate(`/eco-space/${ecoSpaceId}`);
+      }
+    } catch (error) {
+      console.log(error);
+      return toast.error(
+        error.response.data.message || `Something went wrong!`,
+        {
+          id: "login",
+          duration: 2000,
+          position: "top-center",
+        }
+      );
+    }
+  };
+  const cancelDelete = (e) => {
+    console.log(e);
+  };
   return (
     <>
       <div className=" flex flex-col gap-5 relative h-[100vh] max-h-[100vh]">
@@ -131,10 +168,24 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
               <IoPersonAddOutline className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
               <span className="text-sm ">Add</span>
             </div>
-            <div className="flex flex-col items-center justify-center">
-              <MdFindInPage className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
-              <span className="text-sm ">Find</span>
-            </div>
+            <Popconfirm
+              title="Delete the project"
+              description="Are you sure to delete this project?"
+              onConfirm={confirmDelete}
+              onCancel={cancelDelete}
+              okText="Yes"
+              cancelText="No"
+              okButtonProps={{
+                style: {
+                  background: "#1677ff",
+                },
+              }}
+            >
+              <div className="flex flex-col items-center justify-center">
+                <MdDelete className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
+                <span className="text-sm ">Delete</span>
+              </div>
+            </Popconfirm>
             <div className="flex flex-col items-center justify-center">
               <IoMdCall className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
               <span className="text-sm ">Call</span>

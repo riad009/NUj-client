@@ -1,6 +1,6 @@
 import { Form, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import config from "../../config";
 import axios from "axios";

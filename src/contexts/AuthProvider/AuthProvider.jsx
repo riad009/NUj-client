@@ -14,7 +14,7 @@ import axios from "axios";
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 import config from "../../config";
-import { useNavigate } from "react-router-dom";
+
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
