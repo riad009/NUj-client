@@ -42,12 +42,14 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     queryKey: ["projects", ecoSpace?._id, "email", userDB?.email],
     queryFn: async () => {
       const res = await fetch(
-        `${config.api_url}/project/${ecoSpace?._id}?email=${userDB?.email}&role=${userDB?.role}`
+        `${config.api_url}/project/${ecoSpace?._id}?email=${userDB?.email}&role=${userDB?.role}&isCoWorker=${isCoWorker}`
       );
       const data = await res.json();
       return data?.data;
     },
   });
+
+  console.log({ projects });
 
   const items = ecoSpacesList?.length
     ? ecoSpacesList.map((item, i) => ({

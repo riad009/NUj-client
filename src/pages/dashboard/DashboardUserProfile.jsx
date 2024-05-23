@@ -5,12 +5,15 @@ import DashboardUserProfileEcoSpaceListItem from "../../components/dashboard/Das
 import DashboardUserProfileAppointmentListItem from "../../components/dashboard/DashboardUserProfileAppointmentListItem";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import config from "../../config";
 import LoadingScreen from "../../components/LoadingScreen";
+import axios from "axios";
+import { toast } from "sonner";
 
 const DashboardUserProfile = () => {
   const userId = useLoaderData();
+  const navigate = useNavigate();
   // setting the states
   const [user, setUser] = useState(null);
   const [ecoSpaces, setEcoSpaces] = useState(null);
@@ -114,6 +117,33 @@ const DashboardUserProfile = () => {
 
     doc.save(`${user?.name || "profile"}.pdf`);
   };
+
+  const handleMakeAdmin = async () => {
+    try {
+      const res = await axios.put(
+        `${config.api_url}/users/update-user/${userId}`,
+        { role: "admin" }
+      );
+
+      if (res?.status === 200) {
+        toast.success("User made as admin!", {
+          position: "top-center",
+        });
+        navigate(-1);
+      }
+    } catch (error) {
+      console.log(error);
+      return toast.error(
+        error.response.data.message || `Something went wrong!`,
+        {
+          id: "login",
+          duration: 2000,
+          position: "top-center",
+        }
+      );
+    }
+  };
+
   return (
     <div className="h-auto space-y-5">
       <Form className="w-full">
@@ -306,7 +336,10 @@ const DashboardUserProfile = () => {
           </div>
         </div>
       </Form>
-      <div className="text-center">
+      <div className="text-center flex items-center gap-3 justify-center">
+        <button onClick={handleMakeAdmin} className="p-btn">
+          Make Admin
+        </button>
         <button onClick={printPdf} className="p-btn">
           Download Information
         </button>

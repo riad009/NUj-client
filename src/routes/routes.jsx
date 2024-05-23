@@ -47,6 +47,7 @@ import Signup from "../pages/login/Signup";
 import SuperAdminRoute from "./SuperAdminRoute";
 
 import BothAdminRoute from "./BothAdminRoute";
+import AuthRoute from "./AuthRoute";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -168,11 +169,19 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginOptions />,
+    element: (
+      <AuthRoute>
+        <LoginOptions />
+      </AuthRoute>
+    ),
   },
   {
     path: "/signup",
-    element: <Signup />,
+    element: (
+      <AuthRoute>
+        <Signup />
+      </AuthRoute>
+    ),
   },
 
   {

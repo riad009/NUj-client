@@ -11,14 +11,17 @@ import { AiOutlineDollar } from "react-icons/ai";
 import { RiQrScan2Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 const SidebarItems = () => {
-  const { logOut, onClose, userDB } = useContext(AuthContext);
+  const { logOut, onClose, userDB, setUserDB, userRefetch, setUserRefetch } =
+    useContext(AuthContext);
   const navigate = useNavigate();
-
-  console.log({ userDB });
 
   const handleLogout = () => {
     logOut();
+    setUserDB(null);
+    setUserRefetch(!userRefetch);
+
     navigate("/login");
+
     toast.success("Logged out");
   };
 
@@ -168,14 +171,16 @@ const SidebarItems = () => {
         <RiFolderUploadLine className="text-xl text-primary" />
         <span>Upload Documents</span>
       </NavLink> */}
-      <button
-        className={`px-4 py-2 border uppercase  font-semibold rounded-md
+      {userDB?.email && (
+        <button
+          className={`px-4 py-2 border uppercase  font-semibold rounded-md
           bg-error text-base-100
         }`}
-        onClick={handleLogout}
-      >
-        Sign out
-      </button>
+          onClick={handleLogout}
+        >
+          Sign out
+        </button>
+      )}
     </div>
   );
 };

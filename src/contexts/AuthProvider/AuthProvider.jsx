@@ -84,10 +84,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    setIsLoading(true);
     localStorage.removeItem("accessToken");
-    // navigate("/login");
-    return signOut(auth);
+    setUserRefetch(!userRefetch);
   };
 
   // getting and setting the user from firebase
@@ -177,6 +175,7 @@ const AuthProvider = ({ children }) => {
     closeAddClientModal,
     openAddClient,
     openAddClientModal,
+    setUserDB,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

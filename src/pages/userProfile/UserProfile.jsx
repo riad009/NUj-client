@@ -11,7 +11,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
-  const { user, userDB, logOut, userRefetch, setUserRefetch } =
+  const { user, userDB, setUserDB, logOut, userRefetch, setUserRefetch } =
     useContext(AuthContext);
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -19,6 +19,7 @@ const UserProfile = () => {
 
   const handleLogout = () => {
     logOut();
+    setUserDB(null);
     toast.success("Logged out");
     navigate("/login");
   };
