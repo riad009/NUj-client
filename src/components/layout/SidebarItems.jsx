@@ -1,17 +1,14 @@
 import { useContext } from "react";
 import { toast } from "sonner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { GoPerson } from "react-icons/go";
 import { PiOfficeChair } from "react-icons/pi";
 import { MdOutlineDashboard, MdAddBusiness } from "react-icons/md";
 import { LiaHandshakeSolid } from "react-icons/lia";
 import { IoHomeOutline } from "react-icons/io5";
-import { Dropdown, Space } from "antd";
 import { AiOutlineDollar } from "react-icons/ai";
-import { DownOutlined } from "@ant-design/icons";
 import { RiQrScan2Line } from "react-icons/ri";
-import { RiFolderUploadLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 const SidebarItems = () => {
   const { logOut, onClose, userDB } = useContext(AuthContext);
@@ -32,7 +29,7 @@ const SidebarItems = () => {
         to="/home"
         // activeClassName="active-link"
         // className=""
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`
@@ -46,7 +43,7 @@ const SidebarItems = () => {
         to="/profile/user"
         // activeClassName="active-link"
         // className="flex items-center gap-2"
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`
@@ -58,7 +55,7 @@ const SidebarItems = () => {
       <NavLink
         onClick={onClose}
         to="/toxic-detection/assessment"
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`
@@ -98,7 +95,7 @@ const SidebarItems = () => {
       <NavLink
         onClick={onClose}
         to="/pricing"
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`
@@ -111,7 +108,7 @@ const SidebarItems = () => {
         <NavLink
           onClick={onClose}
           to="/dashboard"
-          className={({ isActive, isPending }) =>
+          className={({ isActive }) =>
             `flex items-center gap-2 rounded-lg p-2 ${
               isActive ? "bg-gray-200" : ""
             }`
@@ -124,7 +121,7 @@ const SidebarItems = () => {
       <NavLink
         onClick={onClose}
         to="/profile/eco-space/list"
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`
@@ -137,7 +134,7 @@ const SidebarItems = () => {
         <NavLink
           onClick={onClose}
           to="/create-eco-space/banner"
-          className={({ isActive, isPending }) =>
+          className={({ isActive }) =>
             `flex items-center gap-2 rounded-lg p-2 ${
               isActive ? "bg-gray-200" : ""
             }`
@@ -150,7 +147,7 @@ const SidebarItems = () => {
       <NavLink
         onClick={onClose}
         to="/eco-space-list"
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`
@@ -162,7 +159,7 @@ const SidebarItems = () => {
       {/* <NavLink
         onClick={onClose}
         to="/upload-documents"
-        className={({ isActive, isPending }) =>
+        className={({ isActive }) =>
           `flex items-center gap-2 rounded-lg p-2 ${
             isActive ? "bg-gray-200" : ""
           }`

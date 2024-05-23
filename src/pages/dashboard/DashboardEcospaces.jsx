@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DashboardEcoSpacesListItem from "../../components/dashboard/DashboardEcoSpacesListItem";
-import { Link } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+
 import config from "../../config";
 import { Form, Select } from "antd";
 import { Option } from "antd/es/mentions";
@@ -12,6 +11,7 @@ const DashboardEcospaces = () => {
   const [serviceId, setServiceId] = useState(null);
   const [filteredEcoSpaces, setFilteredEcoSpaces] = useState(null);
   const [isLoading, setIsloading] = useState(true);
+  const [refetch, setrefetch] = useState(false);
 
   useEffect(() => {
     fetch(`${config.api_url}/services/list`)
@@ -27,9 +27,9 @@ const DashboardEcospaces = () => {
     fetch(`${config.api_url}/eco-spaces/eco-space-list/${serviceId}`)
       .then((res) => res.json())
       .then((data) => setFilteredEcoSpaces(data.data));
-  }, [serviceId]);
+  }, [serviceId, refetch]);
 
-  const handleFilterService = (changedValues, prevValues) => {
+  const handleFilterService = (changedValues) => {
     setServiceId(changedValues.serviceId);
   };
 
@@ -92,7 +92,12 @@ const DashboardEcospaces = () => {
         <tbody>
           {filteredEcoSpaces?.length ? (
             filteredEcoSpaces.map((ecoSpace, i) => (
-              <DashboardEcoSpacesListItem key={i} ecoSpace={ecoSpace} />
+              <DashboardEcoSpacesListItem
+                key={i}
+                ecoSpace={ecoSpace}
+                setrefetch={setrefetch}
+                refetch={refetch}
+              />
             ))
           ) : (
             <h2>No EcoSpces found</h2>

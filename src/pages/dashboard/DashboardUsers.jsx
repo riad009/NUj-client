@@ -1,10 +1,9 @@
-import React from "react";
 import DashboardUsersListItem from "../../components/dashboard/DashboardUsersListItem";
 import { useQuery } from "@tanstack/react-query";
 import config from "../../config";
 
 const DashboardUsers = () => {
-  const { data: users } = useQuery({
+  const { data: users, refetch } = useQuery({
     queryKey: [],
     queryFn: async () => {
       const res = await fetch(`${config.api_url}/users/all`);
@@ -20,6 +19,7 @@ const DashboardUsers = () => {
         <thead>
           <tr>
             <th>Name</th>
+            <th>Role</th>
             <th>Address</th>
             <th>Actions</th>
           </tr>
@@ -27,7 +27,7 @@ const DashboardUsers = () => {
         <tbody>
           {users?.length
             ? users.map((user, i) => (
-                <DashboardUsersListItem key={i} user={user} />
+                <DashboardUsersListItem key={i} user={user} refetch={refetch} />
               ))
             : ""}
         </tbody>

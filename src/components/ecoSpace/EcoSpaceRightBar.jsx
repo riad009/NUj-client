@@ -18,6 +18,7 @@ import { queryClient } from "../../main";
 
 const EcoSpaceRightBar = ({ ecoSpace }) => {
   const { projectId, ecoSpaceId } = useParams();
+  const { userDB } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const {
@@ -168,24 +169,26 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
               <IoPersonAddOutline className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
               <span className="text-sm ">Add</span>
             </div>
-            <Popconfirm
-              title="Delete the project"
-              description="Are you sure to delete this project?"
-              onConfirm={confirmDelete}
-              onCancel={cancelDelete}
-              okText="Yes"
-              cancelText="No"
-              okButtonProps={{
-                style: {
-                  background: "#1677ff",
-                },
-              }}
-            >
-              <div className="flex flex-col items-center justify-center">
-                <MdDelete className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
-                <span className="text-sm ">Delete</span>
-              </div>
-            </Popconfirm>
+            {(userDB?.role === "admin" || userDB?.role === "superAdmin") && (
+              <Popconfirm
+                title="Delete the project"
+                description="Are you sure to delete this project?"
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+                okText="Yes"
+                cancelText="No"
+                okButtonProps={{
+                  style: {
+                    background: "#1677ff",
+                  },
+                }}
+              >
+                <div className="flex flex-col items-center justify-center">
+                  <MdDelete className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
+                  <span className="text-sm ">Delete</span>
+                </div>
+              </Popconfirm>
+            )}
             <div className="flex flex-col items-center justify-center">
               <IoMdCall className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
               <span className="text-sm ">Call</span>

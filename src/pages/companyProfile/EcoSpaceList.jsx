@@ -9,7 +9,11 @@ import LoadingScreen from "../../components/LoadingScreen";
 const EcoSpaceList = () => {
   const { userDB } = useContext(AuthContext);
 
-  const { data: ecoSpaces, isLoading } = useQuery({
+  const {
+    data: ecoSpaces,
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: [userDB?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
       const res = await fetch(
@@ -39,7 +43,11 @@ const EcoSpaceList = () => {
             {isLoading ? <LoadingScreen /> : ""}
             {ecoSpaces?.data?.length
               ? ecoSpaces.data.map((ecoSpace, i) => (
-                  <EcoSpaceListItem ecoSpace={ecoSpace} key={i} />
+                  <EcoSpaceListItem
+                    ecoSpace={ecoSpace}
+                    key={i}
+                    refetch={refetch}
+                  />
                 ))
               : ""}
           </>
