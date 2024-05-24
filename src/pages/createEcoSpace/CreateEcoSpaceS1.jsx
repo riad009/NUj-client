@@ -1,12 +1,11 @@
 import { Form, Input } from "antd";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import TextArea from "antd/es/input/TextArea";
 
 const CreateEcoSpaceS1 = () => {
-  const { newEcoSpaceData, setNewEcoSpaceData, userDB } =
-    useContext(AuthContext);
+  const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleCreateEcoSpace1 = (data) => {
     setNewEcoSpaceData((prevValue) => ({
@@ -33,6 +32,7 @@ const CreateEcoSpaceS1 = () => {
         name="basic"
         initialValues={{
           company: newEcoSpaceData?.company,
+          description: newEcoSpaceData?.description,
         }}
         autoComplete="off"
         onFinish={handleCreateEcoSpace1}

@@ -1,9 +1,8 @@
 import { Form, Input } from "antd";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import BackButton from "../../components/BackButton";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 const CreateEcoSpaceS2 = () => {
   const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
@@ -76,6 +75,7 @@ const CreateEcoSpaceS2 = () => {
             ]}
           >
             <Input
+              type="number"
               size="large"
               className="bg-transparent w-full focus:bg-transparent placeholder:text-gray-500"
               placeholder="tel"

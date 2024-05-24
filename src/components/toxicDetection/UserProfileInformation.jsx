@@ -57,7 +57,12 @@ const UserProfileInformation = () => {
               },
             ]}
           >
-            <Input size="large" className="" placeholder="0123456789" />
+            <Input
+              type="number"
+              size="large"
+              className=""
+              placeholder="0123456789"
+            />
           </Form.Item>
         </div>
         <div className="flex flex-col gap-1 w-full">

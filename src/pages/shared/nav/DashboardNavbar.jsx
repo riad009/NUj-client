@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logos/main-logo.png";
-import unknown from "../../../assets/home/unknown.jpg";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const DashboardNavbar = () => {
-  const { user } = useContext(AuthContext);
+  const { userDB } = useContext(AuthContext);
   const [isScroll, setIsScroll] = useState(false);
   window.addEventListener("scroll", () => {
     if (window.scrollY > 10) {
@@ -31,11 +30,7 @@ const DashboardNavbar = () => {
             }`}
           >
             <Link to="/profile/user">
-              <img
-                className="size-8 rounded-full"
-                src={user?.photoURL ? user?.photoURL : unknown}
-                alt=""
-              />
+              <img className="size-8 rounded-full" src={userDB?.photo} alt="" />
             </Link>
             {/* <button onClick={showDrawer}>Dashboard</button> */}
           </div>

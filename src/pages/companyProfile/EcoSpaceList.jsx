@@ -7,14 +7,18 @@ import config from "../../config";
 import LoadingScreen from "../../components/LoadingScreen";
 
 const EcoSpaceList = () => {
-  const { user, userDB } = useContext(AuthContext);
+  const { userDB } = useContext(AuthContext);
 
-  const { data: ecoSpaces, isLoading } = useQuery({
-    queryKey: [user, user?.email, userDB, userDB?._id, "email"],
+  const {
+    data: ecoSpaces,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: [userDB?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
       const res = await fetch(
         // `${config.api_url}/eco-spaces/list/${userDB?._id}`
-        `${config.api_url}/eco-spaces/list?ownerId=${userDB?._id}&email=${user?.email}`
+        `${config.api_url}/eco-spaces/list?ownerId=${userDB?._id}&email=${userDB?.email}`
       );
       const data = await res.json();
       return data;
@@ -26,7 +30,7 @@ const EcoSpaceList = () => {
       <div className="w-11/12 mx-auto my-20 space-y-5">
         <h4 className="text-xs text-white">Welcome</h4>
         <h1 className="text-2xl md:text-4xl font-semibold text-white">
-          EcoSpaces accociated with <br /> {user?.email}
+          EcoSpaces accociated with <br /> {userDB?.email}
         </h1>
         <p className="text-sm text-white">
           Not seeing your EcoSpaces?
@@ -39,18 +43,22 @@ const EcoSpaceList = () => {
             {isLoading ? <LoadingScreen /> : ""}
             {ecoSpaces?.data?.length
               ? ecoSpaces.data.map((ecoSpace, i) => (
-                  <EcoSpaceListItem ecoSpace={ecoSpace} key={i} />
+                  <EcoSpaceListItem
+                    ecoSpace={ecoSpace}
+                    key={i}
+                    refetch={refetch}
+                  />
                 ))
               : ""}
           </>
-          {/* <EcoSpaceListItem />
-          <EcoSpaceListItem />
-          <EcoSpaceListItem /> */}
-          <div className="text-center">
-            <Link to="/create-eco-space/banner" className="p-btn">
-              Create New
-            </Link>
-          </div>
+
+          {(userDB?.role === "superAdmin" || userDB?.role === "admin") && (
+            <div className="text-center">
+              <Link to="/create-eco-space/banner" className="p-btn">
+                Create New
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </section>

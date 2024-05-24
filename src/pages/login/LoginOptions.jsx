@@ -38,7 +38,7 @@ export default function LoginOptions() {
             toast.success(`Logged in`, {
               id: "login",
               duration: 2000,
-              position: "top-right",
+              position: "top-center",
             });
             navigate("/");
             setLoading(false);
@@ -50,7 +50,7 @@ export default function LoginOptions() {
         return toast.error(`Log in failed`, {
           id: "login",
           duration: 2000,
-          position: "top-right",
+          position: "top-center",
         });
       }
     }
@@ -58,6 +58,7 @@ export default function LoginOptions() {
 
   const onFinish = async (values) => {
     // console.log(values);
+    setLoading(true);
     try {
       const promise = await axios.post(
         `${config.api_url}/users/signin`,
@@ -70,7 +71,7 @@ export default function LoginOptions() {
           toast.success(`Logged in`, {
             id: "login",
             duration: 2000,
-            position: "top-right",
+            position: "top-center",
           });
           navigate("/");
           setLoading(false);
@@ -82,7 +83,7 @@ export default function LoginOptions() {
       return toast.error(error.response.data.message || `Log in failed`, {
         id: "login",
         duration: 2000,
-        position: "top-right",
+        position: "top-center",
       });
     }
   };
@@ -168,7 +169,7 @@ export default function LoginOptions() {
 
         <Button
           htmlType="submit"
-          // disabled={loading}
+          disabled={loading}
           className="mt-10 h-[40px] bg-blue-500 text-white"
         >
           {loading ? "Processing.." : "Signin"}

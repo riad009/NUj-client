@@ -1,20 +1,19 @@
 import { useContext } from "react";
-
+import { AuthContext } from "../contexts/AuthProvider/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { AuthContext } from "../contexts/AuthProvider/AuthProvider";
 
-const PrivateRoute = ({ children }) => {
+const SuperAdminRoute = ({ children }) => {
   const { userDB, isLoading } = useContext(AuthContext);
   const location = useLocation();
 
   if (isLoading) {
     return <LoadingScreen />;
   }
-  if (userDB?.email) {
+  if (userDB?.role === "superAdmin") {
     return children;
   }
-  return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
+  return <Navigate to="/" state={{ from: location }} replace></Navigate>;
 };
 
-export default PrivateRoute;
+export default SuperAdminRoute;

@@ -14,7 +14,7 @@ export default function Signup() {
 
   const onFinish = async (values) => {
     // console.log(values);
-
+    setLoading(true);
     const payload = {
       ...values,
       name: values.firstName + " " + values.lastName,
@@ -32,7 +32,7 @@ export default function Signup() {
           toast.success(`Sign up Successfull`, {
             id: "Signup",
             duration: 2000,
-            position: "top-right",
+            position: "top-center",
           });
           navigate("/");
           setLoading(false);
@@ -44,7 +44,7 @@ export default function Signup() {
       return toast.error(error.response.data.message || `Signup failed`, {
         id: "Signup",
         duration: 2000,
-        position: "top-right",
+        position: "top-center",
       });
     }
   };
@@ -164,7 +164,7 @@ export default function Signup() {
                   </p>
                   <Form.Item
                     className="w-full mb-0"
-                    name="number"
+                    name="phone"
                     rules={[
                       {
                         required: true,
@@ -197,7 +197,7 @@ export default function Signup() {
 
               <Button
                 htmlType="submit"
-                // disabled={loading}
+                disabled={loading}
                 className="mt-10 h-[40px] bg-blue-500 text-white"
               >
                 {loading ? "Processing.." : "Signup"}

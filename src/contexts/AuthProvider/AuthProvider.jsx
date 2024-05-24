@@ -14,11 +14,12 @@ import axios from "axios";
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 import config from "../../config";
-import { useNavigate } from "react-router-dom";
+
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   // states for holding user info
+  const [openAddClient, setOpenAddClient] = useState(false);
   const [user, setUser] = useState(null);
   const [userDB, setUserDB] = useState(null);
   const [userRefetch, setUserRefetch] = useState(false);
@@ -32,6 +33,13 @@ const AuthProvider = ({ children }) => {
   };
   const onClose = () => {
     setOpen(false);
+  };
+
+  const openAddClientModal = () => {
+    setOpenAddClient(true);
+  };
+  const closeAddClientModal = () => {
+    setOpenAddClient(false);
   };
 
   // values for creating new Ecospace
@@ -76,10 +84,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    setIsLoading(true);
     localStorage.removeItem("accessToken");
-    // navigate("/login");
-    return signOut(auth);
+    setUserRefetch(!userRefetch);
   };
 
   // getting and setting the user from firebase
@@ -166,6 +172,10 @@ const AuthProvider = ({ children }) => {
     setAssessmentObject,
     userRefetch,
     setUserRefetch,
+    closeAddClientModal,
+    openAddClient,
+    openAddClientModal,
+    setUserDB,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

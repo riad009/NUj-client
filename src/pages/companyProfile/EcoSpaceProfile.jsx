@@ -23,7 +23,7 @@ const CompanyProfile = () => {
     project,
     serviceId,
     serviceDescription,
-    staffs,
+    coWorkers,
     website,
     email,
     phone,
@@ -84,11 +84,11 @@ const CompanyProfile = () => {
             <h3>Service - {serviceId?.title}</h3>
             <p className="text-sm">{serviceDescription}</p>
             <div>
-              <h2>Staffs: </h2>
+              <h2>coWorkers: </h2>
               <div>
                 <p>
-                  {staffs?.length &&
-                    staffs.map((staff, i) => <span key={i}>{staff}</span>)}
+                  {coWorkers?.length &&
+                    coWorkers.map((staff, i) => <span key={i}>{staff}</span>)}
                 </p>
               </div>
             </div>

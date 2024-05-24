@@ -8,27 +8,30 @@ import { toast } from "sonner";
 const CreateEcoSpaceS5 = () => {
   const { newEcoSpaceData, setNewEcoSpaceData } = useContext(AuthContext);
   const [email, setEmail] = useState("");
-  const [staffs, setStaffs] = useState([]);
+  const [coWorkers, setCoWorkers] = useState(
+    newEcoSpaceData?.coWorkers?.length ? newEcoSpaceData?.coWorkers : []
+  );
   const navigate = useNavigate();
   const handleCreateEcoSpace5 = (data) => {
-    if (!staffs?.length) {
-      return toast.error("Add atleast one project name");
+    if (!coWorkers?.length) {
+      return toast.error("Add atleast one co worker");
     }
     setNewEcoSpaceData((prevValue) => ({
       ...prevValue,
-      staffs,
+      coWorkers,
     }));
 
     navigate("/create-eco-space/s6");
   };
 
-  const handleAddStaff = async () => {
+  const handleAddCoWorkers = async () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && emailPattern.test(email) && !staffs.includes(email)) {
-      setStaffs((prevValues) => [...prevValues, email]);
+    if (email && emailPattern.test(email) && !coWorkers.includes(email)) {
+      setCoWorkers((prevValues) => [...prevValues, email]);
+      setEmail("");
     } else if (!email) {
       toast.error("Please enter an email", { id: email });
-    } else if (staffs.includes(email)) {
+    } else if (coWorkers.includes(email)) {
       toast.error("Email already added", { id: email });
     } else {
       toast.error("Add valid email", { id: email });
@@ -36,9 +39,11 @@ const CreateEcoSpaceS5 = () => {
   };
 
   const removeItem = (itemToRemove) => {
-    const updatedItems = staffs.filter((item) => item !== itemToRemove);
-    setStaffs(updatedItems);
+    const updatedItems = coWorkers.filter((item) => item !== itemToRemove);
+    setCoWorkers(updatedItems);
   };
+
+  console.log({ coWorkers, newEcoSpaceData });
 
   return (
     <div className="w-11/12 md:w-[60%] space-y-5">
@@ -46,15 +51,13 @@ const CreateEcoSpaceS5 = () => {
         <BackButton target={"/create-eco-space/s4"} />
         <h4 className="text-xs text-gray-500">Step 5 of 6</h4>
       </div>
-      <h1 className="text-2xl md:text-4xl font-semibold">
-        Who else is in your Ecospace?
-      </h1>
+      <h1 className="text-2xl md:text-4xl font-semibold">Add Co-Worker</h1>
       {/* <p className="text-sm">Add Coworker.</p> */}
       <Form
         className=""
         name="basic"
         initialValues={{
-          staffs: newEcoSpaceData?.staffs?.[0],
+          coWorkers: newEcoSpaceData?.coWorkers?.[0],
         }}
         autoComplete="off"
         onFinish={handleCreateEcoSpace5}
@@ -63,8 +66,8 @@ const CreateEcoSpaceS5 = () => {
 
         <div className="flex flex-col gap-1 ">
           <div>
-            {staffs?.length
-              ? staffs.map((item, i) => (
+            {coWorkers?.length
+              ? coWorkers.map((item, i) => (
                   <Tag
                     className="px-2 py-1"
                     key={i}
@@ -78,7 +81,7 @@ const CreateEcoSpaceS5 = () => {
           </div>
           <Form.Item
             className=""
-            name="staffs"
+            name="coWorkers"
             rules={[
               {
                 // required: true,
@@ -88,25 +91,19 @@ const CreateEcoSpaceS5 = () => {
             <Input
               className="h-20 bg-transparent  focus:bg-transparent placeholder:text-gray-500"
               size="large"
-              placeholder="Details of company provided services"
+              placeholder="Enter email of your co worker"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Item>
         </div>
         <div className="space-x-2">
-          <button type="button" onClick={handleAddStaff} className="p-btn">
+          <button type="button" onClick={handleAddCoWorkers} className="p-btn">
             Add
           </button>
           <button type="submit" className="p-btn ">
             Next
           </button>
-          {/* <Link to="/create-eco-space/s6" type="submit" className="p-btn ">
-            Next
-          </Link> */}
-
-          {/* <button to="/" type="submit" className="p-btn ">
-            Copy Invite Link
-          </button> */}
         </div>
       </Form>
     </div>

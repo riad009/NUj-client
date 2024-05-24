@@ -46,7 +46,7 @@ const DashboardAppointments = () => {
         className="w-full md:w-3/12"
         name="basic"
         initialValues={{
-          ecoSpaceId: ecoSpaceList?.[0].company,
+          ecoSpaceId: ecoSpaceList?.[0]?.company,
         }}
         autoComplete="off"
         onValuesChange={handleFilterAppointments}

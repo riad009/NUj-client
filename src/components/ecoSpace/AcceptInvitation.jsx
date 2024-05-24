@@ -1,16 +1,18 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import config from "../../config";
 import { toast } from "sonner";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 const AcceptInvitation = () => {
-  const { ecoSpaceId, email } = useParams();
+  const { id, type, email } = useParams();
   const navigate = useNavigate();
+  const { userDB } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!/^[a-fA-F0-9]{24}$/.test(ecoSpaceId)) {
-      console.log("Invalid ecoSpaceId");
+    if (!/^[a-fA-F0-9]{24}$/.test(id)) {
+      console.log("Invalid id");
       navigate("/");
       return;
     }
@@ -21,23 +23,43 @@ const AcceptInvitation = () => {
       navigate("/");
       return;
     }
-  }, [ecoSpaceId, email, navigate]);
+
+    if (userDB?.email !== email) {
+      navigate("/");
+      return;
+    }
+  }, [id, email, navigate, userDB?.email]);
 
   const handleAccept = async () => {
     if (email) {
       try {
-        const res = await axios.patch(
-          `${config.api_url}/eco-spaces/accept-invite`,
-          {
-            email,
-            ecoSpaceId,
-          }
-        );
-        const result = res.data.data;
+        if (type === "eco-space") {
+          const res = await axios.patch(
+            `${config.api_url}/eco-spaces/accept-invite`,
+            {
+              email,
+              ecoSpaceId: id,
+            }
+          );
+          const result = res.data.data;
 
-        toast.success("Invitation accepted!");
-        navigate("/");
-        console.log({ result });
+          toast.success("Invitation accepted!");
+          navigate("/");
+          console.log({ result });
+        } else if (type === "project") {
+          const res = await axios.patch(
+            `${config.api_url}/project/accept-invite`,
+            {
+              email,
+              projectId: id,
+            }
+          );
+          const result = res.data.data;
+
+          toast.success("Invitation accepted!");
+          navigate("/");
+          console.log({ result });
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }

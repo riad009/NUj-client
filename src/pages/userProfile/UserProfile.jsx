@@ -8,12 +8,21 @@ import moment from "moment";
 import config from "../../config";
 import { toast } from "sonner";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
-  const { user, userDB, logOut } = useContext(AuthContext);
-
+  const { user, userDB, setUserDB, logOut, userRefetch, setUserRefetch } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [loading, setloading] = useState(false);
+
+  const handleLogout = () => {
+    logOut();
+    setUserDB(null);
+    toast.success("Logged out");
+    navigate("/login");
+  };
 
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -32,7 +41,6 @@ const UserProfile = () => {
     const payload = Object.fromEntries(
       Object.entries(values).filter(([key, value]) => value !== undefined)
     );
-    // ! host the image and proceed post to the url
 
     fetch(`${config.api_url}/users/update-user/${userDB?._id}`, {
       method: "PUT",
@@ -44,6 +52,7 @@ const UserProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          setUserRefetch(!userRefetch);
           toast.success(data.message, { id: "profile" });
         }
       })
@@ -75,16 +84,16 @@ const UserProfile = () => {
         onFinish={handleUpdateProfile}
         initialValues={{
           name: userDB?.name,
-          email: user?.email,
+          email: userDB?.email,
           phone: userDB?.phone,
           gender: userDB?.gender,
           // dateOfBirth: userDB?.dateOfBirth,
           address: userDB?.address,
           // Add other form field initial values as needed
         }}
-        className="w-11/12 min-h-screen mt-24 mb-10 mx-auto space-y-5 flex flex-col items-center"
+        className=" min-h-screen mt-24 mb-10 mx-auto space-y-5 items-center"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full">
+        <div className="max-w-4xl mx-auto">
           <div className="rounded-xl shadow-lg p-5 md:p-10 flex flex-col gap-10 items-center justify-center">
             <div className="flex flex-col gap-5 items-center">
               <img
@@ -109,11 +118,7 @@ const UserProfile = () => {
                 }
                 alt=""
               />
-              <Form.Item
-                name="photo"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-              >
+              <Form.Item valuePropName="fileList" getValueFromEvent={normFile}>
                 <Upload
                   name="logo"
                   beforeUpload={() => false}
@@ -175,6 +180,7 @@ const UserProfile = () => {
                     ]}
                   >
                     <Input
+                      type="number"
                       size="middle"
                       className=""
                       placeholder="0123456789"
@@ -234,14 +240,23 @@ const UserProfile = () => {
                   />
                 </Form.Item>
               </div>
-              <div className="text-center mt-6">
+              <div className="text-center mt-6 flex gap-2 justify-center">
                 <button type="submit" className="p-btn">
                   Save Changes
+                </button>
+
+                <button
+                  className={`px-4 py-2 border uppercase  font-semibold rounded-md
+          bg-error text-base-100
+        }`}
+                  onClick={handleLogout}
+                >
+                  Sign out
                 </button>
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-10">
+          {/* <div className="flex flex-col gap-10">
             <div className="rounded-xl shadow-lg p-5 md:p-10 h-full">
               <Form.Item
                 name="isNotify"
@@ -261,18 +276,18 @@ const UserProfile = () => {
             <div className="rounded-xl shadow-lg h-full p-5 md:p-10">
               Plan: {userDB?.plan || "N/A"}
             </div>
-          </div>
+          </div> */}
         </div>
-        <div>
-          <button
-            className={`px-4 py-2 border uppercase  font-semibold rounded-md
-          bg-error text-base-100
-        }`}
-            onClick={() => logOut().then(toast.success("Logged out"))}
-          >
-            Sign out
-          </button>
-        </div>
+        {/* <div>
+            <button
+              className={`px-4 py-2 border uppercase  font-semibold rounded-md
+            bg-error text-base-100
+          }`}
+              onClick={() => logOut().then(toast.success("Logged out"))}
+            >
+              Sign out
+            </button>
+          </div> */}
       </Form>
     </div>
   );
