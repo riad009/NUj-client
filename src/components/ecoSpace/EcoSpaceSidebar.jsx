@@ -26,7 +26,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
   const navigate = useNavigate();
 
   const isCoWorker = ecoSpace?.coWorkers?.includes(userDB?.email);
-
+  const isOwner = userDB?._id === ecoSpace?.owner;
   const { data: ecoSpacesList } = useQuery({
     queryKey: [user, user?.email, userDB, userDB?._id, "email"],
     queryFn: async () => {
@@ -48,8 +48,6 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       return data?.data;
     },
   });
-
-  console.log({ projects, isCoWorker });
 
   const items = ecoSpacesList?.length
     ? ecoSpacesList.map((item, i) => ({
@@ -82,9 +80,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
       label: (
         <div className="flex items-center  justify-between">
           <p className="font-semibold  tracking-wider">Projects</p>
-          {(isCoWorker ||
-            userDB?.role === "admin" ||
-            userDB?.role === "superAdmin") && (
+          {(isCoWorker || isOwner || userDB?.role === "superAdmin") && (
             <FaPlusCircle
               className="h-4 w-4"
               onClick={() => setOpenProjectModal(true)}
@@ -257,7 +253,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                   ))
                 : ""}
             </div>
-            {(userDB?.role === "admin" || userDB?.role === "superAdmin") && (
+            {(isCoWorker || userDB?.role === "superAdmin") && (
               <button
                 onClick={() => setOpen(true)}
                 className="flex gap-1 items-center font-semibold "

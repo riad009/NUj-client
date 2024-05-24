@@ -22,6 +22,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
   const navigate = useNavigate();
 
   const isCoWorker = ecoSpace?.coWorkers?.includes(userDB?.email);
+  const isOwner = userDB?._id === ecoSpace?.owner;
 
   const {
     setEcoSpaceRightBarOpen,
@@ -164,9 +165,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
             />
           </div>
           <div className="border-b-[.5px] border-b-gray-300 flex gap-10 items-center p-5 ">
-            {(userDB?.role === "admin" ||
-              userDB?.role === "superAdmin" ||
-              isCoWorker) && (
+            {(isOwner || userDB?.role === "superAdmin" || isCoWorker) && (
               <div
                 className="flex flex-col items-center justify-center"
                 onClick={openAddClientModal}
@@ -175,9 +174,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
                 <span className="text-sm ">Add</span>
               </div>
             )}
-            {(userDB?.role === "admin" ||
-              userDB?.role === "superAdmin" ||
-              isCoWorker) && (
+            {(userDB?.role === "superAdmin" || isOwner) && (
               <Popconfirm
                 title="Delete the project"
                 description="Are you sure to delete this project?"

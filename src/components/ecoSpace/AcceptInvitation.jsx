@@ -22,6 +22,7 @@ const AcceptInvitation = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(lowEmail)) {
       console.log("Invalid email address");
+      toast.error("Invalid user!");
       navigate("/");
       return;
     }

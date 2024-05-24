@@ -76,7 +76,7 @@ const EcoSpaceListItem = ({ ecoSpace, refetch }) => {
               },
             }}
           >
-            <button className="bg-red-600 w-full md:w-auto px-3 py-2 rounded-[4px] md:w-auto ">
+            <button className="bg-red-600 w-full md:w-auto px-3 py-2 rounded-[4px]">
               Delete
             </button>
           </Popconfirm>
