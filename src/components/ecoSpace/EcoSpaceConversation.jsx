@@ -14,18 +14,19 @@ import { IoMenuOutline } from "react-icons/io5";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import AddClientModal from "./AddClientModal";
+import { toast } from "sonner";
 
 const EcoSpaceConversation = ({ channelData }) => {
   const [message, setMessage] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filePreviews, setFilePreviews] = useState([]);
   const { userDB, setEcoSpaceRightBarOpen, setEcoSpaceLeftBarOpen } =
     useContext(AuthContext);
 
+  const { projectId, ecoSpaceId } = useParams();
+
   console.log({ selectedFiles });
-
-  const { channelId, ecoSpaceId } = useParams();
-
   const messageContainerRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -39,15 +40,32 @@ const EcoSpaceConversation = ({ channelData }) => {
   };
 
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFiles((prevFiles) => [...prevFiles, file]);
+    const files = Array.from(e.target.files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
+
+    const previews = files.map((file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve({ type: file.type, src: reader.result });
+        };
+        reader.onerror = () => {
+          reject(new Error("File reading error"));
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    Promise.all(previews).then((newPreviews) => {
+      setFilePreviews((prevPreviews) => [...prevPreviews, ...newPreviews]);
+    });
   };
 
   const { data, refetch } = useQuery({
-    queryKey: ["messages", channelId],
+    queryKey: ["messages", projectId],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${config.api_url}/message/${channelId}`
+        `${config.api_url}/message/${projectId}`
       );
       return data.data;
     },
@@ -71,7 +89,7 @@ const EcoSpaceConversation = ({ channelData }) => {
         const formData = new FormData();
         formData.append("email", userDB?.email);
         formData.append("ecoSpaceId", ecoSpaceId);
-        formData.append("channelId", channelId);
+        formData.append("projectId", projectId);
         formData.append("userImage", userDB?.photo);
         formData.append("message", message);
 
@@ -88,6 +106,14 @@ const EcoSpaceConversation = ({ channelData }) => {
       } catch (error) {
         setLoading(false);
         console.error("Error fetching data:", error);
+        return toast.error(
+          error.response.data.message || `Something went wrong!`,
+          {
+            id: "login",
+            duration: 2000,
+            position: "top-center",
+          }
+        );
       }
     }
   };
@@ -107,19 +133,6 @@ const EcoSpaceConversation = ({ channelData }) => {
               <h2 className="font-semibold text-xl">
                 #{channelData?.projectName}
               </h2>
-              {/* <div className="flex items-center gap-4 text-gray-500 text-sm">
-              <div className="flex items-center gap-1">
-                <IoPerson />
-                <span>20</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <GoPin />
-                <span>1</span>
-              </div>
-              <div>
-                <span>Track & Coordinate Social Media</span>
-              </div>
-            </div> */}
             </div>
 
             <IoMdInformationCircleOutline
@@ -148,50 +161,95 @@ const EcoSpaceConversation = ({ channelData }) => {
         </div>
         <div className="absolute bottom-0 left-0 w-full p-5 bg-white">
           <div className="">
-            <div className="border-2 border-b-0 flex justify-between items-center py-3 px-4">
-              <div className="flex items-center gap-5">
-                <label htmlFor="image">
-                  <FaImage />
-                </label>
-                <input
-                  name="image"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  id="image"
-                  className="hidden"
-                />
-                <label htmlFor="video">
-                  <FaVideo />
-                </label>
-                <input
-                  name="video"
-                  type="file"
-                  accept="video/*"
-                  onChange={handleFileChange}
-                  id="video"
-                  className="hidden"
-                />
-                <label htmlFor="audio">
-                  <AiFillAudio />
-                </label>
-                <input
-                  name="audio"
-                  type="file"
-                  accept="audio/*"
-                  onChange={handleFileChange}
-                  id="audio"
-                  className="hidden"
-                />
-              </div>
+            <div className="border-2 border-b-0 ">
+              {filePreviews?.length > 0 && (
+                <div className="flex items-center gap-3 p-4">
+                  {filePreviews.map((file, index) => {
+                    if (file.type.startsWith("image/")) {
+                      return (
+                        <div key={index}>
+                          <img
+                            src={file.src}
+                            alt={`preview ${index}`}
+                            style={{ width: "200px", borderRadius: "5px" }}
+                            className="h-32 shadow object-cover"
+                          />
+                        </div>
+                      );
+                    } else if (file.type.startsWith("audio/")) {
+                      return (
+                        <div key={index}>
+                          <audio
+                            controls
+                            src={file.src}
+                            style={{ display: "block" }}
+                            className="h-32 shadow object-cover"
+                          />
+                        </div>
+                      );
+                    } else if (file.type.startsWith("video/")) {
+                      return (
+                        <div key={index}>
+                          <video
+                            controls
+                            src={file.src}
+                            style={{ width: "200px", borderRadius: "5px" }}
+                            className="h-32 shadow object-cover"
+                          />
+                        </div>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+                </div>
+              )}
 
-              <button onClick={handleSend} className="" disabled={loading}>
-                {loading ? (
-                  <span className="text-xs">Sending..</span>
-                ) : (
-                  <IoMdSend />
-                )}
-              </button>
+              <div className="flex justify-between items-center py-3 px-4">
+                <div className="flex items-center gap-5">
+                  <label htmlFor="image">
+                    <FaImage />
+                  </label>
+                  <input
+                    name="image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    id="image"
+                    className="hidden"
+                  />
+                  <label htmlFor="video">
+                    <FaVideo />
+                  </label>
+                  <input
+                    name="video"
+                    type="file"
+                    accept="video/*"
+                    onChange={handleFileChange}
+                    id="video"
+                    className="hidden"
+                  />
+                  <label htmlFor="audio">
+                    <AiFillAudio />
+                  </label>
+                  <input
+                    name="audio"
+                    type="file"
+                    accept="audio/*"
+                    onChange={handleFileChange}
+                    id="audio"
+                    className="hidden"
+                  />
+                </div>
+
+                <button onClick={handleSend} className="" disabled={loading}>
+                  {loading ? (
+                    <span className="text-xs">Sending..</span>
+                  ) : (
+                    <IoMdSend />
+                  )}
+                </button>
+              </div>
             </div>
             {/* <Editor /> */}
             <QuillEditor
