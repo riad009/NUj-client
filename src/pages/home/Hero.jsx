@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import banner from "../../assets/home/banner.png";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { useContext } from "react";
 
 const Hero = () => {
+  const { userDB } = useContext(AuthContext);
   return (
     <section className="bg-primary text-white h-auto md:h-screen flex justify-center items-center overflow-hidden">
       <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-7 mb-8 md:mb-0 mt-20 md:mt-8 gap-8">
@@ -12,11 +15,13 @@ const Hero = () => {
               Wireframing Movement with Dignity.
             </h1>
           </div>
-          <div className="flex gap-2 w-full">
-            <Link to="/create-eco-space/banner" className="hero-btn">
-              Create Ecospace
-            </Link>
-          </div>
+          {(userDB?.role === "superAdmin" || userDB?.role === "admin") && (
+            <div className="flex gap-2 w-full">
+              <Link to="/create-eco-space/banner" className="hero-btn">
+                Create Ecospace
+              </Link>
+            </div>
+          )}
         </div>
         <img
           className="w-[100%] md:col-span-5 rounded-md shadow-2xl border"

@@ -49,7 +49,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   });
 
-  console.log({ projects });
+  console.log({ projects, isCoWorker });
 
   const items = ecoSpacesList?.length
     ? ecoSpacesList.map((item, i) => ({

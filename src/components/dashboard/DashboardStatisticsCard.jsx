@@ -13,9 +13,9 @@ const DashboardStatisticsCard = () => {
       .then((res) => res.json())
       .then((data) => setStats(data.data));
   }, []);
-  console.log(stats);
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
       <Link
         to="/dashboard/eco-spaces"
         className="p-5 shadow-sm bg-base-100 rounded-lg flex justify-start items-center gap-4 hover:shadow-lg  hover:!text-black"

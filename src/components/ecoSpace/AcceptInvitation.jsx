@@ -10,6 +10,8 @@ const AcceptInvitation = () => {
   const navigate = useNavigate();
   const { userDB } = useContext(AuthContext);
 
+  const lowEmail = email?.toLowerCase();
+
   useEffect(() => {
     if (!/^[a-fA-F0-9]{24}$/.test(id)) {
       console.log("Invalid id");
@@ -18,26 +20,26 @@ const AcceptInvitation = () => {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(lowEmail)) {
       console.log("Invalid email address");
       navigate("/");
       return;
     }
 
-    if (userDB?.email !== email) {
+    if (userDB?.email !== lowEmail) {
       navigate("/");
       return;
     }
-  }, [id, email, navigate, userDB?.email]);
+  }, [id, lowEmail, navigate, userDB?.email]);
 
   const handleAccept = async () => {
-    if (email) {
+    if (lowEmail) {
       try {
         if (type === "eco-space") {
           const res = await axios.patch(
             `${config.api_url}/eco-spaces/accept-invite`,
             {
-              email,
+              email: lowEmail,
               ecoSpaceId: id,
             }
           );
@@ -50,7 +52,7 @@ const AcceptInvitation = () => {
           const res = await axios.patch(
             `${config.api_url}/project/accept-invite`,
             {
-              email,
+              email: lowEmail,
               projectId: id,
             }
           );

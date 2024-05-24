@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import config from "../../config";
@@ -19,6 +19,7 @@ const CreateEcoSpaceNotificationConsent = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          setNewEcoSpaceData({});
           toast.success(data.message, { id: "create-eco-space" });
           return navigate("/profile/eco-space/list");
         } else {
@@ -65,15 +66,6 @@ const CreateEcoSpaceNotificationConsent = () => {
       <button onClick={handleCreateEcoSpaceFinal} className="p-btn" to="/">
         Finish
       </button>
-      {/* <Link
-        onClick={() =>
-          toast.success("EcoSpace created successfully", { duration: 5000 })
-        }
-        className="p-btn"
-        to="/"
-      >
-        Finish
-      </Link> */}
     </div>
   );
 };
