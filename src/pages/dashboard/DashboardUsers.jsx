@@ -15,7 +15,6 @@ const DashboardUsers = () => {
   return (
     <div className="overflow-x-auto p-5">
       <table className="table">
-        {/* head */}
         <thead>
           <tr>
             <th>Name</th>

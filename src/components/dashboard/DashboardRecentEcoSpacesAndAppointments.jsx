@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
 import config from "../../config";
@@ -24,7 +24,7 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
   console.log({ recentAppointments });
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-      <div className="bg-base-100 shadow-sm rounded-lg p-5 space-y-5">
+      <div className="bg-base-100 shadow-sm rounded-lg p-5 space-y-5 overflow-auto">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Recent EcoSpaces</h2>
           <Link to="/dashboard/eco-spaces" className="flex items-center gap-1">
@@ -32,27 +32,27 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
             <FaArrowRight />
           </Link>
         </div>
-        <div>
-          <div className="grid grid-cols-3  gap-4 border-t py-4 text-lg">
-            <h3 className="font-semibold">Company</h3>
-            <p className="font-semibold">Project</p>
-            <p className="font-semibold text-end">Plan</p>
-          </div>
 
-          {recentEcoSpaces?.length
-            ? recentEcoSpaces.map((ecoSpace, i) => (
-                <div key={i} className="grid grid-cols-3  gap-4 border-t py-3">
-                  <h3>{ecoSpace?.company}</h3>
-                  <p>{ecoSpace?.project}</p>
-                  <p className="text-end">
-                    {ecoSpace?.plan ? "premium" : "free"}
-                  </p>
-                </div>
-              ))
-            : ""}
-        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Plan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentEcoSpaces?.length
+              ? recentEcoSpaces.map((ecoSpace, i) => (
+                  <tr key={i}>
+                    <td>{ecoSpace?.company}</td>
+                    <td>{ecoSpace?.plan}</td>
+                  </tr>
+                ))
+              : ""}
+          </tbody>
+        </table>
       </div>
-      <div className="bg-base-100 shadow-sm rounded-lg p-5 space-y-5">
+      <div className="bg-base-100 shadow-sm rounded-lg p-5 space-y-5 overflow-auto">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-semibold">Recent Appointments</h2>
           <Link
@@ -63,7 +63,29 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
             <FaArrowRight />
           </Link>
         </div>
-        <div>
+
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Participant</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentAppointments?.length
+              ? recentAppointments.map((appointment, i) => (
+                  <tr key={i}>
+                    <td>{appointment?.company}</td>
+                    <td>{appointment?.participantId?.name}</td>
+                    <td>{appointment?.reason}</td>
+                  </tr>
+                ))
+              : ""}
+          </tbody>
+        </table>
+
+        {/* <div>
           <div className="grid grid-cols-3  gap-4 border-t py-4 text-lg ">
             <h3 className="font-semibold">Company</h3>
             <p className="font-semibold">Participant</p>
@@ -79,7 +101,7 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
                 </div>
               ))
             : ""}
-        </div>
+        </div> */}
       </div>
     </div>
   );

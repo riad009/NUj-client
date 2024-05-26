@@ -6,9 +6,46 @@ import { toast } from "sonner";
 import config from "../../config";
 
 import axios from "axios";
+
 const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
   const [email, setEmail] = useState("");
   const [loading, setloading] = useState(false);
+  // const handleInvite = async () => {
+  //   if (email) {
+  //     try {
+  //       setloading(true);
+  //       const res = await axios.patch(
+  //         `${config.api_url}/eco-spaces/accept-invite`,
+  //         {
+  //           email: email.toLowerCase(),
+  //           ecoSpaceId: ecoSpace._id,
+  //         }
+  //       );
+
+  //       if (res?.status === 200) {
+  //         await queryClient.refetchQueries({
+  //           queryKey: ["eco-space"],
+  //           type: "active",
+  //         });
+  //         setEmail("");
+  //         setloading(false);
+  //         setOpen(!open);
+  //         toast.success("Co-worker added!");
+  //       }
+  //     } catch (error) {
+  //       setloading(false);
+  //       console.error("Error fetching data:", error);
+  //       return toast.error(
+  //         error.response.data.message || `Something went wrong!`,
+  //         {
+  //           id: "login",
+  //           duration: 2000,
+  //           position: "top-center",
+  //         }
+  //       );
+  //     }
+  //   }
+  // };
   const handleInvite = async () => {
     if (email) {
       try {
@@ -89,7 +126,7 @@ const AddCoworkerModal = ({ open, setOpen, ecoSpace }) => {
               type="submit"
               onClick={handleInvite}
             >
-              {loading ? "Sending.." : "Send"}
+              {loading ? "Adding.." : "Add"}
             </button>
           </div>
         </Form>

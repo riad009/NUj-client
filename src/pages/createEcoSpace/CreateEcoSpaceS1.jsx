@@ -21,12 +21,12 @@ const CreateEcoSpaceS1 = () => {
     <div className="w-full md:w-[60%] space-y-5">
       <h4 className="text-xs text-gray-500">Step 1 of 6</h4>
       <h1 className="text-2xl md:text-4xl font-semibold">
-        What is the Name of your Company/ Organization?
+        What is the Name of your Eco-space?
       </h1>
-      <p className="text-sm">
+      {/* <p className="text-sm">
         This will be the name of your NUj Ecospace — choose something that your
         team will recognize.
-      </p>
+      </p> */}
       <Form
         className=""
         name="basic"
@@ -38,7 +38,7 @@ const CreateEcoSpaceS1 = () => {
         onFinish={handleCreateEcoSpace1}
       >
         <div className="flex flex-col gap-1 ">
-          <label>Company: </label>
+          <label>Name: </label>
           {/* name */}
           <Form.Item
             className=""

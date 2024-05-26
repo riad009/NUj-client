@@ -11,6 +11,42 @@ const AddClientModal = ({ projectData }) => {
   const [email, setEmail] = useState("");
   const [loading, setloading] = useState(false);
 
+  // const handleInvite = async () => {
+  //   if (email) {
+  //     setloading(true);
+  //     try {
+  //       const res = await axios.patch(
+  //         `${config.api_url}/project/accept-invite`,
+  //         {
+  //           email: email.toLowerCase(),
+  //           projectId: projectData._id,
+  //         }
+  //       );
+
+  //       if (res?.status === 200) {
+  //         await queryClient.refetchQueries({
+  //           queryKey: ["project"],
+  //           type: "active",
+  //         });
+  //         setEmail("");
+  //         setloading(false);
+  //         closeAddClientModal();
+  //         toast.success("Member Added!");
+  //       }
+  //     } catch (error) {
+  //       setloading(false);
+  //       console.error("Error fetching data:", error);
+  //       return toast.error(
+  //         error.response.data.message || `Something went wrong!`,
+  //         {
+  //           id: "login",
+  //           duration: 2000,
+  //           position: "top-center",
+  //         }
+  //       );
+  //     }
+  //   }
+  // };
   const handleInvite = async () => {
     if (email) {
       setloading(true);

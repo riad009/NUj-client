@@ -21,6 +21,9 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
   const { userDB } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const isCoWorker = ecoSpace?.coWorkers?.includes(userDB?.email);
+  const isOwner = userDB?._id === ecoSpace?.owner;
+
   const {
     setEcoSpaceRightBarOpen,
 
@@ -161,15 +164,17 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
               className="size-6 cursor-pointer"
             />
           </div>
-          <div className="border-b-[.5px] border-b-gray-300 flex justify-between items-center p-5 ">
-            <div
-              className="flex flex-col items-center justify-center"
-              onClick={openAddClientModal}
-            >
-              <IoPersonAddOutline className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
-              <span className="text-sm ">Add</span>
-            </div>
-            {(userDB?.role === "admin" || userDB?.role === "superAdmin") && (
+          <div className="border-b-[.5px] border-b-gray-300 flex gap-10 items-center p-5 ">
+            {(isOwner || userDB?.role === "superAdmin" || isCoWorker) && (
+              <div
+                className="flex flex-col items-center justify-center"
+                onClick={openAddClientModal}
+              >
+                <IoPersonAddOutline className="size-10 text-gray-500 cursor-pointer bg-gray-200 p-2 rounded-[50%]" />
+                <span className="text-sm ">Add</span>
+              </div>
+            )}
+            {(userDB?.role === "superAdmin" || isOwner) && (
               <Popconfirm
                 title="Delete the project"
                 description="Are you sure to delete this project?"
