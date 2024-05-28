@@ -1,14 +1,18 @@
 import { useContext, useEffect } from "react";
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useParams } from "react-router-dom";
 import EcoSpaceSidebar from "../ecoSpace/EcoSpaceSidebar";
 import EcoSpaceRightBar from "../ecoSpace/EcoSpaceRightBar";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import LoadingScreen from "../LoadingScreen";
-import config from "../../config";
+import config, { isValidEmail } from "../../config";
 
 const EcoSpaceLayout = () => {
   // const data = useLoaderData();
+  const { projectId } = useParams();
+
+  const isPersonalChat = isValidEmail(projectId);
+
   const ecoSpaceId = useLoaderData();
   const {
     data: ecoSpace,
@@ -53,13 +57,15 @@ const EcoSpaceLayout = () => {
       >
         <Outlet />
       </div>
-      <div
-        className={`${
-          ecoSpaceRightBarOpen ? "block" : "hidden"
-        } col-span-3 border-l-[.5px] border-gray-300 w-[100vw] md:w-auto`}
-      >
-        <EcoSpaceRightBar ecoSpace={ecoSpace} />
-      </div>
+      {!isPersonalChat && (
+        <div
+          className={`${
+            ecoSpaceRightBarOpen ? "block" : "hidden"
+          } col-span-3 border-l-[.5px] border-gray-300 w-[100vw] md:w-auto`}
+        >
+          <EcoSpaceRightBar ecoSpace={ecoSpace} />
+        </div>
+      )}
     </div>
   );
 };

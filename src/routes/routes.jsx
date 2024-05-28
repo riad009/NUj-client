@@ -31,7 +31,7 @@ import DashboardEcospaces from "../pages/dashboard/DashboardEcospaces";
 import DashboardAppointments from "../pages/dashboard/DashboardAppointments";
 import DashboardUserProfile from "../pages/dashboard/DashboardUserProfile";
 import AppointmentPage from "../pages/appointment/AppointmentPage";
-import EcoSpaceListForAppointment from "../pages/appointment/EcoSpaceListForAppointment";
+
 import UploadDocuments from "../pages/uploadDocuments/UploadDocuments";
 import config from "../config";
 import PricingBanner from "../pages/pricing/PricingBanner";
@@ -48,6 +48,8 @@ import SuperAdminRoute from "./SuperAdminRoute";
 
 import BothAdminRoute from "./BothAdminRoute";
 import AuthRoute from "./AuthRoute";
+import RequestedAppointments from "../pages/appointment/RequestedAppointments";
+import AppointmentRequests from "../pages/appointment/AppointmentRequests";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -103,7 +105,7 @@ export const router = createBrowserRouter([
         element: <EcoSpaceProfile />,
       },
       {
-        path: "/profile/eco-space/appointments/:appointmentId",
+        path: "/appointments/:appointmentId",
         loader: ({ params }) => params.appointmentId,
         // loader: ({ params }) =>
         //   fetch(
@@ -112,8 +114,13 @@ export const router = createBrowserRouter([
         element: <AppointmentPage />,
       },
       {
-        path: "/eco-space-list",
-        element: <EcoSpaceListForAppointment />,
+        path: "/requested-appointments/:ecoSpaceId",
+        element: <RequestedAppointments />,
+      },
+
+      {
+        path: "/appointment-requests/:ecoSpaceId",
+        element: <AppointmentRequests />,
       },
       {
         path: "/make-appointment/:ecoSpaceId",
@@ -121,20 +128,20 @@ export const router = createBrowserRouter([
         element: <MakeAppointment />,
       },
       {
-        path: "/toxic-detection/assessment",
+        path: "/assessment",
         element: <ToxicDetectionAssessment />,
       },
       {
-        path: "/toxic-detection/score-result",
+        path: "/assessment/score-result",
         element: <ToxicDetectionScoreResult />,
       },
       {
-        path: "/toxic-detection/plan-result/:response1",
+        path: "/assessment/plan-result/:response1",
         loader: ({ params }) => params.response1,
         element: <ToxicDetectionPlanScoreResult />,
       },
       {
-        path: "/toxic-detection/action-plan",
+        path: "/assessment/action-plan",
         element: <ToxicDetectionActionPlan />,
       },
       {

@@ -9,7 +9,7 @@ const DashboardAppointmentsList = ({ appointments }) => {
           <th>Participant Name</th>
 
           <th>Date</th>
-          <th>Reason</th>
+
           <th>Status</th>
           <th>Actions</th>
         </tr>

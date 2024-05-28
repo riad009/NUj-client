@@ -69,16 +69,16 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
             <tr>
               <th>Company</th>
               <th>Participant</th>
-              <th>Reason</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
             {recentAppointments?.length
               ? recentAppointments.map((appointment, i) => (
                   <tr key={i}>
-                    <td>{appointment?.company}</td>
-                    <td>{appointment?.participantId?.name}</td>
-                    <td>{appointment?.reason}</td>
+                    <td>{appointment?.ecoSpaceId?.company}</td>
+                    <td>{appointment?.userId?.name}</td>
+                    <td>{appointment?.status}</td>
                   </tr>
                 ))
               : ""}
@@ -96,7 +96,7 @@ const DashboardRecentEcoSpacesAndAppointments = () => {
             ? recentAppointments.map((appointment, i) => (
                 <div key={i} className="grid grid-cols-3  gap-4 border-t py-3">
                   <h3>{appointment?.ecoSpaceId?.company}</h3>
-                  <p className="">{appointment?.participantId?.name}</p>
+                  <p className="">{appointment?.userId?.name}</p>
                   <p className="text-end">{appointment?.reason}</p>
                 </div>
               ))

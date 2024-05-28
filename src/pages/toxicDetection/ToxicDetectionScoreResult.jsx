@@ -109,7 +109,7 @@ const ToxicDetectionScoreResult = () => {
               </p>
               {response1 ? (
                 <Link
-                  to={`/toxic-detection/plan-result/${response1}`}
+                  to={`/assessment/plan-result/${response1}`}
                   className="p-btn"
                 >
                   Plans

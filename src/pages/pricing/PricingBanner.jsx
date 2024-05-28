@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import config from "../../config";
 import PricingPlanCard from "./PricingPlanCard";
 import { useLocation } from "react-router-dom";
@@ -8,8 +8,6 @@ const PricingBanner = () => {
   const location = useLocation();
 
   const planId = location?.state?.planId;
-
-  console.log({ planId });
 
   useEffect(() => {
     fetch(`${config.api_url}/plans/all`)

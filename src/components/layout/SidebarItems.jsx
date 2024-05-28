@@ -55,46 +55,7 @@ const SidebarItems = () => {
         <GoPerson className="text-xl text-primary" />
         <span>Profile</span>
       </NavLink>
-      <NavLink
-        onClick={onClose}
-        to="/toxic-detection/assessment"
-        className={({ isActive }) =>
-          `flex items-center gap-2 rounded-lg p-2 ${
-            isActive ? "bg-gray-200" : ""
-          }`
-        }
-      >
-        <RiQrScan2Line className="text-xl text-primary" />
-        <span>Text-Toxicity</span>
-      </NavLink>
 
-      {/* <Dropdown
-        menu={{
-          items,
-        }}
-        className="p-2"
-      >
-        <a onClick={(e) => e.preventDefault()}>
-          <Space>
-            <DownOutlined />
-            Features
-          </Space>
-        </a>
-      </Dropdown>
-
-      <Dropdown
-        menu={{
-          items,
-        }}
-        className="p-2"
-      >
-        <a onClick={(e) => e.preventDefault()}>
-          <Space>
-            <DownOutlined />
-            Services
-          </Space>
-        </a>
-      </Dropdown> */}
       <NavLink
         onClick={onClose}
         to="/pricing"
@@ -147,30 +108,7 @@ const SidebarItems = () => {
           <span>Add new EcoSpace</span>
         </NavLink>
       )}
-      <NavLink
-        onClick={onClose}
-        to="/eco-space-list"
-        className={({ isActive }) =>
-          `flex items-center gap-2 rounded-lg p-2 ${
-            isActive ? "bg-gray-200" : ""
-          }`
-        }
-      >
-        <LiaHandshakeSolid className="text-xl text-primary" />
-        <span>Make an Appointment</span>
-      </NavLink>
-      {/* <NavLink
-        onClick={onClose}
-        to="/upload-documents"
-        className={({ isActive }) =>
-          `flex items-center gap-2 rounded-lg p-2 ${
-            isActive ? "bg-gray-200" : ""
-          }`
-        }
-      >
-        <RiFolderUploadLine className="text-xl text-primary" />
-        <span>Upload Documents</span>
-      </NavLink> */}
+
       {userDB?.email && (
         <button
           className={`px-4 py-2 border uppercase  font-semibold rounded-md
