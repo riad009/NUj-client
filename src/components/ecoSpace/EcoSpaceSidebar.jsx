@@ -16,6 +16,8 @@ import { GoPlus } from "react-icons/go";
 import { IoHomeOutline } from "react-icons/io5";
 
 import AddNewProject from "./AddNewProject";
+import { LiaHandshakeSolid } from "react-icons/lia";
+import { MdAssessment } from "react-icons/md";
 
 const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
@@ -42,7 +44,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     queryKey: ["projects", ecoSpace?._id, "email", userDB?.email],
     queryFn: async () => {
       const res = await fetch(
-        `${config.api_url}/project/${ecoSpace?._id}?email=${userDB?.email}&role=${userDB?.role}&isCoWorker=${isCoWorker}`
+        `${config.api_url}/project/${ecoSpace?._id}?email=${userDB?.email}&role=${userDB?.role}&isCoWorker=${isCoWorker}&isOwner=${isOwner}`
       );
       const data = await res.json();
       return data?.data;
@@ -100,34 +102,23 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   ];
 
-  // const projectsItems = [
-  //   {
-  //     key: "1",
-  //     label: (
-  //       <div className="flex items-center  justify-between">
-  //         <p className="font-semibold  tracking-wider">Projects</p>
-  //         <FaPlusCircle
-  //           className="h-4 w-4"
-  //           onClick={() => setOpenProjectModal(true)}
-  //         />
-  //       </div>
-  //     ),
-  //     children: (
-  //       <div className="space-y-2">
-  //         {ecoSpace?.projects?.length
-  //           ? ecoSpace?.projects.map((project, i) => (
-  //               <ProjectListCard project={project} key={i} />
-  //             ))
-  //           : ""}
-  //       </div>
-  //     ),
-  //   },
-  // ];
-
   const handlePricing = (planId) => {
     navigate("/pricing", {
       state: {
         planId,
+      },
+    });
+  };
+
+  const handleNavigate = () => {
+    const clients = projects
+      .map((project) => project.clients)
+      .reduce((acc, clients) => acc.concat(clients), []);
+
+    navigate(`/make-appointment/${ecoSpace?._id}`, {
+      state: {
+        isCoWorker,
+        clients,
       },
     });
   };
@@ -163,19 +154,23 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             : ""}
         </div>
         <div className="flex flex-col gap-2 items-center">
-          <Link
-            className="text-white bg-gray-400 rounded-[50%]"
-            to={`/create-eco-space/banner`}
-          >
-            <GoPlus className="size-12" />
-          </Link>
-          <div onClick={() => handlePricing(ecoSpace?.plan?.uid)}>
-            <img
-              className="size-12 rounded-md"
-              src="/subscription.png"
-              alt=""
-            />
-          </div>
+          {isOwner && (
+            <>
+              <Link
+                className="text-white bg-gray-400 rounded-[50%]"
+                to={`/create-eco-space/banner`}
+              >
+                <GoPlus className="size-12" />
+              </Link>
+              <div onClick={() => handlePricing(ecoSpace?.plan?.uid)}>
+                <img
+                  className="size-12 rounded-md"
+                  src="/subscription.png"
+                  alt=""
+                />
+              </div>
+            </>
+          )}
           <Link className="" to={`/profile/user`}>
             <img className="size-12 rounded-md" src={userDB?.photo} alt="" />
           </Link>
@@ -234,6 +229,64 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             />
           </div> */}
           {/* channels */}
+
+          <div className="space-y-4 py-6 font-medium p-4">
+            {/* <h3 className="text-sm font-semibold">Make an appointment</h3> */}
+            {!isOwner && (
+              <>
+                <button
+                  onClick={handleNavigate}
+                  // to={`/make-appointment/${ecoSpace?._id}`}
+                  className={`flex items-center gap-2 rounded-lg `}
+                >
+                  <LiaHandshakeSolid className="text-xl text-primary" />
+                  <span>Make an Appointment</span>
+                </button>
+
+                <NavLink
+                  // onClick={onClose}
+                  to={`/requested-appointments/${ecoSpace?._id}`}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 rounded-lg  ${
+                      isActive ? "bg-gray-200" : ""
+                    }`
+                  }
+                >
+                  <LiaHandshakeSolid className="text-xl text-primary" />
+                  <span>My Requested Appointments</span>
+                </NavLink>
+
+                <NavLink
+                  // onClick={onClose}
+                  to="/assessment"
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 rounded-lg  ${
+                      isActive ? "bg-gray-200" : ""
+                    }`
+                  }
+                >
+                  <MdAssessment className="text-xl text-primary" />
+                  <span>Assessment</span>
+                </NavLink>
+              </>
+            )}
+
+            {isOwner && (
+              <NavLink
+                // onClick={onClose}
+                to={`/appointment-requests/${ecoSpace?._id}`}
+                className={({ isActive }) =>
+                  `flex items-center gap-2 rounded-lg  ${
+                    isActive ? "bg-gray-200" : ""
+                  }`
+                }
+              >
+                <LiaHandshakeSolid className="text-xl text-primary" />
+                <span>Appointment Requests</span>
+              </NavLink>
+            )}
+          </div>
+
           <div className="">
             <Collapse
               bordered={false}
@@ -253,7 +306,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                   ))
                 : ""}
             </div>
-            {(isCoWorker || userDB?.role === "superAdmin") && (
+            {(isOwner || userDB?.role === "superAdmin") && (
               <button
                 onClick={() => setOpen(true)}
                 className="flex gap-1 items-center font-semibold "

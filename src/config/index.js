@@ -5,3 +5,8 @@ export default {
   openai_key: import.meta.env.VITE_openai_key,
   openai_api_url: import.meta.env.VITE_openai_api_url,
 };
+
+export const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};

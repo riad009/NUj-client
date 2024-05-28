@@ -1,6 +1,6 @@
 import { Input, Form, DatePicker, TimePicker, Select } from "antd";
 
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
@@ -10,12 +10,16 @@ import config from "../../config";
 
 import LocationMap from "./LocationMap";
 import SearchLocationInput from "./SearchLocationInput";
-import { neighbourhoods } from "./Neighbourhoods";
+import moment from "moment/moment";
 import { Option } from "antd/es/mentions";
 
 const MakeAppointment = () => {
+  const location = useLocation();
   const ecoSpaceId = useLoaderData();
-
+  const navigate = useNavigate();
+  const isCoWorker = location?.state.isCoWorker;
+  const clients = location?.state.clients;
+  console.log({ clients });
   const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
   const [placeName, setPlaceName] = useState("");
 
@@ -61,14 +65,25 @@ const MakeAppointment = () => {
   const handleMakeAppointment = (data) => {
     if (selectedLocation) {
       setIsAppointmentLoading(true);
+      const startTime = data?.appointmentLength[0];
+      const endTime = data?.appointmentLength[1];
+      const duration = moment.duration(endTime.diff(startTime));
+      const hours = duration.asHours();
+
       const newAppointment = {
         ...data,
         date: data["date"].format("YYYY-MM-DD"),
         time: data["time"].format("HH:mm:ss"),
-        participantId: userDB?._id,
+        appointmentLength: `${hours} Hours`,
+        // userId: userDB?._id,
+        requestedBy: userDB?._id,
         ecoSpaceId,
         location: selectedLocation,
       };
+
+      if (!newAppointment?.userEmail) {
+        newAppointment.userEmail = userDB?.email;
+      }
 
       toast.loading("Processing", { id: "appointment" });
       // !first upload the image on hosting and add it to newAppointment
@@ -83,6 +98,7 @@ const MakeAppointment = () => {
         .then((data) => {
           if (data.success) {
             setIsAppointmentLoading(false);
+            navigate(-1);
             return toast.success(data.message, { id: "appointment" });
           }
         })
@@ -121,9 +137,9 @@ const MakeAppointment = () => {
           >
             {/* name */}
             <div className="w-full">
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-5 mb-4">
                 <div className="flex flex-col gap-1 w-full">
-                  <label>Date: </label>
+                  <label>Date for appointment: </label>
                   <Form.Item
                     className="mb-1 "
                     name="date"
@@ -138,7 +154,7 @@ const MakeAppointment = () => {
                   </Form.Item>
                 </div>
                 <div className="flex flex-col gap-1 w-full">
-                  <label>Time: </label>
+                  <label>Time for appointment: </label>
                   <Form.Item
                     className="mb-1"
                     name="time"
@@ -155,47 +171,61 @@ const MakeAppointment = () => {
               </div>
               <div className="flex flex-col md:flex-row items-center gap-1 md:gap-5">
                 <div className="flex flex-col gap-1 w-full">
-                  <label>Neighbourhood: </label>
+                  <label>Length of appointment: </label>
                   <Form.Item
-                    name="neighbourhood"
                     className="mb-1"
+                    name="appointmentLength"
                     rules={[
                       {
                         required: true,
-                        message: "Select a neighbourhood",
+                        message: "Select appointment time length",
                       },
                     ]}
                   >
-                    <Select allowClear>
-                      {neighbourhoods?.length
-                        ? neighbourhoods.map((item, i) => (
-                            <Option key={i} value={item}>
-                              {item}
-                            </Option>
-                          ))
-                        : ""}
-                    </Select>
+                    <TimePicker.RangePicker className="w-full " />
                   </Form.Item>
                 </div>
                 <div className="flex flex-col gap-1 w-full">
-                  <label>Reason for Appointment: </label>
+                  <label>Destination Information: </label>
                   <Form.Item
                     className="mb-1"
-                    name="reason"
+                    name="destinationInformation"
                     rules={[
                       {
                         required: true,
-                        message: "Provide a reason",
+                        message: "Provide Destination Information",
                       },
                     ]}
                   >
-                    <Input
-                      size="middle"
-                      className=""
-                      placeholder="Ex: Need mental Support"
-                    />
+                    <Input size="middle" className="" />
                   </Form.Item>
                 </div>
+                {isCoWorker && (
+                  <div className="flex flex-col gap-1 w-full">
+                    <label>Select User: </label>
+                    <Form.Item
+                      className="mb-1"
+                      name="userEmail"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Provide Destination Information",
+                        },
+                      ]}
+                    >
+                      {/* <Input size="middle" className="" /> */}
+                      <Select allowClear>
+                        {clients?.length
+                          ? clients.map((client, i) => (
+                              <Option key={i} value={client}>
+                                {client}
+                              </Option>
+                            ))
+                          : ""}
+                      </Select>
+                    </Form.Item>
+                  </div>
+                )}
               </div>
 
               <div className="">

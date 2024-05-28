@@ -42,7 +42,7 @@ const ToxicDetectionActionPlan = () => {
                 </div>
               </div>
               <div className="text-center space-y-2">
-                <Link to="/toxic-detection/action-plan" className="p-btn">
+                <Link to="/assessment/action-plan" className="p-btn">
                   Schedule
                 </Link>
                 <p className="text-xs text-gray-500">Schedule Appointment</p>

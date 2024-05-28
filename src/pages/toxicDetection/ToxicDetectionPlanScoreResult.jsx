@@ -55,7 +55,7 @@ Provide a success plan based on the user's ratings.`;
         setResponse2(response1.data.choices[0].message.content);
         setLoading(false);
       } catch (error) {
-        console.error("Error:", error);
+        console.log("Error:", error);
         setLoading(false);
         setError("An error occurred. Please try again.");
       }
@@ -147,7 +147,7 @@ Provide a success plan based on the user's ratings.`;
               </div>
             )}
             <div className="text-center space-y-2">
-              {/* <Link to="/toxic-detection/action-plan" className="p-btn">
+              {/* <Link to="/assessment/action-plan" className="p-btn">
                 Download
               </Link> */}
               {response2 ? (

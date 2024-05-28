@@ -30,7 +30,7 @@ const ChooseImportance = () => {
       });
     }
 
-    navigate("/toxic-detection/score-result");
+    navigate("/assessment/score-result");
   };
 
   // open AI
