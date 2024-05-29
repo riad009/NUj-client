@@ -64,13 +64,13 @@ const AppointmentPage = () => {
 
       if (result.status === 200) {
         if (type === "rejected") {
-          await axios.post(`${config.api_url}/appointments/send-mail`, {
+          await axios.post(`${config.api_url}/notification/send-mail`, {
             email: appointment?.userId?.email,
             name: appointment?.userId?.name,
             status: "rejected",
           });
         } else if (type === "approved") {
-          await axios.post(`${config.api_url}/appointments/send-mail`, {
+          await axios.post(`${config.api_url}/notification/send-mail`, {
             email: appointment?.userId?.email,
             name: appointment?.userId?.name,
             status: "rejected",

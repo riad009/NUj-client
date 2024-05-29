@@ -1,4 +1,4 @@
-import { Collapse, Dropdown, Space } from "antd";
+import { Badge, Collapse, Dropdown, Space } from "antd";
 import { useContext, useState } from "react";
 import CoworkerListCard from "./CoworkerListCard";
 import { IoMdAdd, IoIosClose } from "react-icons/io";
@@ -13,14 +13,16 @@ import { FaPlusCircle, FaRegEdit } from "react-icons/fa";
 import ChannelListCard from "./ChannelListCard";
 import AddChannelModal from "./AddChannelModal";
 import { GoPlus } from "react-icons/go";
-import { IoHomeOutline } from "react-icons/io5";
+import { IoHomeOutline, IoNotifications } from "react-icons/io5";
 
 import AddNewProject from "./AddNewProject";
 import { LiaHandshakeSolid } from "react-icons/lia";
 import { MdAssessment } from "react-icons/md";
+import NotificationModal from "./NotificationModal";
 
 const EcoSpaceSidebar = ({ ecoSpace }) => {
   const [open, setOpen] = useState(false);
+  const [openNotification, setOpenNotification] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
   const [openChannel, setOpenChannel] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -123,6 +125,21 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     });
   };
 
+  const { data: notifications, refetch: refetchNoti } = useQuery({
+    queryKey: ["notification"],
+    queryFn: async () => {
+      const res = await fetch(
+        `${config.api_url}/notification?email=${userDB?.email}`
+      );
+      const data = await res.json();
+      return data.data;
+    },
+  });
+
+  const isNotification = notifications?.[0]?.isViewed;
+
+  console.log({ isNotification });
+
   return (
     <>
       <div className="col-span-1 border-r-[.5px] border-gray-600 h-[100vh] w-full py-5 bg-[#6a2b70] flex flex-col justify-between items-center gap-6 overflow-y-auto overflow-x-clip">
@@ -154,6 +171,15 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             : ""}
         </div>
         <div className="flex flex-col gap-2 items-center">
+          <div
+            onClick={() => setOpenNotification(true)}
+            className="cursor-pointer"
+          >
+            <Badge count={!isNotification && 1} offset={[-8, 7]} size="small">
+              <IoNotifications className="text-slate-300 text-5xl" />
+            </Badge>
+          </div>
+
           {isOwner && (
             <>
               <Link
@@ -323,6 +349,12 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
         open={openProjectModal}
         setOpen={setOpenProjectModal}
         refetch={refetch}
+      />
+      <NotificationModal
+        open={openNotification}
+        setOpen={setOpenNotification}
+        notifications={notifications}
+        refetch={refetchNoti}
       />
       <AddCoworkerModal ecoSpace={ecoSpace} open={open} setOpen={setOpen} />
       <AddChannelModal
