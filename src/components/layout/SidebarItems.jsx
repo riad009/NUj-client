@@ -82,31 +82,35 @@ const SidebarItems = () => {
           <span>Dashboard</span>
         </NavLink>
       )}
-      <NavLink
-        onClick={onClose}
-        to="/profile/eco-space/list"
-        className={({ isActive }) =>
-          `flex items-center gap-2 rounded-lg p-2 ${
-            isActive ? "bg-gray-200" : ""
-          }`
-        }
-      >
-        <PiOfficeChair className="text-xl text-primary" />
-        <span>My EcoSpaces</span>
-      </NavLink>
-      {(userDB?.role === "superAdmin" || userDB?.role === "admin") && (
+      {userDB?.role === "admin" && userDB?.role === "user" && (
         <NavLink
           onClick={onClose}
-          to="/create-eco-space/banner"
+          to="/profile/eco-space/list"
           className={({ isActive }) =>
             `flex items-center gap-2 rounded-lg p-2 ${
               isActive ? "bg-gray-200" : ""
             }`
           }
         >
-          <MdAddBusiness className="text-xl text-primary" />
-          <span>Add new EcoSpace</span>
+          <PiOfficeChair className="text-xl text-primary" />
+          <span>My EcoSpaces</span>
         </NavLink>
+      )}
+      {userDB?.role === "admin" && (
+        <>
+          <NavLink
+            onClick={onClose}
+            to="/create-eco-space/banner"
+            className={({ isActive }) =>
+              `flex items-center gap-2 rounded-lg p-2 ${
+                isActive ? "bg-gray-200" : ""
+              }`
+            }
+          >
+            <MdAddBusiness className="text-xl text-primary" />
+            <span>Add new EcoSpace</span>
+          </NavLink>
+        </>
       )}
 
       {userDB?.email && (

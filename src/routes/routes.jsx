@@ -50,6 +50,7 @@ import BothAdminRoute from "./BothAdminRoute";
 import AuthRoute from "./AuthRoute";
 import RequestedAppointments from "../pages/appointment/RequestedAppointments";
 import AppointmentRequests from "../pages/appointment/AppointmentRequests";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -195,9 +196,9 @@ export const router = createBrowserRouter([
     path: "/create-eco-space/banner",
     element: (
       <PrivateRoute>
-        <BothAdminRoute>
+        <AdminRoute>
           <CreateEcoSpaceBanner />
-        </BothAdminRoute>
+        </AdminRoute>
       </PrivateRoute>
     ),
   },

@@ -18,7 +18,7 @@ const AppointmentMapView = ({ lat, lng }) => {
     if (lat && lng) {
       const map = new window.google.maps.Map(mapRef.current, {
         center: { lat, lng },
-        zoom: 15,
+        zoom: 20,
       });
 
       new window.google.maps.Marker({

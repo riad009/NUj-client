@@ -30,7 +30,7 @@ const EcoSpaceLayout = () => {
 
   useEffect(() => {
     refetch();
-  }, [ecoSpaceId]);
+  }, [ecoSpaceId, refetch]);
 
   // const ecoSpace = data.data;
   if (isLoading) {
@@ -48,9 +48,10 @@ const EcoSpaceLayout = () => {
       >
         <EcoSpaceSidebar ecoSpace={ecoSpace} refetchEcoSpace={refetch} />
       </div>
+      {console.log({ ecoSpaceRightBarOpen, ecoSpaceLeftBarOpen })}
       <div
         className={`${
-          ecoSpaceRightBarOpen || ecoSpaceLeftBarOpen
+          (ecoSpaceRightBarOpen || ecoSpaceLeftBarOpen) && !isPersonalChat
             ? "hidden md:col-span-6 md:block"
             : "col-span-9"
         } w-[100vw] md:w-auto `}

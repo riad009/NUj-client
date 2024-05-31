@@ -101,6 +101,7 @@ const EcoSpaceConversation = ({ channelData }) => {
         // const result = res.data.data;
         refetch();
         setSelectedFiles([]);
+        setFilePreviews([]);
         setLoading(false);
         setMessage("");
       } catch (error) {

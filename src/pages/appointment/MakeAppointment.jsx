@@ -22,6 +22,9 @@ const MakeAppointment = () => {
   console.log({ clients });
   const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
   const [placeName, setPlaceName] = useState("");
+  const [address, setAddress] = useState("");
+
+  console.log({ placeName });
 
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 44.5,
@@ -79,6 +82,7 @@ const MakeAppointment = () => {
         requestedBy: userDB?._id,
         ecoSpaceId,
         location: selectedLocation,
+        address,
       };
 
       if (!newAppointment?.userEmail) {
@@ -168,6 +172,21 @@ const MakeAppointment = () => {
                     <TimePicker className="w-full " />
                   </Form.Item>
                 </div>
+                <div className="flex flex-col gap-1 w-full">
+                  <label>Name of business: </label>
+                  <Form.Item
+                    className="mb-1"
+                    name="businessName"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Provide name of business",
+                      },
+                    ]}
+                  >
+                    <Input size="middle" className="" />
+                  </Form.Item>
+                </div>
               </div>
               <div className="flex flex-col md:flex-row items-center gap-1 md:gap-5">
                 <div className="flex flex-col gap-1 w-full">
@@ -200,6 +219,7 @@ const MakeAppointment = () => {
                     <Input size="middle" className="" />
                   </Form.Item>
                 </div>
+
                 {isCoWorker && (
                   <div className="flex flex-col gap-1 w-full">
                     <label>Select User: </label>
@@ -233,6 +253,7 @@ const MakeAppointment = () => {
                   setSelectedLocation={setSelectedLocation}
                   placeName={placeName}
                   setPlaceName={setPlaceName}
+                  setAddress={setAddress}
                 />
               </div>
 

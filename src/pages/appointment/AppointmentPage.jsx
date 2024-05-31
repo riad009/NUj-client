@@ -30,7 +30,8 @@ const AppointmentPage = () => {
     ecoSpaceId,
     userId,
     status,
-
+    businessName,
+    address,
     date,
     time,
     location,
@@ -73,7 +74,7 @@ const AppointmentPage = () => {
           await axios.post(`${config.api_url}/notification/send-mail`, {
             email: appointment?.userId?.email,
             name: appointment?.userId?.name,
-            status: "rejected",
+            status: "approved",
           });
         }
 
@@ -144,6 +145,8 @@ const AppointmentPage = () => {
             </div>
             <div className="text-lg">
               <span>Participant - {userId?.name}</span>
+              <h3>Business name - {businessName}</h3>
+              <h3>Address - {address}</h3>
               <h3>Length of appointment - {appointmentLength}</h3>
               <h3>
                 Contact information for destination - {destinationInformation}

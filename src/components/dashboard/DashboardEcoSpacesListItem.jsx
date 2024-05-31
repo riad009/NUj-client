@@ -5,6 +5,8 @@ import { MdDelete } from "react-icons/md";
 
 import config from "../../config";
 import { toast } from "sonner";
+import { IoEye } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const DashboardEcoSpacesListItem = ({ ecoSpace, refetch, setrefetch }) => {
   const { company, coWorkers, plan, _id } = ecoSpace;
@@ -49,6 +51,9 @@ const DashboardEcoSpacesListItem = ({ ecoSpace, refetch, setrefetch }) => {
       <td>{coWorkers?.length || "N/A"}</td>
       <td>{plan?.title || "free"}</td>
       <td className="flex items-center justify-start gap-2">
+        <Link to={`/eco-space/${_id}`}>
+          <IoEye className="text-xl text-primary" />
+        </Link>
         <Popconfirm
           title="Delete the eco space!"
           description="Are you sure to delete this eco space?"

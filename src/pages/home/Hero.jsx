@@ -15,7 +15,7 @@ const Hero = () => {
               Wireframing Movement with Dignity.
             </h1>
           </div>
-          {(userDB?.role === "superAdmin" || userDB?.role === "admin") && (
+          {userDB?.role === "admin" && (
             <div className="flex gap-2 w-full">
               <Link to="/create-eco-space/banner" className="hero-btn">
                 Create Ecospace
