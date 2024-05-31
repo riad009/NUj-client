@@ -23,7 +23,7 @@ const LocationMap = ({ selectedLocation }) => {
           height: "500px",
         }}
         center={selectedLocation}
-        zoom={15}
+        zoom={20}
         onLoad={onMapLoad}
       >
         <MarkerF

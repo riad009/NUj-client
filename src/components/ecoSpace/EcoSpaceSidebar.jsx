@@ -136,9 +136,9 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   });
 
-  const isNotification = notifications?.[0]?.isViewed;
+  const isNotification = notifications?.[notifications?.length - 1]?.isViewed;
 
-  console.log({ isNotification });
+  console.log({ notifications, isNotification });
 
   return (
     <>
@@ -171,15 +171,6 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             : ""}
         </div>
         <div className="flex flex-col gap-2 items-center">
-          <div
-            onClick={() => setOpenNotification(true)}
-            className="cursor-pointer"
-          >
-            <Badge count={!isNotification && 1} offset={[-8, 7]} size="small">
-              <IoNotifications className="text-slate-300 text-5xl" />
-            </Badge>
-          </div>
-
           {isOwner && (
             <>
               <Link
@@ -197,6 +188,18 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
               </div>
             </>
           )}
+          <div
+            onClick={() => setOpenNotification(true)}
+            className="cursor-pointer"
+          >
+            <Badge
+              count={isNotification === false ? 1 : 0}
+              offset={[-8, 7]}
+              size="small"
+            >
+              <IoNotifications className="text-slate-300 text-5xl" />
+            </Badge>
+          </div>
           <Link className="" to={`/profile/user`}>
             <img className="size-12 rounded-md" src={userDB?.photo} alt="" />
           </Link>

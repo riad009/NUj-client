@@ -4,17 +4,17 @@ import { useEffect } from "react";
 import config from "../../config";
 
 const NotificationModal = ({ open, setOpen, notifications, refetch }) => {
-  const noti = notifications?.[0]?.email;
+  const id = notifications?.[notifications?.length - 1]?._id;
 
-  console.log({ noti });
+  console.log({ id });
 
   useEffect(() => {
     const udpateNoti = async () => {
-      await axios.patch(`${config.api_url}/notification/update/${noti}`);
+      await axios.get(`${config.api_url}/notification/get/${id}`);
       refetch();
     };
     udpateNoti();
-  }, [noti, refetch, open]);
+  }, [refetch, open]);
 
   return (
     <>

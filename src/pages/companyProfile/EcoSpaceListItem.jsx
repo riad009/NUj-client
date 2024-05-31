@@ -62,7 +62,7 @@ const EcoSpaceListItem = ({ ecoSpace, refetch }) => {
           Visit EcoSpace
         </Link>
 
-        {(isOwner || userDB?.role === "superAdmin") && (
+        {isOwner && (
           <Popconfirm
             title="Delete the eco space!"
             description="Are you sure to delete this eco space?"

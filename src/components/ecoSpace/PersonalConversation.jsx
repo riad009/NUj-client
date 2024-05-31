@@ -60,14 +60,16 @@ const PersonalConversation = ({ email }) => {
   };
 
   const { data, refetch } = useQuery({
-    queryKey: ["messages", email],
+    queryKey: ["personal_messages", email],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${config.api_url}/message/email/${email}`
+        `${config.api_url}/message/email/${userDB?.email}?userEmail=${email}`
       );
       return data.data;
     },
   });
+
+  console.log({ data });
 
   useEffect(() => {
     // Scroll to the bottom when the component mounts
@@ -99,6 +101,7 @@ const PersonalConversation = ({ email }) => {
         // const result = res.data.data;
         refetch();
         setSelectedFiles([]);
+        setFilePreviews([]);
         setLoading(false);
         setMessage("");
       } catch (error) {

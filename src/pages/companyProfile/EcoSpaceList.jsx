@@ -52,7 +52,7 @@ const EcoSpaceList = () => {
               : ""}
           </>
 
-          {(userDB?.role === "superAdmin" || userDB?.role === "admin") && (
+          {userDB?.role === "admin" && (
             <div className="text-center">
               <Link to="/create-eco-space/banner" className="p-btn">
                 Create New
