@@ -82,7 +82,7 @@ const SidebarItems = () => {
           <span>Dashboard</span>
         </NavLink>
       )}
-      {userDB?.role === "admin" && userDB?.role === "user" && (
+      {(userDB?.role === "admin" || userDB?.role === "user") && (
         <NavLink
           onClick={onClose}
           to="/profile/eco-space/list"

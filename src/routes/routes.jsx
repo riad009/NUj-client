@@ -51,6 +51,7 @@ import AuthRoute from "./AuthRoute";
 import RequestedAppointments from "../pages/appointment/RequestedAppointments";
 import AppointmentRequests from "../pages/appointment/AppointmentRequests";
 import AdminRoute from "./AdminRoute";
+import Meeting from "../components/ecoSpace/Meeting";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -122,6 +123,10 @@ export const router = createBrowserRouter([
       {
         path: "/appointment-requests/:ecoSpaceId",
         element: <AppointmentRequests />,
+      },
+      {
+        path: "/meeting",
+        element: <Meeting />,
       },
       {
         path: "/make-appointment/:ecoSpaceId",
