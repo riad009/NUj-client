@@ -1,4 +1,6 @@
 import moment from "moment";
+import { FaFile } from "react-icons/fa";
+import { saveAs } from "file-saver";
 
 const ConversationCard = ({ conversation, chatRef }) => {
   const email = conversation?.email;
@@ -6,8 +8,13 @@ const ConversationCard = ({ conversation, chatRef }) => {
   const message = conversation?.message;
   const audio = conversation?.audio;
   const video = conversation?.video;
+  const document = conversation?.document;
   const image = conversation?.image;
   const time = conversation?.createdAt;
+
+  const handleDownload = () => {
+    saveAs(document, "file");
+  };
 
   return (
     <div className="flex gap-2 items-start" ref={chatRef}>
@@ -51,6 +58,14 @@ const ConversationCard = ({ conversation, chatRef }) => {
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+          )}
+          {document && (
+            <div
+              className="w-[50px] p-2 rounded-sm flex justify-between shadow text-5xl cursor-pointer"
+              onClick={handleDownload}
+            >
+              <FaFile />
+            </div>
           )}
         </div>
       </div>

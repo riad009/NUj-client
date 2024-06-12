@@ -70,6 +70,12 @@ const AppointmentPage = () => {
             name: appointment?.userId?.name,
             status: "rejected",
           });
+        } else if (type === "in-progress") {
+          await axios.post(`${config.api_url}/notification/send-mail`, {
+            email: appointment?.userId?.email,
+            name: appointment?.userId?.name,
+            status: "in-progress",
+          });
         } else if (type === "approved") {
           await axios.post(`${config.api_url}/notification/send-mail`, {
             email: appointment?.userId?.email,

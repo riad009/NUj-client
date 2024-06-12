@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 const DashboardEcoSpacesListItem = ({ ecoSpace, refetch, setrefetch }) => {
   const { company, coWorkers, plan, _id } = ecoSpace;
 
+  console.log({ ecoSpace });
+
   const confirmDelete = async () => {
     try {
       const res = await axios.delete(
@@ -49,7 +51,7 @@ const DashboardEcoSpacesListItem = ({ ecoSpace, refetch, setrefetch }) => {
       {/* <td>{serviceId?.title}</td> */}
 
       <td>{coWorkers?.length || "N/A"}</td>
-      <td>{plan?.title || "free"}</td>
+      <td>{plan?.title || "N/A"}</td>
       <td className="flex items-center justify-start gap-2">
         <Link to={`/eco-space/${_id}`}>
           <IoEye className="text-xl text-primary" />

@@ -50,7 +50,7 @@ const EcoSpaceListItem = ({ ecoSpace, refetch }) => {
         </h2>
         <div className="flex gap-1 items-center">
           <img className="size-10 rounded-box " src={userDB?.photo} alt="" />
-          <p>{coWorkers.length} members</p>
+          <p>{coWorkers.length} co worker</p>
         </div>
       </div>
 

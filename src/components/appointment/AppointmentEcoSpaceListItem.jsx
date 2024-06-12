@@ -2,9 +2,9 @@ import { Popconfirm } from "antd";
 import axios from "axios";
 import { toast } from "sonner";
 import config from "../../config";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const AppointmentEcoSpaceListItem = ({ appointment, setrefetch, refetch }) => {
+const AppointmentEcoSpaceListItem = ({ appointment, refetch }) => {
   const { date, status, _id } = appointment;
   const { pathname } = useLocation();
 
@@ -17,7 +17,7 @@ const AppointmentEcoSpaceListItem = ({ appointment, setrefetch, refetch }) => {
       );
 
       if (res?.status === 200) {
-        setrefetch(!refetch);
+        refetch();
         toast.success("Appointment Cancelled!", {
           position: "top-center",
         });
