@@ -98,6 +98,14 @@ const PersonalConversation = ({ email }) => {
         }
 
         await axios.post(`${config.api_url}/message/create`, formData);
+
+        await axios.post(`${config.api_url}/notification/send-mail`, {
+          email: email,
+          name: userDB?.name,
+
+          text: `${userDB?.name} sent you a message.`,
+        });
+
         // const result = res.data.data;
         refetch();
         setSelectedFiles([]);

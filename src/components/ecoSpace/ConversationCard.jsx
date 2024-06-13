@@ -64,7 +64,7 @@ const ConversationCard = ({ conversation, chatRef }) => {
               className="w-[50px] p-2 rounded-sm flex justify-between shadow text-5xl cursor-pointer"
               onClick={handleDownload}
             >
-              <FaFile />
+              <FaFile className="text-gray-600" />
             </div>
           )}
         </div>

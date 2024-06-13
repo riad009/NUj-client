@@ -136,7 +136,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   });
 
-  const isNotification = notifications?.[notifications?.length - 1]?.isViewed;
+  const isNotification = notifications?.[0]?.isViewed;
 
   console.log({ notifications, isNotification });
 
@@ -226,9 +226,11 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             </div>
 
             <div className="flex items-center gap-2">
-              <button onClick={() => setOpenEditModal(true)}>
-                <FaRegEdit className="size-6" />
-              </button>
+              {(isOwner || userDB?.role === "superAdmin") && (
+                <button onClick={() => setOpenEditModal(true)}>
+                  <FaRegEdit className="size-6" />
+                </button>
+              )}
               <button onClick={() => setEcoSpaceLeftBarOpen(false)}>
                 <IoIosClose className="size-8 block md:hidden" />
               </button>
@@ -236,29 +238,6 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
           </div>
         </div>
         <div className="overflow-y-auto overflow-x-clip h-[90vh]">
-          {/* projects */}
-          {/* <div className="">
-            <Collapse
-              bordered={false}
-              accordion
-              className=""
-              items={projectsItems}
-              expandIconPosition="end"
-              defaultActiveKey={["1"]}
-            />
-          </div> */}
-          {/* starred */}
-          {/* <div className="">
-            <Collapse
-              bordered={false}
-              accordion
-              className=""
-              items={starredItems}
-              expandIconPosition="end"
-            />
-          </div> */}
-          {/* channels */}
-
           {userDB?.role !== "superAdmin" && (
             <div className="space-y-4 py-6 font-medium p-4">
               {/* <h3 className="text-sm font-semibold">Make an appointment</h3> */}

@@ -2,9 +2,12 @@ import { Modal } from "antd";
 import axios from "axios";
 import { useEffect } from "react";
 import config from "../../config";
+import moment from "moment";
+import { FaTrash } from "react-icons/fa";
+import { toast } from "sonner";
 
 const NotificationModal = ({ open, setOpen, notifications, refetch }) => {
-  const id = notifications?.[notifications?.length - 1]?._id;
+  const id = notifications?.[0]?._id;
 
   console.log({ id });
 
@@ -15,6 +18,20 @@ const NotificationModal = ({ open, setOpen, notifications, refetch }) => {
     };
     udpateNoti();
   }, [refetch, open]);
+
+  const deleteNoti = async (notiId) => {
+    try {
+      const res = await axios.delete(
+        `${config.api_url}/notification/delete/${notiId}`
+      );
+      if (res.status === 200) {
+        refetch();
+        toast.success("Notification deleted!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -31,8 +48,21 @@ const NotificationModal = ({ open, setOpen, notifications, refetch }) => {
           {notifications?.length > 0 ? (
             <>
               {notifications?.map((noti, index) => (
-                <div key={index} className="bg-gray-100 p-2 rounded-sm">
-                  {noti?.message}
+                <div
+                  key={index}
+                  className="bg-gray-100 p-2 rounded-sm flex items-center justify-between gap-4"
+                >
+                  <div>
+                    <p className="text-xs text-gray-400">
+                      {moment(noti?.createdAt).fromNow()}
+                    </p>
+                    <p>{noti?.message}</p>
+                  </div>
+
+                  <FaTrash
+                    className="cursor-pointer"
+                    onClick={() => deleteNoti(noti?._id)}
+                  />
                 </div>
               ))}
             </>

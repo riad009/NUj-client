@@ -59,6 +59,15 @@ const AppointmentPage = () => {
 
   const handleMarkComplete = async (id, type) => {
     try {
+      const text =
+        type === "approved"
+          ? `Congratulations ${appointment?.userId?.name}! Your appointment has been approved`
+          : type === "rejected"
+          ? "Your appointment was not approved. Please contact your provider"
+          : type === "in-progress"
+          ? "Your appointment is In-progress"
+          : "";
+
       const result = await axios.patch(
         `${config.api_url}/appointments/update-status/${id}?status=${type}`
       );
@@ -69,28 +78,31 @@ const AppointmentPage = () => {
             email: appointment?.userId?.email,
             name: appointment?.userId?.name,
             status: "rejected",
+            text,
           });
         } else if (type === "in-progress") {
           await axios.post(`${config.api_url}/notification/send-mail`, {
             email: appointment?.userId?.email,
             name: appointment?.userId?.name,
             status: "in-progress",
+            text,
           });
         } else if (type === "approved") {
           await axios.post(`${config.api_url}/notification/send-mail`, {
             email: appointment?.userId?.email,
             name: appointment?.userId?.name,
             status: "approved",
+            text,
           });
         }
 
         refetch();
-        const text =
+        const toasttext =
           type === "approved" || type === "in-progress"
             ? "Appointment approved!"
             : "Appointment rejected!";
 
-        toast.success(text);
+        toast.success(toasttext);
       }
     } catch (error) {
       console.log(error);
