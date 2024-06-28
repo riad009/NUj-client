@@ -136,7 +136,7 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
     },
   });
 
-  const isNotification = notifications?.[notifications?.length - 1]?.isViewed;
+  const isNotification = notifications?.[0]?.isViewed;
 
   console.log({ notifications, isNotification });
 
@@ -226,9 +226,11 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             </div>
 
             <div className="flex items-center gap-2">
-              <button onClick={() => setOpenEditModal(true)}>
-                <FaRegEdit className="size-6" />
-              </button>
+              {(isOwner || userDB?.role === "superAdmin") && (
+                <button onClick={() => setOpenEditModal(true)}>
+                  <FaRegEdit className="size-6" />
+                </button>
+              )}
               <button onClick={() => setEcoSpaceLeftBarOpen(false)}>
                 <IoIosClose className="size-8 block md:hidden" />
               </button>
@@ -236,45 +238,52 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
           </div>
         </div>
         <div className="overflow-y-auto overflow-x-clip h-[90vh]">
-          {/* projects */}
-          {/* <div className="">
-            <Collapse
-              bordered={false}
-              accordion
-              className=""
-              items={projectsItems}
-              expandIconPosition="end"
-              defaultActiveKey={["1"]}
-            />
-          </div> */}
-          {/* starred */}
-          {/* <div className="">
-            <Collapse
-              bordered={false}
-              accordion
-              className=""
-              items={starredItems}
-              expandIconPosition="end"
-            />
-          </div> */}
-          {/* channels */}
+          {userDB?.role !== "superAdmin" && (
+            <div className="space-y-4 py-6 font-medium p-4">
+              {/* <h3 className="text-sm font-semibold">Make an appointment</h3> */}
+              {!isOwner && (
+                <>
+                  <button
+                    onClick={handleNavigate}
+                    // to={`/make-appointment/${ecoSpace?._id}`}
+                    className={`flex items-center gap-2 rounded-lg `}
+                  >
+                    <LiaHandshakeSolid className="text-xl text-primary" />
+                    <span>Make an Appointment</span>
+                  </button>
 
-          <div className="space-y-4 py-6 font-medium p-4">
-            {/* <h3 className="text-sm font-semibold">Make an appointment</h3> */}
-            {!isOwner && (
-              <>
-                <button
-                  onClick={handleNavigate}
-                  // to={`/make-appointment/${ecoSpace?._id}`}
-                  className={`flex items-center gap-2 rounded-lg `}
-                >
-                  <LiaHandshakeSolid className="text-xl text-primary" />
-                  <span>Make an Appointment</span>
-                </button>
+                  <NavLink
+                    // onClick={onClose}
+                    to={`/requested-appointments/${ecoSpace?._id}`}
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 rounded-lg  ${
+                        isActive ? "bg-gray-200" : ""
+                      }`
+                    }
+                  >
+                    <LiaHandshakeSolid className="text-xl text-primary" />
+                    <span>My Requested Appointments</span>
+                  </NavLink>
 
+                  <NavLink
+                    // onClick={onClose}
+                    to="/assessment"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 rounded-lg  ${
+                        isActive ? "bg-gray-200" : ""
+                      }`
+                    }
+                  >
+                    <MdAssessment className="text-xl text-primary" />
+                    <span>Assessment</span>
+                  </NavLink>
+                </>
+              )}
+
+              {isOwner && (
                 <NavLink
                   // onClick={onClose}
-                  to={`/requested-appointments/${ecoSpace?._id}`}
+                  to={`/appointment-requests/${ecoSpace?._id}`}
                   className={({ isActive }) =>
                     `flex items-center gap-2 rounded-lg  ${
                       isActive ? "bg-gray-200" : ""
@@ -282,40 +291,11 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
                   }
                 >
                   <LiaHandshakeSolid className="text-xl text-primary" />
-                  <span>My Requested Appointments</span>
+                  <span>Appointment Requests</span>
                 </NavLink>
-
-                <NavLink
-                  // onClick={onClose}
-                  to="/assessment"
-                  className={({ isActive }) =>
-                    `flex items-center gap-2 rounded-lg  ${
-                      isActive ? "bg-gray-200" : ""
-                    }`
-                  }
-                >
-                  <MdAssessment className="text-xl text-primary" />
-                  <span>Assessment</span>
-                </NavLink>
-              </>
-            )}
-
-            {isOwner && (
-              <NavLink
-                // onClick={onClose}
-                to={`/appointment-requests/${ecoSpace?._id}`}
-                className={({ isActive }) =>
-                  `flex items-center gap-2 rounded-lg  ${
-                    isActive ? "bg-gray-200" : ""
-                  }`
-                }
-              >
-                <LiaHandshakeSolid className="text-xl text-primary" />
-                <span>Appointment Requests</span>
-              </NavLink>
-            )}
-          </div>
-
+              )}
+            </div>
+          )}
           <div className="">
             <Collapse
               bordered={false}

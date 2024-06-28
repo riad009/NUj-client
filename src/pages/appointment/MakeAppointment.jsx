@@ -66,6 +66,8 @@ const MakeAppointment = () => {
   const { userDB } = useContext(AuthContext);
 
   const handleMakeAppointment = (data) => {
+    console.log(data.time.format("h:mm a"));
+
     if (selectedLocation) {
       setIsAppointmentLoading(true);
       const startTime = data?.appointmentLength[0];
@@ -76,8 +78,8 @@ const MakeAppointment = () => {
       const newAppointment = {
         ...data,
         date: data["date"].format("YYYY-MM-DD"),
-        time: data["time"].format("HH:mm:ss"),
-        appointmentLength: `${hours} Hours`,
+        time: data["time"].format("h:mm a"),
+        appointmentLength: `${hours?.toFixed(0)} Hours`,
         // userId: userDB?._id,
         requestedBy: userDB?._id,
         ecoSpaceId,
@@ -169,7 +171,7 @@ const MakeAppointment = () => {
                       },
                     ]}
                   >
-                    <TimePicker className="w-full " />
+                    <TimePicker format="h:mm a" className="w-full " />
                   </Form.Item>
                 </div>
                 <div className="flex flex-col gap-1 w-full">
@@ -201,7 +203,10 @@ const MakeAppointment = () => {
                       },
                     ]}
                   >
-                    <TimePicker.RangePicker className="w-full " />
+                    <TimePicker.RangePicker
+                      format="h:mm a"
+                      className="w-full "
+                    />
                   </Form.Item>
                 </div>
                 <div className="flex flex-col gap-1 w-full">

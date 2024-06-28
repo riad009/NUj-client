@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Button, Form, Input, Modal, Select } from "antd";
-import { Option } from "antd/es/mentions";
+import { Form, Input, Modal } from "antd";
+
 import TextArea from "antd/es/input/TextArea";
 import { toast } from "sonner";
 import config from "../../config";
-import { useNavigate } from "react-router-dom";
+
 const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
-  const navigate = useNavigate();
   const { company, description, website, email, phone, address, _id } =
     ecoSpace ?? {};
 

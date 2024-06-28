@@ -52,6 +52,8 @@ import RequestedAppointments from "../pages/appointment/RequestedAppointments";
 import AppointmentRequests from "../pages/appointment/AppointmentRequests";
 import AdminRoute from "./AdminRoute";
 import Meeting from "../components/ecoSpace/Meeting";
+import ForgotPassword from "../pages/login/ForgotPassword";
+import ResetPassword from "../pages/login/ResetPassword";
 
 export const router = createBrowserRouter([
   ...authRegisterRoutes,
@@ -185,6 +187,22 @@ export const router = createBrowserRouter([
     element: (
       <AuthRoute>
         <LoginOptions />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/forgot-password",
+    element: (
+      <AuthRoute>
+        <ForgotPassword />
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/reset-password/:token",
+    element: (
+      <AuthRoute>
+        <ResetPassword />
       </AuthRoute>
     ),
   },

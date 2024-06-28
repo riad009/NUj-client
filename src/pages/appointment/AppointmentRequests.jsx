@@ -1,30 +1,29 @@
-import { useContext, useEffect, useState } from "react";
-
 import AppointmentEcoSpaceListItem from "../../components/appointment/AppointmentEcoSpaceListItem";
 import config from "../../config";
 import LoadingScreen from "../../components/LoadingScreen";
-import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const AppointmentRequests = () => {
-  const { userDB } = useContext(AuthContext);
   const { ecoSpaceId } = useParams();
-  const [appointments, setappointments] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [refetch, setrefetch] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch(
-      `${config.api_url}/appointments/requested-appointments?ecoSpaceId=${ecoSpaceId}&query=requests`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setappointments(data.data);
-        setIsLoading(false);
-      })
-      .catch((err) => setIsLoading(false));
-  }, [ecoSpaceId, userDB?._id, refetch]);
+  const {
+    data: appointments,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["appointment-requests", ecoSpaceId],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `${config.api_url}/appointments/requested-appointments?ecoSpaceId=${ecoSpaceId}&query=requests`
+      );
+
+      console.log(data.data);
+      return data.data;
+    },
+  });
 
   return (
     <div className="my-24">
@@ -37,7 +36,6 @@ const AppointmentRequests = () => {
                 key={i}
                 appointment={appointment}
                 refetch={refetch}
-                setrefetch={setrefetch}
               />
             ))
           ) : (

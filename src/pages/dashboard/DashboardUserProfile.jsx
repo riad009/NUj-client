@@ -118,15 +118,15 @@ const DashboardUserProfile = () => {
     doc.save(`${user?.name || "profile"}.pdf`);
   };
 
-  const handleMakeAdmin = async () => {
+  const handleRole = async (role) => {
     try {
       const res = await axios.put(
         `${config.api_url}/users/update-user/${userId}`,
-        { role: "admin" }
+        { role }
       );
 
       if (res?.status === 200) {
-        toast.success("User made as admin!", {
+        toast.success(`User role changed to ${role}!`, {
           position: "top-center",
         });
         navigate(-1);
@@ -337,9 +337,15 @@ const DashboardUserProfile = () => {
         </div>
       </Form>
       <div className="text-center flex items-center gap-3 justify-center">
-        <button onClick={handleMakeAdmin} className="p-btn">
-          Make Admin
-        </button>
+        {user?.role === "user" ? (
+          <button onClick={() => handleRole("admin")} className="p-btn">
+            Make Admin
+          </button>
+        ) : (
+          <button onClick={() => handleRole("user")} className="p-btn">
+            Make User
+          </button>
+        )}
         <button onClick={printPdf} className="p-btn">
           Download Information
         </button>

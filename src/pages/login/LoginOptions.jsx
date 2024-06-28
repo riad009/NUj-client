@@ -164,13 +164,19 @@ export default function LoginOptions() {
             >
               <Input.Password type="password" className="h-[38px]" />
             </Form.Item>
+            <Link
+              to="/forgot-password"
+              className="text-blue-600 hover:underline flex justify-end pt-1"
+            >
+              Forgot password?
+            </Link>
           </div>
         </div>
 
         <Button
           htmlType="submit"
           disabled={loading}
-          className="mt-10 h-[40px] bg-blue-500 text-white"
+          className="mt-6 h-[40px] bg-blue-500 text-white"
         >
           {loading ? "Processing.." : "Signin"}
         </Button>

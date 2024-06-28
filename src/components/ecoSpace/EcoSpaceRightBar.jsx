@@ -67,7 +67,7 @@ const EcoSpaceRightBar = ({ ecoSpace }) => {
     },
     {
       key: "2",
-      label: "Members",
+      label: "Clients",
       children: (
         <div className="flex flex-col bg-base-200 p-2 rounded-md space-y-4 text-gray-500">
           {project?.clients?.length

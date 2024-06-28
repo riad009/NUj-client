@@ -6,7 +6,7 @@ import axios from "axios";
 import config from "../../config";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { FaImage } from "react-icons/fa";
+import { FaFile, FaImage } from "react-icons/fa";
 import { FaVideo } from "react-icons/fa";
 import { AiFillAudio } from "react-icons/ai";
 import { IoMdSend } from "react-icons/io";
@@ -26,7 +26,6 @@ const EcoSpaceConversation = ({ channelData }) => {
 
   const { projectId, ecoSpaceId } = useParams();
 
-  console.log({ selectedFiles });
   const messageContainerRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -47,7 +46,7 @@ const EcoSpaceConversation = ({ channelData }) => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
-          resolve({ type: file.type, src: reader.result });
+          resolve({ type: file.type, src: reader.result, name: file.name });
         };
         reader.onerror = () => {
           reject(new Error("File reading error"));
@@ -199,6 +198,20 @@ const EcoSpaceConversation = ({ channelData }) => {
                           />
                         </div>
                       );
+                    } else if (file.type.startsWith("application/")) {
+                      return (
+                        <div
+                          style={{ width: "150px", borderRadius: "5px" }}
+                          key={index}
+                          className="file-link leading-[0.1px] shadow object-cover h-32 p-2 flex flex-col justify-center"
+                        >
+                          <FaFile className="text-4xl" />
+
+                          <p className="text-xs inline break-words">
+                            {file.name}
+                          </p>
+                        </div>
+                      );
                     } else {
                       return null;
                     }
@@ -229,6 +242,17 @@ const EcoSpaceConversation = ({ channelData }) => {
                     onChange={handleFileChange}
                     id="video"
                     className="hidden"
+                  />
+                  <label htmlFor="document">
+                    <FaFile />
+                  </label>
+                  <input
+                    name="document"
+                    type="file"
+                    onChange={handleFileChange}
+                    id="document"
+                    className="hidden"
+                    accept=".pdf"
                   />
                   <label htmlFor="audio">
                     <AiFillAudio />
