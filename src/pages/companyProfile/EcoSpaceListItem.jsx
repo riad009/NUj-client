@@ -46,7 +46,7 @@ const EcoSpaceListItem = ({ ecoSpace, refetch }) => {
     <div className="bg-white flex flex-col md:flex-row justify-between items-start md:items-center p-5 gap-2 rounded-lg">
       <div className="flex-1">
         <h2 className="text-2xl md:text-lg">
-          {company} ({isOwner ? "Owner" : isCoWorker ? "Co-worker" : "Member"})
+          {company} ({isOwner ? "Owner" : isCoWorker ? "Co-worker" : "Client"})
         </h2>
         <div className="flex gap-1 items-center">
           <img className="size-10 rounded-box " src={userDB?.photo} alt="" />
