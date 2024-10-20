@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 import {
   GoogleAuthProvider,
   getAuth,
   onAuthStateChanged,
   sendSignInLinkToEmail,
   signInWithPopup,
-  signOut,
   updateProfile,
-} from "firebase/auth";
-import app from "../../firebase/firebase.init";
-import axios from "axios";
+} from 'firebase/auth';
+import app from '../../firebase/firebase.init';
+import axios from 'axios';
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-import config from "../../config";
+import config from '../../config';
 
 export const AuthContext = createContext();
 
@@ -65,7 +64,7 @@ const AuthProvider = ({ children }) => {
       // URL you want to redirect back to. The domain (www.example.com) for this
       // URL must be in the authorized domains list in the Firebase Console.
       // url: "http://localhost:5173/",
-      url: "https://nu-j-9c35c.web.app/",
+      url: 'https://nu-j-9c35c.web.app/',
       // This must be true.
       handleCodeInApp: true,
     });
@@ -84,7 +83,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem('accessToken');
     setUserRefetch(!userRefetch);
   };
 
@@ -124,7 +123,7 @@ const AuthProvider = ({ children }) => {
   // }, [user, user?.email]);
 
   // Getting the user from mongodb database
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem('accessToken');
   useEffect(() => {
     const getProfile = async () => {
       setIsLoading(true);
@@ -141,8 +140,8 @@ const AuthProvider = ({ children }) => {
       } catch (error) {
         console.log(error);
         setIsLoading(false);
-        if (error.response.data.message === "Invalid Token!") {
-          localStorage.removeItem("accessToken");
+        if (error.response.data.message === 'Invalid Token!') {
+          localStorage.removeItem('accessToken');
         }
       }
     };
