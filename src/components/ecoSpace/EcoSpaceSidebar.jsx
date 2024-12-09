@@ -20,7 +20,7 @@ import { LiaHandshakeSolid } from 'react-icons/lia';
 import { MdAssessment } from 'react-icons/md';
 import NotificationModal from './NotificationModal';
 
-const EcoSpaceSidebar = ({ ecoSpace }) => {
+const EcoSpaceSidebar = ({ ecoSpace, refetchEcoSpace }) => {
   const [open, setOpen] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
   const [openProjectModal, setOpenProjectModal] = useState(false);
@@ -319,7 +319,12 @@ const EcoSpaceSidebar = ({ ecoSpace }) => {
             <div className='flex flex-col gap-2 text-gray-700 text-sm mt-3 mb-6'>
               {ecoSpace?.coWorkers?.length
                 ? ecoSpace?.coWorkers.map((coworker, i) => (
-                    <CoworkerListCard key={i} coworker={coworker} />
+                    <CoworkerListCard
+                      key={i}
+                      coworker={coworker}
+                      isOwner={isOwner}
+                      refetchEcoSpace={refetchEcoSpace}
+                    />
                   ))
                 : ''}
             </div>

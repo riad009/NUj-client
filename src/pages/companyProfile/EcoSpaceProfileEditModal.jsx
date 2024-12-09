@@ -1,18 +1,24 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal } from 'antd';
 
-import TextArea from "antd/es/input/TextArea";
-import { toast } from "sonner";
-import config from "../../config";
+import TextArea from 'antd/es/input/TextArea';
+import { toast } from 'sonner';
+import config from '../../config';
 
-const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
+const EcoSpaceProfileEditMpdal = ({
+  open,
+  setOpen,
+  ecoSpace,
+  refetch,
+  setrefetch,
+}) => {
   const { company, description, website, email, phone, address, _id } =
     ecoSpace ?? {};
 
   const handleUpdateEcoSpace = (data) => {
     fetch(`${config.api_url}/eco-spaces/update/eco-space/${_id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        "content-type": "Application/json",
+        'content-type': 'Application/json',
       },
       body: JSON.stringify(data),
     })
@@ -21,6 +27,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
         toast.success(data.message);
         console.log(data);
         setOpen(false);
+        setrefetch(!refetch);
         // navigate("/profile/eco-space/list");
       });
   };
@@ -28,7 +35,7 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
   return (
     <>
       <Modal
-        title="EcoSpace - BlockClub"
+        title='EcoSpace - BlockClub'
         centered
         open={open}
         onOk={() => setOpen(false)}
@@ -39,8 +46,8 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
         footer={null}
       >
         <Form
-          className="space-y-5"
-          name="basic"
+          className='space-y-5'
+          name='basic'
           initialValues={{
             company,
             description,
@@ -49,29 +56,29 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
             phone,
             address,
           }}
-          autoComplete="off"
+          autoComplete='off'
           onFinish={handleUpdateEcoSpace}
         >
           {/* name */}
-          <div className="w-full">
-            <div className="flex items-center gap-5">
-              <div className="flex flex-col gap-1 w-full">
+          <div className='w-full'>
+            <div className='flex items-center gap-5'>
+              <div className='flex flex-col gap-1 w-full'>
                 <label>Company/Org Name: </label>
                 <Form.Item
-                  className="mb-1"
-                  name="company"
+                  className='mb-1'
+                  name='company'
                   rules={[
                     {
                       required: false,
-                      message: "Provide a Name",
+                      message: 'Provide a Name',
                     },
                   ]}
                 >
                   <Input
                     // defaultValue={user?.email}
-                    size="middle"
-                    className=""
-                    placeholder="Ex: Comant ltd"
+                    size='middle'
+                    className=''
+                    placeholder='Ex: Comant ltd'
                   />
                 </Form.Item>
               </div>
@@ -96,100 +103,100 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
                 </Form.Item>
               </div> */}
             </div>
-            <div className="flex items-center gap-5">
-              <div className="flex flex-col gap-1 w-full">
+            <div className='flex items-center gap-5'>
+              <div className='flex flex-col gap-1 w-full'>
                 <label>Email: </label>
                 <Form.Item
-                  className="mb-1"
-                  name="email"
+                  className='mb-1'
+                  name='email'
                   rules={[
                     {
                       required: false,
-                      message: "Provide an email",
+                      message: 'Provide an email',
                     },
                   ]}
                 >
                   <Input
                     // defaultValue={user?.email}
-                    size="middle"
-                    className=""
-                    placeholder="Ex: example@gmail.com"
+                    size='middle'
+                    className=''
+                    placeholder='Ex: example@gmail.com'
                   />
                 </Form.Item>
               </div>
 
-              <div className="flex flex-col gap-1 w-full">
+              <div className='flex flex-col gap-1 w-full'>
                 <label>Phone: </label>
                 <Form.Item
-                  className="mb-1"
-                  name="phone"
+                  className='mb-1'
+                  name='phone'
                   rules={[
                     {
                       required: true,
-                      message: "Provide a phone",
+                      message: 'Provide a phone',
                     },
                   ]}
                 >
                   <Input
-                    type="number"
-                    size="middle"
-                    className=""
-                    placeholder="Ex: 0123456789"
+                    type='number'
+                    size='middle'
+                    className=''
+                    placeholder='Ex: 0123456789'
                   />
                 </Form.Item>
               </div>
             </div>
-            <div className="flex items-center gap-5">
-              <div className="flex flex-col gap-1 w-full">
+            <div className='flex items-center gap-5'>
+              <div className='flex flex-col gap-1 w-full'>
                 <label>Website: </label>
                 <Form.Item
-                  className="mb-1"
-                  name="website"
+                  className='mb-1'
+                  name='website'
                   rules={[
                     {
                       required: false,
-                      message: "Provide an website URL",
+                      message: 'Provide an website URL',
                     },
                   ]}
                 >
                   <Input
                     // defaultValue={user?.email}
-                    size="middle"
-                    className=""
-                    placeholder="Ex: www.xyz.com"
+                    size='middle'
+                    className=''
+                    placeholder='Ex: www.xyz.com'
                   />
                 </Form.Item>
               </div>
-              <div className="flex flex-col gap-1 w-full">
+              <div className='flex flex-col gap-1 w-full'>
                 <label>Address: </label>
                 <Form.Item
-                  className="mb-1"
-                  name="address"
+                  className='mb-1'
+                  name='address'
                   rules={[
                     {
                       required: false,
-                      message: "Provide an address",
+                      message: 'Provide an address',
                     },
                   ]}
                 >
                   <Input
                     // defaultValue={user?.email}
-                    size="middle"
-                    className=""
-                    placeholder="Ex: 123, xyz"
+                    size='middle'
+                    className=''
+                    placeholder='Ex: 123, xyz'
                   />
                 </Form.Item>
               </div>
             </div>
-            <div className="flex flex-col gap-1 w-full">
+            <div className='flex flex-col gap-1 w-full'>
               <label>Description: </label>
               <Form.Item
-                className="mb-1"
-                name="description"
+                className='mb-1'
+                name='description'
                 rules={[
                   {
                     required: false,
-                    message: "Provide a Description",
+                    message: 'Provide a Description',
                   },
                 ]}
               >
@@ -197,11 +204,11 @@ const EcoSpaceProfileEditMpdal = ({ open, setOpen, ecoSpace }) => {
               </Form.Item>
             </div>
           </div>
-          <div className="space-x-2">
-            <button className="p-btn " onClick={() => setOpen(false)}>
+          <div className='space-x-2'>
+            <button className='p-btn ' onClick={() => setOpen(false)}>
               Cancel
             </button>
-            <button className="p-btn" type="submit">
+            <button className='p-btn' type='submit'>
               Update
             </button>
           </div>
